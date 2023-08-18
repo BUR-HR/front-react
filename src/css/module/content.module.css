@@ -1,5 +1,6 @@
 .content {
     display: flex;
+    width: 100%;
 }
 
 .main {
@@ -8,6 +9,7 @@
     margin: 30px 0 0 30px;
     padding-right: 50px;
     min-height: 720px;
+    width: 100%;
 }
 
 .title {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 const PaymentNav = () => {
     const [isSelectIndex, setIsSelectIndex] = useState({
@@ -14,6 +15,7 @@ const PaymentNav = () => {
     };
 
     return (
+        
         <div className="submenulist">
             <div
                 key={1}
@@ -36,8 +38,8 @@ const PaymentNav = () => {
             </div>
             <div className="dropmenu">
                 <ul>
-                    <li>급여대장 조회</li>
-                    <li>급여지급품의서</li>
+                    <NavLink>급여대장 조회</NavLink>
+                    <NavLink>급여지급품의서</NavLink>
                 </ul>
             </div>
             <div
@@ -61,8 +63,8 @@ const PaymentNav = () => {
             </div>
             <div className="dropmenu">
                 <ul>
-                    <li>퇴직금대장 조회</li>
-                    <li>퇴직금지급품의서</li>
+                    <NavLink>퇴직금대장 조회</NavLink>
+                    <NavLink>퇴직금지급품의서</NavLink>
                 </ul>
             </div>
             <div
@@ -86,9 +88,9 @@ const PaymentNav = () => {
             </div>
             <div className="dropmenu">
                 <ul>
-                    <li>급여명세서 조회</li>
-                    <li>예상 퇴직금 조회</li>
-                    <li>퇴직금 중간정산 신청</li>
+                    <NavLink>급여명세서 조회</NavLink>
+                    <NavLink>예상 퇴직금 조회</NavLink>
+                    <NavLink>퇴직금 중간정산 신청</NavLink>
                 </ul>
             </div>
         </div>

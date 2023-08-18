@@ -14,6 +14,7 @@ import AttendanceContent from "./pages/attendance/main/AttendanceContent";
 import AttendanceListContent from "./pages/attendance/main/AttendanceListContent";
 import { Login } from "./pages/login";
 import Payment from "./pages/payment/payment";
+import PaymentContent from "./pages/payment/main/PaymentContent";
 
 function App() {
     return (
@@ -27,7 +28,9 @@ function App() {
                             <Route path="list" element={<AttendanceListContent />} />
                         </Route>
                         <Route path="/orgchart" element={<Orgchart />} />
-                        <Route path="payment" element={<Payment />} />
+                        <Route path="payment" element={<Payment />}>
+                            <Route index element={<PaymentContent/>} />
+                        </Route>
                     </Route>
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<PageNotFound />} />

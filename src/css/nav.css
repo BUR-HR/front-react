@@ -23,7 +23,7 @@
     line-height: normal;
 }
 
-.menu-title span:first-of-type {
+.menu-title span {
     margin-left: 15px;
 }
 
@@ -38,10 +38,12 @@
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .submenu.select {
     font-weight: 600;
+    cursor: default;
 }
 
 .submenu.select .submenu-minus-icon {
@@ -84,6 +86,10 @@
     color: black;
 }
 
+.dropmenu a.active {
+    cursor: default;
+}
+
 .dropmenu a::before {
     content: '￭';
     margin-right: 5px;
@@ -91,7 +97,6 @@
 
 .dropmenu a:hover {
     font-weight: bold;
-    cursor: pointer;
 }
 
 .menu-icon {
