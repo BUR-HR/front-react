@@ -1,0 +1,31 @@
+.work-popup {
+    position: relative;
+    display: flex;
+    width: 280px;
+    height: 200px;
+    padding: 50px 27px 27px 27px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    background: #FFF;
+    box-sizing: border-box;
+}
+
+.circle {
+    position: absolute;
+    top: 50px;
+    z-index: 1;
+}
+
+.check {
+    position: absolute;
+    top: 63px;
+    z-index: 2;
+}
+
+.popup-text {
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap;
+}

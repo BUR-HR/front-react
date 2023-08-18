@@ -1,0 +1,346 @@
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    width: 0%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 280vh;
+    background-color:  #F9F7F7;;
+}
+
+/* 제목(조직도) */
+.title {
+    text-align: top;
+    position: absolute;
+    top: 10%;
+    left: 20%;
+}
+
+.line {
+    width: 1900%;
+    border-top: 2px solid black;
+    margin-top: 10px; /* 원하는 간격 설정 */
+}
+
+/* 라인1(ceo 하위 부서 잇는 선) */
+.line1 {
+    width: 88.5%;
+    border-top: 2px solid black;
+    margin-top: 10px; /* 원하는 간격 설정 */
+    
+
+}
+
+.org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: -600px; 
+    margin-left: 50px;
+
+}
+
+/* 전체 가로 간격 */
+.level {
+    display: flex;
+    gap: 80px; /* 원하는 간격 설정 */
+    margin: 30px 0;
+}
+
+
+/* 노드 */
+.ceo-node {
+    text-align: center;
+    position: relative;
+}
+
+.ceo-node::before{
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 80%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background-color: #333;
+    /* left: calc(80% - 40px); ceo 밑에 작대기 */
+}
+
+/* 부서명 */
+.dept-node1 {
+    text-align: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px; /* 네모 상자 크기 */
+    height: 50px;
+    border: 1px solid #ccc; /* 테두리 스타일 설정 */
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    margin: 15px; /* 노드간의 가로 폭 간격 */
+    
+}
+
+.dept-node1 p {
+    font-weight: bold;
+}
+
+.dept-node1::before{
+    content: "";
+    position: absolute;
+    top: -47px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 30px;
+    background-color: #333;
+    
+}
+
+
+
+/* 프로필카드 */
+/* ceo */
+.profile-card {
+    text-align: center;
+    border: 2px solid #ccc; /* 테두리 스타일 설정 */
+    padding: 10px; /* 내부 여백 */
+    border-radius: 10px; /* 테두리를 둥글게 처리 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+
+}
+
+.profile-card img {
+    width: 100px; /* 이미지 크기 조절 */
+    height: 100px;
+    object-fit: cover; /* 이미지 비율 유지하며 네모난 상자 안에 꽉 차게 */
+    border-radius: 0%;
+    margin-bottom: 10px;
+    
+}
+
+.profile-card p {
+    margin: 0;
+    font-weight: bold;
+    
+}
+
+/* 팀장 */
+.profile-card1 {
+    text-align: center;
+    border: 2px solid #ccc; /* 테두리 스타일 설정 */
+    padding: 10px; /* 내부 여백 */
+    border-radius: 10px; /* 테두리를 둥글게 처리 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    perspective: 1000px; /* 여기에 한 번만 설정하면 됨 */
+    margin-left: 10px;
+
+    transform-style: preserve-3d; /* 3D 변환 유지 */
+    transition: transform 0.5s; /* 트랜지션 설정 */
+}
+
+.team-leaders-container {
+    display: flex;
+    gap: 100px; /* 팀장 프로필 카드 간격을 조절합니다 */
+    margin-left: 70px;
+    
+}
+
+.profile-card1 img {
+    width: 100px; /* 이미지 크기 조절 */
+    height: 100px;
+    object-fit: cover; /* 이미지 비율 유지하며 네모난 상자 안에 꽉 차게 */
+    border-radius: 0%;
+    margin-bottom: 15px;
+    
+    
+}
+
+.profile-card1 .back p {
+    display: flex; /* 가로 정렬을 위해 flex 추가 */
+    align-items: center; /* 세로 가운데 정렬 */
+    margin: 5px 0; /* 간격 설정 */
+    font-size: 10px;
+    transform: rotateY(180deg);
+}
+
+
+.profile-card1 .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 88%;
+    transform: rotateY(0deg);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(182, 182, 182, 0.902);
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card1.flipped .back {
+    transform: rotateY(0deg);
+}
+
+.flipped {
+    transform: rotateY(180deg); /* 카드를 뒤집어서 보이도록 설정 */
+}
+
+.name-position {
+    display: flex;
+    align-items: center;
+    
+}
+
+.position-text {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+
+/* 대리 */
+
+.team-deputy-container {
+    display: flex;
+    gap: 100px; /* 팀장 프로필 카드 간격을 조절합니다 */
+    margin-left: 70px;
+}
+.profile-card2 {
+    text-align: center;
+    border: 2px solid #ccc; /* 테두리 스타일 설정 */
+    padding: 10px; /* 내부 여백 */
+    border-radius: 10px; /* 테두리를 둥글게 처리 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    perspective: 1000px; /* 여기에 한 번만 설정하면 됨 */
+    margin-left: 10px;
+    margin-top: 30px;
+    transform-style: preserve-3d; /* 3D 변환 유지 */
+    transition: transform 0.5s; /* 트랜지션 설정 */
+}
+
+.team-leaders-container {
+    display: flex;
+    gap: 100px; /* 팀장 프로필 카드 간격을 조절합니다 */
+    margin-left: 70px;
+}
+
+.profile-card2 img {
+    width: 100px; /* 이미지 크기 조절 */
+    height: 100px;
+    object-fit: cover; /* 이미지 비율 유지하며 네모난 상자 안에 꽉 차게 */
+    border-radius: 0%;
+    margin-bottom: 10px;
+}
+
+.profile-card2 .back p {
+    display: flex; /* 가로 정렬을 위해 flex 추가 */
+    align-items: center; /* 세로 가운데 정렬 */
+    margin: 5px 0; /* 간격 설정 */
+    font-size: 10px;
+    transform: rotateY(180deg);
+}
+
+
+.profile-card2 .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 88%;
+    transform: rotateY(0deg);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(182, 182, 182, 0.902);
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card2.flipped .back {
+    transform: rotateY(0deg);
+}
+
+.flipped {
+    transform: rotateY(180deg); /* 카드를 뒤집어서 보이도록 설정 */
+}
+
+/* 사원 */
+
+.team-employee-container {
+    display: flex;
+    gap: 100px; /* 팀장 프로필 카드 간격을 조절합니다 */
+    margin-left: 70px;
+}
+.profile-card3 {
+    text-align: center;
+    border: 2px solid #ccc; /* 테두리 스타일 설정 */
+    padding: 10px; /* 내부 여백 */
+    border-radius: 10px; /* 테두리를 둥글게 처리 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    perspective: 1000px; /* 여기에 한 번만 설정하면 됨 */
+    margin-left: 10px;
+    margin-top: 30px;
+    transform-style: preserve-3d; /* 3D 변환 유지 */
+    transition: transform 0.5s; /* 트랜지션 설정 */
+}
+
+.team-employee-container {
+    display: flex;
+    gap: 100px; /* 팀장 프로필 카드 간격을 조절합니다 */
+    margin-left: 70px;
+}
+
+.profile-card3 img {
+    width: 100px; /* 이미지 크기 조절 */
+    height: 100px;
+    object-fit: cover; /* 이미지 비율 유지하며 네모난 상자 안에 꽉 차게 */
+    border-radius: 0%;
+    margin-bottom: 10px;
+}
+
+.profile-card3 .back p {
+    display: flex; /* 가로 정렬을 위해 flex 추가 */
+    align-items: center; /* 세로 가운데 정렬 */
+    margin: 5px 0; /* 간격 설정 */
+    font-size: 10px;
+    transform: rotateY(180deg);
+}
+
+
+.profile-card3 .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 120%;
+    height: 88%;
+    transform: rotateY(0deg);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(182, 182, 182, 0.902);
+    border: 2px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-card3.flipped .back {
+    transform: rotateY(0deg);
+}
+
+.flipped {
+    transform: rotateY(180deg); /* 카드를 뒤집어서 보이도록 설정 */
+}
+
+
+

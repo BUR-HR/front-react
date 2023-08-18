@@ -1,0 +1,94 @@
+/* 전체 페이지 스타일링 */
+.login-body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-width: 100%;
+    background-color: #f3f3f5;
+}
+
+/* 로고 */
+.loginlogo img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.loginlogo {
+    -webkit-touch-callout: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+/* 로그인 폼 */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+}
+
+.login-form > form {
+    width: 100%;
+}
+
+/* 사원번호 저장 */
+.remember {
+    font-size: 12px;
+    margin-bottom: 15px;
+    color: #00000055;
+}
+
+/* 사원번호, 비밀번호 input, 로그인 버튼 */
+#username,
+#password,
+button[type="submit"] {
+    width: 100%;
+    height: 50px; /* 높이 조절 */
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    text-align: left; /* 텍스트를 왼쪽으로 정렬 */
+    padding-left: 20px; /* 왼쪽 여백을 추가하여 텍스트를 오른쪽으로 이동 */
+    font-size: 13px;
+    box-sizing: border-box; /* 추가 */
+}
+
+/* 로그인 버튼 텍스트 가운데 정렬 */
+button[type="submit"] {
+    text-align: center;
+    line-height: 50px; /* 높이와 같은 값으로 설정하여 세로 가운데 정렬 */
+}
+
+/* 입력 상자 사이의 간격 조정 */
+#username {
+    margin-bottom: 15px; 
+}
+
+/* 로그인 버튼 텍스트 가운데 정렬 */
+button[type="submit"] {
+    text-align: center;
+    line-height: 50px;
+    background-color: #4B5B68; 
+    color: #ffffff; 
+    border: none; 
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+/* 로그인 버튼에 호버 효과 추가 */
+button[type="submit"]:hover {
+    background-color: #738A9D;
+}

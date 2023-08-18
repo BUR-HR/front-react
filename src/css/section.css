@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #F3F3F3;
+}
+
+.header {
+    width: 100%;
+    height: 120px;
+}
+
+.menu {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 100px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-family: Inter;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.menu .logo {
+    margin-left: 60px;
+    cursor: pointer;
+}
+
+.menu .menu-item:nth-child(2) {
+    margin-left: 60px;
+}
+
+.menu-item, 
+.logout {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 130px;
+    height: 100px;
+    font-size: 24px;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0px 0px 30px 30px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    color: inherit;
+    padding: 8px 0px;
+}
+
+.menu-item {
+    transition: background-color 0.6s, color 1s;
+}
+
+.logout {
+    margin-left: auto;
+    margin-right: 30px;
+}
+
+.menu-item.active {
+    background-color: #4B5B68;
+    margin-bottom: 17px;
+    height: 120px;
+    color: white;
+}
+
+.menu-item.active .menu-image {
+    display: block;
+    height: 40px;
+    margin-bottom: 5px;
+    opacity: 1;
+}
+
+.menu-item .menu-image {
+    margin: 0 auto;
+    width: 40px;
+    height: 0px;
+    object-fit: cover;
+    transition: opacity 1s, height 1s;
+}
+
+.menu-item:hover {
+    background-color: #4B5B68;
+    margin-bottom: 17px;
+    height: 120px;
+    color: white;
+}
+
+.menu-item:hover .menu-image {
+    display: block;
+    height: 40px;
+    margin-bottom: 5px;
+    opacity: 1;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    margin-top: 50px;
+    padding-left: 30px;
+    background-color: #304352;
+    width: 100%;
+    height: 150px;
+    color: white;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    white-space: nowrap;
+}

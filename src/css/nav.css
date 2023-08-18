@@ -1,0 +1,97 @@
+.nav {
+    min-width: 260px;
+    min-height: 720px;
+    border-radius: 10px;
+    background: #FFF;
+    box-shadow: 1px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-sizing: border-box;
+    margin: 30px 0 0 30px;
+    padding: 20px;
+    -webkit-touch-callout: none;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+
+}
+
+.menu-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.menu-title span:first-of-type {
+    margin-left: 15px;
+}
+
+.submenulist {
+    margin-top: 30px;
+}
+
+.submenu {
+    display: flex;
+    width: 220px;
+    padding: 5px 0px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+.submenu.select {
+    font-weight: 600;
+}
+
+.submenu.select .submenu-minus-icon {
+    display: block;
+}
+
+.submenu.select .submenu-plus-icon {
+    display: none;
+}
+
+.submenu.select+.dropmenu {
+    display: flex;
+    flex-direction: column;
+}
+
+.submenu-minus-icon {
+    display: none;
+}
+
+.submenu-plus-icon {
+    display: block;
+}
+
+.dropmenu {
+    display: none;
+}
+
+.dropmenu ul {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #F3F3F5;
+    list-style-type: none;
+    gap: 10px;
+}
+
+
+.dropmenu li::before {
+    content: '￭';
+    margin-right: 5px;
+}
+
+.dropmenu li:hover {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.menu-icon {
+    width: 24px;
+    height: 24px;
+}
