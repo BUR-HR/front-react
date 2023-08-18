@@ -1,9 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "../../../common/chart";
-import content from '../../../css/module/content.module.css';
+import content from "../../../css/module/content.module.css";
 import table from "../../../css/module/table.module.css";
+import WorkModal from "./WorkModal";
+import ModalBackdrop from "./ModalBackdrop";
 
 const AttendanceContent = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [startTime, setStartTime] = useState(null);
+    const [elapsedTime, setElapsedTime] = useState(0); // in seconds
+    const [workType, setWorkType] = useState("");
+
+    const handleType = (type) => {
+        console.log(this);
+        if (type !== workType) setWorkType(type);
+        if (type === "출근") setStartTime(new Date());
+        else setElapsedTime(0);
+    };
+
+    const handleOpenModal = (type) => {
+        setIsModalOpen(true);
+        handleType(type);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    useEffect(() => {
+        if (startTime && workType === "출근") {
+            const interval = setInterval(() => {
+                const currentTime = new Date();
+                const elapsed = Math.floor((currentTime - startTime) / 1000); // in seconds
+                setElapsedTime(elapsed);
+            }, 1000); // Update every second
+
+            return () => clearInterval(interval);
+        }
+    }, [startTime, workType]);
+
+    const formatTime = (timeInSeconds) => {
+        const hours = Math.floor(timeInSeconds / 3600);
+        const minutes = Math.floor((timeInSeconds % 3600) / 60);
+        const seconds = timeInSeconds % 60;
+        return `${hours.toString().padStart(2, "0")}:${minutes
+            .toString()
+            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    };
+
     const user = {
         name: "",
     };
@@ -11,14 +55,24 @@ const AttendanceContent = () => {
     return (
         <>
             <div className={content.title}>근태관리</div>
-            <div className="current-time">2023/08/07(월) AM 09:00:21</div>
+            <div className="current-time">{new Date().toLocaleString()}</div>
             <div className="work-time">
                 <div className="attendance-time page-config">
                     <h3>오늘 근무한 시간</h3>
-                    <h2>{new Date().toLocaleTimeString()}</h2>
+                    <h2>{formatTime(elapsedTime)}</h2>
                     <div>
-                        <button className="attendance-btn">출근</button>
-                        <button className="attendance-btn">퇴근</button>
+                        <button
+                            className="attendance-btn"
+                            onClick={() => handleOpenModal("출근")}
+                        >
+                            출근
+                        </button>
+                        <button
+                            className="attendance-btn"
+                            onClick={() => handleOpenModal("퇴근")}
+                        >
+                            퇴근
+                        </button>
                     </div>
                     <h4>버튼을 눌러 출퇴근 시간을 기록하세요.</h4>
                 </div>
@@ -58,6 +112,11 @@ const AttendanceContent = () => {
                     <tbody></tbody>
                 </table>
             </div>
+            <ModalBackdrop
+                handleCloseModal={handleCloseModal}
+                isModalOpen={isModalOpen}
+            />
+            <WorkModal isOpen={isModalOpen} onClose={handleCloseModal} />
         </>
     );
 };

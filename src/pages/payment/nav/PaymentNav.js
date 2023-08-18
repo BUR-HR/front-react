@@ -88,7 +88,7 @@ const PaymentNav = () => {
             </div>
             <div className="dropmenu">
                 <ul>
-                    <NavLink>급여명세서 조회</NavLink>
+                    <NavLink to='/payment/'>급여명세서 조회</NavLink>
                     <NavLink>예상 퇴직금 조회</NavLink>
                     <NavLink>퇴직금 중간정산 신청</NavLink>
                 </ul>

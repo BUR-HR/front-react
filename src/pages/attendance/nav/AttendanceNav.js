@@ -37,8 +37,8 @@ const AttendanceNav = () => {
             </div>
             <div className="dropmenu">
                 <ul>
-                    <NavLink to="/attendance/" style={({isActive}) => isActive ? {fontWeight: 'bold'} : undefined}>근태관리</NavLink>
-                    <NavLink to="/attendance/list" style={({isActive}) => isActive ? {fontWeight: 'bold'} : undefined}>근태현황</NavLink>
+                    <NavLink to="/attendance/">근태관리</NavLink>
+                    <NavLink to="/attendance/list">근태현황</NavLink>
                 </ul>
             </div>
         </div>

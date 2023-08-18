@@ -7,15 +7,13 @@ import "../../css/nav.css";
 import AttendanceNav from "./nav/AttendanceNav";
 
 export const Attendance = () => {
-    
-
     return (
         <Content>
             <NavBar>
                 <AttendanceNav />
             </NavBar>
             <Main>
-                <Outlet/>
+                <Outlet />
             </Main>
         </Content>
     );
