@@ -15,6 +15,8 @@ import AttendanceListContent from "./pages/attendance/main/AttendanceListContent
 import { Login } from "./pages/login";
 import Payment from "./pages/payment/payment";
 import PaymentContent from "./pages/payment/main/PaymentContent";
+import Schedule from "./calendar/Schedule";
+import Calendar from "./calendar/calendar";
 
 function App() {
     return (
@@ -30,6 +32,11 @@ function App() {
                         <Route path="/orgchart" element={<Orgchart />} />
                         <Route path="payment" element={<Payment />}>
                             <Route index element={<PaymentContent/>} />
+                        </Route>
+                        <Route path="attendance" element={<Attendance />} />
+                        <Route path="/orgchart" element={<Orgchart />} />
+                        <Route path="/schedule" element={<Schedule />}>
+                            <Route index element={<Calendar />} />
                         </Route>
                     </Route>
                     <Route path="/login" element={<Login />} />
