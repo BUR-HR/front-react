@@ -5,14 +5,14 @@ export const Header = () => {
     return (
         <div className="header">
             <div className="menu">
-                <NavLink to={"/attendance"}>
+                <NavLink to={"/attendance/"}>
                     <img
                         src="/common/images/logo.png"
                         className="logo"
                         alt="logo"
                     />
                 </NavLink>
-                <NavLink to={"/attendance"} className={({isActive}) => isActive ? "menu-item active" : "menu-item"}>
+                <NavLink to={"/attendance/"} className={({isActive}) => isActive ? "menu-item active" : "menu-item"}>
                     <img
                         src="/common/images/clock.png"
                         className="menu-image"

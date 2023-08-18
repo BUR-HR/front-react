@@ -1,7 +1,7 @@
 import React from "react";
-import Chart from "../../common/chart";
-import table from "../../css/module/table.module.css";
-import content from '../../css/module/content.module.css'
+import Chart from "../../../common/chart";
+import content from '../../../css/module/content.module.css';
+import table from "../../../css/module/table.module.css";
 
 const AttendanceContent = () => {
     const user = {

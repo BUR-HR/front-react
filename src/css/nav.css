@@ -12,7 +12,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
-
 }
 
 .menu-title {
@@ -80,13 +79,17 @@
     gap: 10px;
 }
 
+.dropmenu a {
+    text-decoration: none;
+    color: black;
+}
 
-.dropmenu li::before {
+.dropmenu a::before {
     content: '￭';
     margin-right: 5px;
 }
 
-.dropmenu li:hover {
+.dropmenu a:hover {
     font-weight: bold;
     cursor: pointer;
 }
