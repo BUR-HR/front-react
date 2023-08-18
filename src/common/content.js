@@ -1,9 +1,9 @@
 import React from 'react'
-import '../css/content.css'
+import content from '../css/module/content.module.css'
 
 const Content = ({children}) => {
   return (
-    <div className='content'>{children}</div>
+    <div className={content.content}>{children}</div>
   )
 }
 
