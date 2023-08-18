@@ -11,6 +11,8 @@ import { Orgchart } from './orgchart/orgchart'
 import Attendance from "./pages/attendance";
 import PageNotFound from "./error/PageNotFound";
 import Layout from "./layout/layout";
+import Schedule from "./calendar/Schedule";
+import Calendar from "./calendar/calendar";
 
 function App() {
     return (
@@ -21,7 +23,10 @@ function App() {
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Navigate to="/attendance" />} />
                         <Route path="attendance" element={<Attendance />} />
-                        <Route path="/orgchart" element={<Orgchart />}/>
+                        <Route path="/orgchart" element={<Orgchart />} />
+                        <Route path="/schedule" element={<Schedule />}>
+                            <Route index element={<Calendar />} />
+                        </Route>
                     </Route>
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
