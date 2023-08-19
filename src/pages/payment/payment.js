@@ -1,8 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import NavBar from "../../common/NavBar";
-import Content from "../../common/content";
-import Main from "../../common/main";
+import { Content, Main, NavBar } from "../../common/commons";
 import "../../css/nav.css";
 import PaymentNav from './nav/PaymentNav';
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Chart from "../../../common/chart";
+import Chart from "../../../common/component/chart";
 import content from "../../../css/module/content.module.css";
 import table from "../../../css/module/table.module.css";
 import ModalBackdrop from "./ModalBackdrop";
 import WorkModal from "./WorkModal";
 
-const AttendanceContent = () => {
+const AttendanceMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [startTime, setStartTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0); // in seconds
@@ -126,4 +126,4 @@ const AttendanceContent = () => {
     );
 };
 
-export default AttendanceContent;
+export default AttendanceMain;

@@ -1,4 +1,4 @@
-import modal from './ModelBackdrop.module.css'
+import modal from './ModalBackdrop.module.css';
 
 const ModalBackdrop = ({handleCloseModal, isModalOpen}) => {
     

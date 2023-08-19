@@ -1,7 +1,7 @@
 import React from "react";
 import content from "../../../css/module/content.module.css";
 import "../../../stylesheet.css";
-const PaymentContent = () => {
+const PaymentMain = () => {
     return (
         <>
             <div className={content.title}>급여명세서 조회</div>
@@ -903,4 +903,4 @@ const PaymentContent = () => {
     );
 };
 
-export default PaymentContent;
+export default PaymentMain;
