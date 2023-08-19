@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import Chart from "../../../common/chart";
 import content from "../../../css/module/content.module.css";
 import table from "../../../css/module/table.module.css";
-import WorkModal from "./WorkModal";
 import ModalBackdrop from "./ModalBackdrop";
+import WorkModal from "./WorkModal";
 
 const AttendanceContent = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,7 +12,7 @@ const AttendanceContent = () => {
     const [workType, setWorkType] = useState("");
 
     const handleType = (type) => {
-        console.log(this);
+        console.log(type);
         if (type !== workType) setWorkType(type);
         if (type === "출근") setStartTime(new Date());
         else setElapsedTime(0);
@@ -61,20 +61,25 @@ const AttendanceContent = () => {
                     <h3>오늘 근무한 시간</h3>
                     <h2>{formatTime(elapsedTime)}</h2>
                     <div>
-                        <button
-                            className="attendance-btn"
-                            onClick={() => handleOpenModal("출근")}
-                        >
-                            출근
-                        </button>
-                        <button
-                            className="attendance-btn"
-                            onClick={() => handleOpenModal("퇴근")}
-                        >
-                            퇴근
-                        </button>
+                        {
+                            workType !== '출근'
+                            
+                                ? (<button
+                                    className="attendance-btn"
+                                    onClick={() => handleOpenModal("출근")}
+                                >
+                                    출근
+                                </button>)
+
+                                : (<button
+                                    className="attendance-btn"
+                                    onClick={() => handleOpenModal("퇴근")}
+                                >
+                                    퇴근
+                                </button>)
+                        }
                     </div>
-                    <h4>버튼을 눌러 출퇴근 시간을 기록하세요.</h4>
+                    <h5>버튼을 눌러 출퇴근 시간을 기록하세요.</h5>
                 </div>
                 <div className="total-attendance-time page-config">
                     <h3>이번 주 근무</h3>
@@ -116,7 +121,7 @@ const AttendanceContent = () => {
                 handleCloseModal={handleCloseModal}
                 isModalOpen={isModalOpen}
             />
-            <WorkModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            <WorkModal isOpen={isModalOpen} workType={workType} />
         </>
     );
 };
