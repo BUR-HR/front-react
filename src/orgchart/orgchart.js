@@ -7,7 +7,7 @@ import '../css/orgchart.css'
 export const Orgchart = () => {
     const [flippedCards, setFlippedCards] = useState([]); // flippedCards 변수 정의
 
-    // flipCard 함수 정의
+    // flipCard 함수 정의.
     const flipCard = (index) => {
         setFlippedCards((prevFlippedCards) => {
             if (prevFlippedCards.includes(index)) {
