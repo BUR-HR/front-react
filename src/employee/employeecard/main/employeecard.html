@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='../common/css/section.css'>
+    <link rel='stylesheet' href='../yuju/css/employeecard.css'>
+    <title>인사카드 등록</title>
+</head>
+
+    <!-- 헤더 -->
+    <header>
+        <div class="header">
+            <div class='menu'>
+                <img src='../common/image/logo.png' class='logo'>
+                <span class='menu-item'>
+                    <img src='../common/image/attendance.png' class='menu-image'>
+                    근태
+                </span>
+                <span class='menu-item'>
+                    <img src='../common/image/human.png' class='menu-image'>
+                    인사
+                </span>
+                <span class='menu-item'>
+                    <img src='../common/image/sitemap.png' class='menu-image'>
+                    조직
+                </span>
+                <span class='menu-item'>
+                    <img src='../common/image/vacation.png' class='menu-image'>
+                    휴가
+                </span>
+                <span class='menu-item'>
+                    <img src='../common/image/bank.png' class='menu-image'>
+                    급여
+                </span>
+                <span class='menu-item'>
+                    <img src='../common/image/calendar.png' class='menu-image'>
+                    스케쥴
+                </span>
+
+                <span>로그아웃</span>
+            </div>
+        </div>
+    </header>
+    
+    <body>
+
+    <!-- 본문 -->
+    <section>
+        <div class="body">
+            
+            <!-- 타이틀(인사카드 등록) -->
+            <div class="title">
+                <h3>인사카드 등록</h3>
+                <hr class="line">
+            </div>
+
+            <!-- 프로필 배경  -->
+            <div class="profile-body"> 
+
+                    <!-- 프로필 이미지 -->
+                    <div class="profile-image">
+                        <img id="profile-img" src="경로/이미지파일.jpg" alt="Profile Image">
+                        <div class="placeholder-text">이미지를 등록해주세요</div>
+                    </div>
+                    <!-- 등록 삭제 버튼 -->
+                    <div class="profile-buttons">
+                        <button class="register-button">등록</button>
+                        <button class="delete-button">삭제</button>
+                        <input type="file" id="file-input" style="display: none;" accept="image/*">
+                    </div>
+
+                    <!-- 기본정보 -->
+                    <table class="card-table1">
+                            <tr>
+                                <td colspan="2" style="font-weight: bold; text-align: left;  padding-left: 30px;">기본정보</td>
+                                <tr>
+                                    <th width="100">이름</th>
+                                    <td width="100">
+                                        <input type="text" class="inputbox" placeholder="">
+                                    </td>
+                                </tr>                                
+                                <tr>
+                                    <th width="100">상태</th>
+                                    <td width="100">
+                                        <select class="inputbox" id="statusDropdown">
+                                            <option value="재직">재직</option>
+                                            <option value="휴직">휴직</option>
+                                            <option value="퇴사">퇴사</option>
+                                        </select>
+                                    </td>
+                                </tr>                                
+                                <tr>
+                                    <th width="100">사번</th>
+                                    <td width="100">
+                                        <input type="text" class="inputbox" placeholder="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="100">입사일</th>
+                                    <td width="100">
+                                        <input type="text" class="inputbox" placeholder="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th width="100">퇴사일</th>
+                                    <td width="100">
+                                        <input type="text" class="inputbox" placeholder="">
+                                    </td>
+                                </tr>        
+                    </table>
+
+                    <!-- 인사정보 -->
+                    <table class="card-table2">
+                            <td colspan="2" style="font-weight: bold; text-align: left;  padding-left: 30px;">인사정보</td>
+                            <tr>
+                                <th width="100">부서</th>
+                                <td width="100">
+                                    <select class="inputbox" id="statusDropdown">
+                                        <option value="총무팀">총무팀</option>
+                                        <option value="영업팀">영업팀</option>
+                                        <option value="마케팅팀">마케팅팀</option>
+                                        <option value="현장팀">현장팀</option>
+                                        <option value="고객응대팀">고객응대팀</option>
+                                        <option value="인사팀">인사팀</option>
+                                    </select>
+                                </td>
+                            </tr>                                    
+                            <tr>
+                                <th width="100">직위</th>
+                                <td width="100">
+                                    <select class="inputbox" id="statusDropdown">
+                                        <option value="팀장">팀장</option>
+                                        <option value="대리">대리</option>
+                                        <option value="사원">사원</option>
+                                    </select>
+                                </td>
+                            </tr>     
+                            <tr>
+                                <th width="100">근무형태</th>
+                                <td width="100">
+                                    <select class="inputbox" id="statusDropdown">
+                                        <option value="정규직">정규직</option>
+                                        <option value="계약직">계약직</option>
+                                    </select>
+                                </td>
+                            </tr>     
+                    </table>
+
+                    <!-- 개인정보 -->
+                    <table class="card-table3">
+                        <td colspan="2" style="font-weight: bold; text-align: left;  padding-left: 30px;">개인정보</td>
+                        <tr>
+                            <th width="100">성별</th>
+                            <td width="100">
+                                <select class="inputbox" id="statusDropdown">
+                                    <option value="남자">남자</option>
+                                    <option value="여자">여자</option>
+                                </select>
+                            </td>
+                        </tr>                               
+                        <tr>
+                            <th width="100">이메일</th>
+                            <td width="100">
+                                <input type="text" class="inputbox" placeholder="">
+                            </td>
+                        </tr>  
+                        <tr>
+                            <th width="100">휴대폰</th>
+                            <td width="100">
+                                <input type="text" class="inputbox" placeholder="">
+                            </td>
+                        </tr>
+                </table>
+
+                <div class="finalbutton">
+                    <button class="finalbutton1" onclick="confirmRegistration()">등록</button>
+                    <button class="finalbutton2" onclick="cancelRegistration()">취소</button>
+                </div>                
+                
+            </div>
+
+            
+            <!-- 스크립트 -->
+            <!-- 이미지가 로드되었는지 확인하고 그에 따라 문구를 표시하거나 숨김 -->
+            <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const img = document.getElementById('profile-img');
+                const placeholder = document.querySelector('.placeholder-text');
+            
+                img.addEventListener('load', function () {
+                    placeholder.style.display = 'none';
+                });
+            });    
+
+            <!-- 파일 업로드 -->
+            document.addEventListener('DOMContentLoaded', function () {
+            const img = document.getElementById('profile-img');
+            const placeholder = document.querySelector('.placeholder-text');
+            const fileInput = document.getElementById('file-input');
+            const registerButton = document.querySelector('.register-button');
+            const deleteButton = document.querySelector('.delete-button');
+
+            img.addEventListener('load', function () {
+                placeholder.style.display = 'none';
+            });
+
+            registerButton.addEventListener('click', function () {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', function (event) {
+                const selectedFile = event.target.files[0];
+                if (selectedFile) {
+                    img.src = URL.createObjectURL(selectedFile);
+                    placeholder.style.display = 'none';
+                }
+            });
+
+            deleteButton.addEventListener('click', function () {
+                img.src = '';
+                placeholder.style.display = 'block';
+                fileInput.value = ''; // 입력된 파일 초기화
+            });
+        });
+
+            // 등록 취소 버튼 alert창 
+            function confirmRegistration() {
+            var result = window.confirm("등록 하시겠습니까?");
+            if (result) {
+                alert("등록 완료 되었습니다.");
+            }
+        }
+
+            function cancelRegistration() {
+                var result = window.confirm("취소 하시겠습니까?");
+                if (result) {
+                    alert("취소되었습니다.");
+                }
+            }
+
+            </script>         
+            
+        </div>
+    </section>
+
+    
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="footer">
+            <pre>
+            (주)Bur HR (대표이사: 이재용)      |   주소
+            통신판매번호: 2023-서울종로-2222  | 사업자등록번호 : 234-35-3214
+            
+            고객 문의 : bubble@bubble.com
+            고객 센터 : 02-1343-8282
+            
+            개인(위치)정보 처리방침   |    이용약관    |  위치기반 서비스 이용약관
+            </pre>
+        </div>
+    </footer>
+
+<body>
+    
+</body>
+</html>

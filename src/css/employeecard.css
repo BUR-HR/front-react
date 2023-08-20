@@ -1,0 +1,242 @@
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150vh;
+    min-width: 210vh;
+    background-color:  #F9F7F7;;
+}
+
+/* 제목(사원조회) */
+.title {
+    text-align: top;
+    position: absolute;
+    top: 20%;
+    left: 19%;
+}
+
+.line {
+    width: 800%;
+    border-top: 2px solid black;
+    margin-top: 10px; /* 원하는 간격 설정 */
+}
+
+.profile-body {
+    background-color: #ffffff;
+    min-width: 120vh;
+    min-height: 125vh;
+    margin-right: 130px;
+}
+
+.profile-image {
+    width: 140px;
+    height: 130px;
+    border: 0.5px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    overflow: hidden;
+    margin: 0 auto 10px;
+    background-color: #f2f2f2;
+    position: relative; /* 부모 요소에 상대적으로 위치 */
+    margin-left: 70px;
+    margin-top: 80px;
+}
+
+
+.profile-image img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+}
+
+.placeholder-text {
+    position: absolute; /* 절대 위치 지정 */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #999;
+    background-color: rgba(255, 255, 255, 0.8); /* 투명한 배경색 */
+}
+
+/* 버튼 */
+.profile-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-button,
+.delete-button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #304352;
+    color: white;
+    cursor: pointer;
+    width: 80px;
+    margin-top: 10px;
+}
+
+.register-button {
+    margin-left: 70px;
+}
+
+.register-button:hover {
+    background-color: #738A9D;
+    color: rgb(0, 0, 0);
+}
+
+.delete-button:hover {
+    background-color: #738A9D;
+    color: rgb(0, 0, 0);
+}
+
+.delete-button {
+    margin-right: 72%;
+}
+
+.finalbutton1 {
+    padding: 5px 10px;
+    border: none;
+    background-color: #304352;
+    color: white;
+    cursor: pointer;
+    width: 80px;
+    margin-top: 130px;
+    margin-left: 570px;
+}
+
+.finalbutton2 {
+    padding: 5px 10px;
+    border: none;
+    background-color: #304352;
+    color: white;
+    cursor: pointer;
+    width: 80px;
+    margin-top: 130px;
+    margin-left: 20px;
+}
+
+.finalbutton1:hover {
+    background-color: #738A9D;
+    color: rgb(0, 0, 0);
+}
+
+.finalbutton2:hover {
+    background-color: #738A9D;
+    color: rgb(0, 0, 0);
+}
+
+/* 카드테이블1(기본정보) */
+.card-table1 {
+    background: #FFF;
+    border: 1px solid #5B5B5B;
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed;
+    font-size: 12px;
+    margin-top: -215px;
+    margin-left: 350px;
+    
+}
+
+.card-table1 th {
+    background: #F3F3F5;
+}
+
+.card-table1 th,
+.card-table1 td {
+    height: 36px;
+    border: 1px solid #D9D9D9;
+    padding: 0 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+}
+
+.card-table1 td {
+    width: 300px;
+}
+
+.inputbox {
+    /* padding: 8px; */
+    border: none; /* 또는 border: 0; */
+    border-radius: 0px;
+    font-size: 14px;
+    width: 280px;
+}
+
+
+/* 카드테이블2(인사정보) */
+.card-table2 {
+    background: #FFF;
+    border: 1px solid #5B5B5B;
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed;
+    font-size: 12px;
+    margin-top: 50px;
+    margin-left: 350px;
+    
+}
+
+.card-table2 th {
+    background: #F3F3F5;
+}
+
+.card-table2 th,
+.card-table2 td {
+    height: 36px;
+    border: 1px solid #D9D9D9;
+    padding: 0 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+}
+
+.card-table2 td {
+    width: 300px;
+}
+
+/* 카드테이블3(개인정보) */
+.card-table3 {
+    background: #FFF;
+    border: 1px solid #5B5B5B;
+    border-collapse: collapse;
+    text-align: center;
+    table-layout: fixed;
+    font-size: 12px;
+    margin-top: 50px;
+    margin-left: 350px;
+    
+}
+
+.card-table3 th {
+    background: #F3F3F5;
+}
+
+.card-table3 th,
+.card-table3 td {
+    height: 36px;
+    border: 1px solid #D9D9D9;
+    padding: 0 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+}
+
+.card-table3 td {
+    width: 300px;
+}

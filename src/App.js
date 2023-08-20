@@ -15,6 +15,7 @@ import Attendance, { AttendanceList, AttendanceMain } from "./pages/attendance/a
 import { Login } from "./pages/login";
 import PaymentMain from "./pages/payment/main/PaymentMain";
 import Payment from "./pages/payment/payment";
+import EmployeeCard from "./employee/employeecard/main/Employeecard"
 
 function App() {
     return (
@@ -34,8 +35,8 @@ function App() {
                         <Route path="/schedule" element={<Schedule />}>
                             <Route index element={<Calendar />} />
                         </Route>
-                    </Route>
-                    
+                        <Route path="/employeecard" element={<EmployeeCard />} />
+                        </Route>
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
