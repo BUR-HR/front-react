@@ -16,7 +16,7 @@ const EmployeeCard = () => {
         }
     };
 
-    // 글 등록 및 취소 버튼(SweetAlert2 모듈 사용)
+    // 글 등록 및 취소 버튼( SweetAlert2 모듈 사용)
     const handleAction = async (action) => {
         const actionText = action === "confirm" ? "등록" : "취소";
         const result = await Swal.fire({
@@ -42,19 +42,44 @@ const EmployeeCard = () => {
                 });
             }
         }
+
+        if (action === "selectImage") {
+            const fileInput = document.getElementById("file-input");
+            if (fileInput) {
+                fileInput.click(); // 파일 선택 창 열기
+            }
+        }
     };
+
     
 
     return (
-        <section>
             <div className="body">
                 <div className="title">
                     <h3>인사카드 등록</h3>
                     <hr className="line" />
                 </div>
 
+                {/* 프로필 이미지 */}
                 <div className="profile-body">
-                    {/* 나머지 코드 */}
+                        <div className="profile-image">
+                    <img id="profile-img" src={selectedImage} alt="Profile Image" />
+                    <div className="placeholder-text">이미지를 등록해주세요</div>
+                </div>
+
+                <div className="profile-buttons">
+                    <button className="register-button" onClick={() => handleAction("confirm")}>등록</button>
+                    <button className="delete-button" onClick={() => handleAction("cancel")}>취소</button>
+                    </div>
+                    <input
+                        type="file"
+                        id="file-input"
+                        className="file-input"
+                        style={{ display: 'block' }}
+                        accept="image/*"
+                        onChange={handleImageChange}
+                    />
+                
                     
                     <div className="finalbutton">
                         <button className="finalbutton1" onClick={() => handleAction("confirm")}>등록</button>
@@ -62,18 +87,8 @@ const EmployeeCard = () => {
                     </div>
                 </div>
 
-                {/* 스크립트 */}
-                {showConfirmation && (
-                    <div className="confirmation-overlay">
-                        <div className="confirmation-box">
-                            <p>{confirmationText}</p>
-                            <button onClick={() => handleConfirmation(true)}>확인</button>
-                            <button onClick={() => handleConfirmation(false)}>취소</button>
-                        </div>
-                    </div>
-                )}
+        
             </div>
-        </section>
     );
 };
 

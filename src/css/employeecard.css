@@ -42,7 +42,7 @@
     background-color: #f2f2f2;
     position: relative; /* 부모 요소에 상대적으로 위치 */
     margin-left: 70px;
-    margin-top: 80px;
+    margin-top: 150px;
 }
 
 
@@ -67,39 +67,41 @@
 }
 
 /* 버튼 */
-.profile-buttons {
-    display: flex;
-    justify-content: space-between;
-}
+    .profile-buttons {
+        display: flex;
+        justify-content: space-between;
+    }
 
-.register-button,
-.delete-button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #304352;
-    color: white;
-    cursor: pointer;
-    width: 80px;
-    margin-top: 10px;
-}
+    .register-button,
+    .delete-button {
+        padding: 5px 10px;
+        border: none;
+        background-color: #304352;
+        color: white;
+        cursor: pointer;
+        width: 80px;
+        
+    }
 
-.register-button {
-    margin-left: 70px;
-}
+    .register-button {
+        margin-left: 70px;
+        margin-top: 40px;
+    }
 
-.register-button:hover {
-    background-color: #738A9D;
-    color: rgb(0, 0, 0);
-}
+    .register-button:hover {
+        background-color: #738A9D;
+        color: rgb(0, 0, 0);
+    }
 
-.delete-button:hover {
-    background-color: #738A9D;
-    color: rgb(0, 0, 0);
-}
+    .delete-button:hover {
+        background-color: #738A9D;
+        color: rgb(0, 0, 0);
+    }
 
-.delete-button {
-    margin-right: 72%;
-}
+    .delete-button {
+        margin-right: 72%;
+        margin-top: 40px;
+    }
 
 .finalbutton1 {
     padding: 5px 10px;
@@ -239,4 +241,15 @@
 
 .card-table3 td {
     width: 300px;
+}
+
+.file-input {
+    padding: 5px 10px;
+    border: none;
+    background-color: #304352;
+    color: white;
+    cursor: pointer;
+    width: 163px;
+    margin-top: -60px;
+    margin-left: 70px;
 }
