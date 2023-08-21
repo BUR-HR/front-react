@@ -1,11 +1,10 @@
 .table {
-    margin-top: 40px;
     background: #FFF;
     width: 100%;
     border: 1px solid #5B5B5B;
     border-collapse: collapse;
     text-align: center;
-    table-layout: fixed;
+    table-layout: auto;
     font-size: 12px;
 }
 

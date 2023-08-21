@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { MainTitle } from "../../../common/commons";
 import Chart from "../../../common/component/chart";
-import content from "../../../css/module/content.module.css";
 import table from "../../../css/module/table.module.css";
 import ModalBackdrop from "./ModalBackdrop";
 import WorkModal from "./WorkModal";
+import section from '../../../css/module/section.module.css'
 
 const AttendanceMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -54,10 +55,10 @@ const AttendanceMain = () => {
 
     return (
         <>
-            <div className={content.title}>근태관리</div>
+            <MainTitle title={'근태관리'} />
             <div className="current-time">{new Date().toLocaleString()}</div>
             <div className="work-time">
-                <div className="attendance-time page-config">
+                <div className={`attendance-time ${section.config}`}>
                     <h3>오늘 근무한 시간</h3>
                     <h2>{formatTime(elapsedTime)}</h2>
                     <div>
@@ -81,12 +82,12 @@ const AttendanceMain = () => {
                     </div>
                     <h5>버튼을 눌러 출퇴근 시간을 기록하세요.</h5>
                 </div>
-                <div className="total-attendance-time page-config">
+                <div className={`total-attendance-time ${section.config}`}>
                     <h3>이번 주 근무</h3>
                     <Chart />
                 </div>
             </div>
-            <div className="attendance-info page-config">
+            <div className={`attendance-info ${section.config}`}>
                 <div className="work-history">
                     근무 내역 <br />
                     <span
