@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { MainTitle } from "../../../common/commons";
-import Chart from "../../../common/component/chart";
+import { Chart, MainTitle, ModalBackdrop } from "../../../common/commons";
 import table from "../../../css/module/table.module.css";
-import ModalBackdrop from "./ModalBackdrop";
-import WorkModal from "./WorkModal";
+import AttendanceModal from "./AttendanceModal";
 import section from '../../../css/module/section.module.css'
 
 const AttendanceMain = () => {
@@ -122,7 +120,7 @@ const AttendanceMain = () => {
                 handleCloseModal={handleCloseModal}
                 isModalOpen={isModalOpen}
             />
-            <WorkModal isOpen={isModalOpen} workType={workType} />
+            <AttendanceModal isOpen={isModalOpen} workType={workType} />
         </>
     );
 };
