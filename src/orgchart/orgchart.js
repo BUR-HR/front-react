@@ -274,7 +274,7 @@ export const Orgchart = () => {
             <section>
                 <div className="title">
                     <h3>조직도</h3>
-                    <hr className="line" />
+                    <hr className="titleline" />
                 </div>
     
                 {/* CEO 프로필 카드 */}

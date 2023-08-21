@@ -15,7 +15,7 @@ import Attendance, { AttendanceList, AttendanceMain } from "./pages/attendance/a
 import { Login } from "./pages/login";
 import PaymentMain from "./pages/payment/main/PaymentMain";
 import Payment from "./pages/payment/payment";
-import EmployeeCard from "./employee/employeecard/main/Employeecard"
+import EmployeeCard from "./pages/employee/employeecard/main/Employeecard";
 
 function App() {
     return (
