@@ -1,29 +1,28 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { Chart, MainTitle, ModalBackdrop } from "../../../common/commons";
+import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
-import AttendanceModal from "./AttendanceModal";
-import section from '../../../css/module/section.module.css'
 
 const AttendanceMain = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [startTime, setStartTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0); // in seconds
     const [workType, setWorkType] = useState("");
 
     const handleType = (type) => {
-        console.log(type);
         if (type !== workType) setWorkType(type);
         if (type === "출근") setStartTime(new Date());
         else setElapsedTime(0);
     };
 
-    const handleOpenModal = (type) => {
-        setIsModalOpen(true);
-        handleType(type);
-    };
+    const handleAction = async (action) => {
+        handleType(action);
+        const actionText = action;
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
+        Swal.fire({
+            icon: "success",
+            text: `${actionText} 처리가 완료되었습니다.`,
+        });
     };
 
     useEffect(() => {
@@ -53,30 +52,28 @@ const AttendanceMain = () => {
 
     return (
         <>
-            <MainTitle title={'근태관리'} />
+            <MainTitle title={"근태관리"} />
             <div className="current-time">{new Date().toLocaleString()}</div>
             <div className="work-time">
                 <div className={`attendance-time ${section.config}`}>
                     <h3>오늘 근무한 시간</h3>
                     <h2>{formatTime(elapsedTime)}</h2>
                     <div>
-                        {
-                            workType !== '출근'
-                            
-                                ? (<button
-                                    className="attendance-btn"
-                                    onClick={() => handleOpenModal("출근")}
-                                >
-                                    출근
-                                </button>)
-
-                                : (<button
-                                    className="attendance-btn"
-                                    onClick={() => handleOpenModal("퇴근")}
-                                >
-                                    퇴근
-                                </button>)
-                        }
+                        {workType !== "출근" ? (
+                            <button
+                                className="attendance-btn"
+                                onClick={() => handleAction("출근")}
+                            >
+                                출근
+                            </button>
+                        ) : (
+                            <button
+                                className="attendance-btn"
+                                onClick={() => handleAction("퇴근")}
+                            >
+                                퇴근
+                            </button>
+                        )}
                     </div>
                     <h5>버튼을 눌러 출퇴근 시간을 기록하세요.</h5>
                 </div>
@@ -116,11 +113,6 @@ const AttendanceMain = () => {
                     <tbody></tbody>
                 </table>
             </div>
-            <ModalBackdrop
-                handleCloseModal={handleCloseModal}
-                isModalOpen={isModalOpen}
-            />
-            <AttendanceModal isOpen={isModalOpen} workType={workType} />
         </>
     );
 };
