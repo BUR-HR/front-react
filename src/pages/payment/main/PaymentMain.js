@@ -4,7 +4,7 @@ import "../../../stylesheet.css";
 const PaymentMain = () => {
     return (
         <>
-            <MainTitle title={'급여명세서 조회'} />
+            <MainTitle title={"급여명세서 조회"} />
 
             <table id="sheet0" className="sheet0">
                 <colgroup>
@@ -60,17 +60,10 @@ const PaymentMain = () => {
                         >
                             년 월분 급여명세서
                         </td>
-                        
                     </tr>
-                    <tr className="row1">
-                        
-                    </tr>
-                    <tr className="row2">
-                        
-                    </tr>
-                    <tr className="row3">
-                        
-                    </tr>
+                    <tr className="row1"></tr>
+                    <tr className="row2"></tr>
+                    <tr className="row3"></tr>
                     <tr className="row4">
                         <td className="column0 style7 s style6" colSpan="6">
                             사원번호
@@ -138,7 +131,6 @@ const PaymentMain = () => {
                         <td className="column31 style10 s style10" colSpan="11">
                             공 제 액
                         </td>
-                        
                     </tr>
                     <tr className="row7">
                         <td className="column0 style10 s style10" colSpan="10">
@@ -155,7 +147,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row8">
                         <td className="column0 style10 s style10" colSpan="10">
@@ -172,7 +163,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row9">
                         <td className="column0 style10 s style10" colSpan="10">
@@ -189,7 +179,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row10">
                         <td className="column0 style10 s style10" colSpan="10">
@@ -206,7 +195,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row11">
                         <td
@@ -224,7 +212,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row12">
                         <td
@@ -242,7 +229,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row13">
                         <td
@@ -260,7 +246,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row14">
                         <td
@@ -278,7 +263,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row15">
                         <td
@@ -297,7 +281,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row16">
                         <td
@@ -316,7 +299,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row17">
                         <td
@@ -335,7 +317,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row18">
                         <td
@@ -354,7 +335,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row19">
                         <td
@@ -373,7 +353,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row20">
                         <td
@@ -392,7 +371,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row21">
                         <td
@@ -411,7 +389,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row22">
                         <td
@@ -430,7 +407,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row23">
                         <td
@@ -449,7 +425,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row24">
                         <td
@@ -468,7 +443,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row25">
                         <td
@@ -487,7 +461,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row26">
                         <td
@@ -506,7 +479,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row27">
                         <td
@@ -525,7 +497,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row28">
                         <td
@@ -544,7 +515,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row29">
                         <td
@@ -563,7 +533,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row30">
                         <td
@@ -582,7 +551,6 @@ const PaymentMain = () => {
                             className="column31 style9 null style9"
                             colSpan="11"
                         ></td>
-                        
                     </tr>
                     <tr className="row31">
                         <td
@@ -599,7 +567,6 @@ const PaymentMain = () => {
                         <td className="column31 style9 f style9" colSpan="11">
                             0
                         </td>
-                        
                     </tr>
                     <tr className="row32">
                         <td className="column0 style10 s style10" colSpan="10">
@@ -614,7 +581,6 @@ const PaymentMain = () => {
                         <td className="column31 style9 f style9" colSpan="11">
                             0
                         </td>
-                        
                     </tr>
                     <tr className="row33">
                         <td className="column0 style14 null"></td>
@@ -659,14 +625,13 @@ const PaymentMain = () => {
                         <td className="column39 style16 null"></td>
                         <td className="column40 style16 null"></td>
                         <td className="column41 style17 null"></td>
-                        
                     </tr>
                     <tr className="row34">
                         <td className="column0 style18 null"></td>
                         <td className="column1"></td>
                         <td className="column2 style11 s" colSpan={10}>
                             귀하의 노고에 감사드립니다.
-                        <td className="column3"></td>
+                            <td className="column3"></td>
                         </td>
                         <td className="column4"></td>
                         <td className="column5"></td>
@@ -742,7 +707,6 @@ const PaymentMain = () => {
                         <td className="column39 style13 null"></td>
                         <td className="column40 style13 null"></td>
                         <td className="column41 style19 null"></td>
-                        
                     </tr>
                     <tr className="row36">
                         <td className="column0 style18 null"></td>
@@ -792,7 +756,6 @@ const PaymentMain = () => {
                         <td className="column39"></td>
                         <td className="column40"></td>
                         <td className="column41 style19 null"></td>
-                        
                     </tr>
                     <tr className="row37">
                         <td className="column0 style18 null"></td>
@@ -837,7 +800,6 @@ const PaymentMain = () => {
                         <td className="column39"></td>
                         <td className="column40"></td>
                         <td className="column41 style19 null"></td>
-                        
                     </tr>
                     <tr className="row38">
                         <td
@@ -847,11 +809,8 @@ const PaymentMain = () => {
                         >
                             주 식 회 사{" "}
                         </td>
-                        
                     </tr>
-                    <tr className="row39">
-                        
-                    </tr>
+                    <tr className="row39"></tr>
                     <tr className="row40">
                         <td className="column0 style20 null"></td>
                         <td className="column1 style21 null"></td>
@@ -895,7 +854,6 @@ const PaymentMain = () => {
                         <td className="column39 style21 null"></td>
                         <td className="column40 style21 null"></td>
                         <td className="column41 style22 null"></td>
-                        
                     </tr>
                 </tbody>
             </table>
