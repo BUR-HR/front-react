@@ -11,7 +11,7 @@ import "../../css/nav.css";
 
 export { PaymentMain, PaymentNav, PayrollLedgerMain, SeveranceLedgerMain };
 
-const Payment = () => {
+export const Payment = () => {
     return (
         <Content>
             <NavBar>

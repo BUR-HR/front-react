@@ -11,9 +11,9 @@ import { Footer } from "./common/commons";
 import PageNotFound from "./error/PageNotFound";
 import Layout from "./layout/layout";
 import { Orgchart } from "./orgchart/orgchart";
-import Attendance, { AttendanceList, AttendanceMain } from "./pages/attendance/attendance";
+import { Attendance, AttendanceList, AttendanceMain } from "./pages/attendance/attendance";
 import { Login } from "./pages/login";
-import Payment, { PaymentMain, PayrollLedgerMain, SeveranceLedgerMain } from "./pages/payment/payment";
+import { Payment, PaymentMain, PayrollLedgerMain, SeveranceLedgerMain } from "./pages/payment/payment";
 import EmployeeCard from "./employee/employeecard/main/Employeecard"
 
 function App() {

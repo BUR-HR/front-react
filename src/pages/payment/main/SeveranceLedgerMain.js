@@ -7,17 +7,8 @@ import PaymentModal from "./PaymentModal";
 
 const SeveranceLedgerMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [severanceDTO, setSeveranceDTO] = useState({
-        SEVERANCE_NO: "",
-        SEVERANCE_NAME: "",
-        EMP_NO: "",
-        PAYMENT_SCHEDULED_DATE: "",
-        SALARY_BASE_START_DATE: "",
-        SALARY_BASE_END_DATE: "",
-        TOTAL_SALARY_AMOUNT: "",
-        TOTAL_AMOUNT_TAX: "",
-        NET_INCOME: "",
-        CREATE_DATE: "",
+    const [severance, setSeverance] = useState({
+        items: []
     });
 
     const clickHandler = () => {
@@ -43,10 +34,7 @@ const SeveranceLedgerMain = () => {
                 </div>
                 <div>
                     <button onClick={clickHandler}>
-                        <img
-                            src="/common/images/add.svg"
-                            alt=""
-                        />
+                        <img src="/common/images/add.svg" alt="" />
                         추가
                     </button>
                 </div>
@@ -57,11 +45,10 @@ const SeveranceLedgerMain = () => {
                     <thead>
                         <tr>
                             <th>지급대장</th>
-                            <th>급여구분</th>
+                            <th>구분</th>
                             <th>지급구분</th>
                             <th>대장명칭</th>
                             <th>지급연월</th>
-                            <th>사전작업</th>
                             <th>급여계산</th>
                             <th>인원수</th>
                             <th>퇴직금대장</th>
@@ -71,11 +58,10 @@ const SeveranceLedgerMain = () => {
                     <tbody>
                         <tr>
                             <td>2021/08 - 1</td>
-                            <td>급여</td>
+                            <td>중간정산</td>
                             <td>1차</td>
-                            <td>2021/08 1차 (급여)</td>
+                            <td>2021/08 1차 (퇴직금)</td>
                             <td>2021/09</td>
-                            <td>근무기록확정</td>
                             <td>
                                 전체계산
                                 <br />
@@ -98,11 +84,11 @@ const SeveranceLedgerMain = () => {
                     </tbody>
                 </table>
             </div>
-            <ModalBackdrop
+            <ModalBackdrop isModalOpen={isModalOpen} />
+            <PaymentModal
+                isOpen={isModalOpen}
                 handleCloseModal={handleCloseModal}
-                isModalOpen={isModalOpen}
             />
-            <PaymentModal isOpen={isModalOpen}/>
         </>
     );
 };

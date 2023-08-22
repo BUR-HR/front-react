@@ -1,16 +1,143 @@
-import React from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import readXlsxFile from "read-excel-file";
+import Swal from "sweetalert2";
 import popup from "./popup.module.css";
 
-const PaymentModal = ({ isOpen, PaymentType }) => {
-    if (!isOpen) return null;
+const PaymentModal = ({ isOpen, PaymentType, handleCloseModal }) => {
+    const [files, setFiles] = useState(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const dragRef = useRef(null);
+
+    const resetUploadStatus = () => {
+        if (dragRef.current) {
+            dragRef.current.classList = popup.upload;
+        }
+    };
+
+    const clickHandler = () => {
+        setFiles(null);
+        setIsDragging(false);
+        resetUploadStatus();
+        handleCloseModal();
+    };
+
+    const handleDragIn = useCallback((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    }, []);
+
+    const handleDragOut = useCallback((e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        setIsDragging(false);
+        resetUploadStatus();
+    }, []);
+
+    const handleDragOver = useCallback(
+        (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            if (isDragging) return;
+
+            if (e.dataTransfer?.files) {
+                setIsDragging(true);
+            }
+
+            if (e.dataTransfer?.items[0].type.includes("spreadsheet")) {
+                dragRef.current.classList.add(popup.active);
+            } else {
+                dragRef.current.classList.add(popup.fail);
+            }
+        },
+        [isDragging]
+    );
+
+    const onChangeFiles = useCallback((e) => {
+        resetUploadStatus();
+        let selectFile = null;
+
+        if (e.type === "drop") {
+            selectFile = e.dataTransfer.files;
+        } else {
+            selectFile = e.target.files;
+        }
+
+        if (!selectFile || selectFile.length === 0) {
+            return;
+        }
+
+        const selectedFileType = selectFile[0].type;
+
+        if (!selectedFileType.includes("spreadsheet")) {
+            Swal.fire({
+                icon: "error",
+                text: "xlsx 파일만 등록해주세요",
+            });
+            dragRef.current.classList.add(popup.fail);
+            setFiles(null);
+            return;
+        }
+
+        dragRef.current.classList.add(popup.active);
+        readXlsxFile(selectFile[0]).then((sheet) => console.log(sheet));
+
+        setFiles(selectFile);
+    }, []);
+
+    const handleDrop = useCallback(
+        (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            onChangeFiles(e);
+            setIsDragging(false);
+        },
+        [onChangeFiles]
+    );
 
     const onSubmitHandle = (e) => {
         e.preventDefault();
+
+        if (!files) {
+            Swal.fire({
+                icon: "error",
+                text: "파일을 등록해주세요",
+            });
+            return;
+        }
+
         const data = new FormData(e.target);
+        for (let pair of data) {
+            console.log(pair);
+        }
     };
 
+    useEffect(() => {
+        const dragRefCurrent = dragRef.current;
+        if (dragRefCurrent) {
+            dragRefCurrent.addEventListener("dragenter", handleDragIn);
+            dragRefCurrent.addEventListener("dragleave", handleDragOut);
+            dragRefCurrent.addEventListener("dragover", handleDragOver);
+            dragRefCurrent.addEventListener("drop", handleDrop);
+        }
+
+        return () => {
+            if (dragRefCurrent) {
+                dragRefCurrent.removeEventListener("dragenter", handleDragIn);
+                dragRefCurrent.removeEventListener("dragleave", handleDragOut);
+                dragRefCurrent.removeEventListener("dragover", handleDragOver);
+                dragRefCurrent.removeEventListener("drop", handleDrop);
+            }
+        };
+    }, [handleDragIn, handleDragOut, handleDragOver, handleDrop]);
+
     return (
-        <div className={popup.popup}>
+        <div
+            className={popup.popup}
+            style={isOpen ? { display: "block" } : { display: "none" }}
+        >
             <h2>퇴직금 대장 추가</h2>
             <form onSubmit={onSubmitHandle} className={popup.form}>
                 <div className={popup.formItem}>
@@ -19,23 +146,82 @@ const PaymentModal = ({ isOpen, PaymentType }) => {
                 </div>
                 <div className={popup.formItem}>
                     <span className={popup.require}>퇴직금 기준일</span>
-                    <input type="date" id="start_date" name="start_date" />
-                    ~
-                    <input type="date" id="end_date" name="end_date" />
+                    <div style={{display: 'inline-flex'}}>
+                        <input
+                            type="date"
+                            id="start_date"
+                            name="start_date"
+                            required
+                        />
+                        &nbsp;~&nbsp;
+                        <input
+                            type="date"
+                            id="end_date"
+                            name="end_date"
+                            required
+                        />
+                    </div>
                 </div>
                 <div className={popup.formItem}>
                     <span className={popup.require}>퇴직금 구분</span>
-                    <input type="text" />
+                    <select name="payment_type" required>
+                        <option value=""></option>
+                        <option value="중간정산">중간정산</option>
+                        <option value="퇴직금">퇴직금</option>
+                    </select>
                 </div>
-                <div className={popup.formItem}>
-                    <span className={popup.require}>대상자 업로드</span>
-                    <input type="text" />
-                </div>
+                <span className={`${popup.require} ${popup.formItem}`}>대상자 업로드</span>
+                <label htmlFor="upload" className={popup.upload} ref={dragRef}>
+                    {files?.item(0).type.includes("spreadsheet") ? (
+                        <>
+                            <img
+                                src="/common/images/microsoft-excel.svg"
+                                alt=""
+                                style={{ width: 40, height: 40 }}
+                            />
+                            <span style={{ textAlign: "center" }}>
+                                파일 업로드 완료
+                                <br />
+                                {files[0].name}
+                            </span>
+                        </>
+                    ) : (
+                        <>
+                            <img
+                                src="/common/images/microsoft-excel.svg"
+                                alt=""
+                                style={{ width: 40, height: 40 }}
+                            />
+                            <span style={{ textAlign: "center" }}>
+                                엑셀(*.xlsx) 파일 드래그
+                                <br />
+                                또는 업로드 (필수)
+                            </span>
+                        </>
+                    )}
+                </label>
+                <input
+                    type="file"
+                    style={{ display: "none" }}
+                    id="upload"
+                    onChange={onChangeFiles}
+                    accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    name="file"
+                />
                 <div className={popup.formItem}>
                     <span className={popup.require}>지급예정일</span>
-                    <input type="text" />
+                    <input type="date" />
                 </div>
-                <div className={popup.formItem + popup.btn}></div>
+                <div className={popup.formItem}>
+                    <button className={popup.btn}>추가</button>
+                    <button
+                        type="reset"
+                        className={popup.btn}
+                        onClick={clickHandler}
+                    >
+                        취소
+                    </button>
+                </div>
             </form>
         </div>
     );
