@@ -1,18 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import "./section.css";
 
 export const Header = () => {
+    const navigate = useNavigate()
+
     return (
         <div className="header">
             <div className="menu">
-                <NavLink to={"/attendance/"}>
+                <NavLink to={"/attendance"}>
                     <img
                         src="/common/images/logo.png"
                         className="logo"
                         alt="logo"
                     />
                 </NavLink>
-                <NavLink to="/attendance/" className="menu-item">
+                <NavLink to="/attendance" className="menu-item">
                     <img
                         src="/common/images/clock.png"
                         className="menu-image"
@@ -20,7 +22,7 @@ export const Header = () => {
                     />
                     근태
                 </NavLink>
-                <NavLink to="/human/" className="menu-item">
+                <NavLink to="/human" className="menu-item">
                     <img
                         src="/common/images/human.png"
                         className="menu-image"
@@ -28,7 +30,7 @@ export const Header = () => {
                     />
                     인사
                 </NavLink>
-                <NavLink to="/orgchart/" className="menu-item">
+                <NavLink to="/orgchart" className="menu-item">
                     <img
                         src="/common/images/sitemap.png"
                         className="menu-image"
@@ -36,7 +38,7 @@ export const Header = () => {
                     />
                     조직
                 </NavLink>
-                <NavLink to="/rest/" className="menu-item">
+                <NavLink to="/rest" className="menu-item">
                     <img
                         src="/common/images/vacation.png"
                         className="menu-image"
@@ -44,7 +46,7 @@ export const Header = () => {
                     />
                     휴가
                 </NavLink>
-                <NavLink to="/payment/" className="menu-item">
+                <NavLink to="/payment" className="menu-item">
                     <img
                         src="/common/images/bank.png"
                         className="menu-image"
@@ -52,7 +54,7 @@ export const Header = () => {
                     />
                     급여
                 </NavLink>
-                <NavLink to="/schedule/" className="menu-item">
+                <NavLink to="/schedule" className="menu-item">
                     <img
                         src="/common/images/calendar.png"
                         className="menu-image"
