@@ -23,7 +23,7 @@ import {
     PayrollLedgerMain,
     SeveranceLedgerMain,
 } from "./pages/payment/payment";
-import EmployeeCard from "./employee/employeecard/main/Employeecard";
+import EmployeeCard from "./pages/employee/employeecard/main/Employeecard";
 
 function hasAccessToken() {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
