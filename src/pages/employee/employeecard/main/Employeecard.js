@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../../../css/employeecard.css'
+import '../../../../css/employeecard.css'
 import Swal from 'sweetalert2';
 
 // 인사카드 등록 페이지
