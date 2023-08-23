@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css'
 
@@ -23,10 +23,10 @@ export const Login = () => {
 
         // API 호출을 위한 로직 
         try {
-            const response = await fetch('/api/login', {
+            const response = await fetch('http://localhost:8080/auth/login', {
                 method: 'POST',
-                headres: {
-                    'Content-Type' : 'application/json'
+                headers: {
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     empNo: form.empNo,
