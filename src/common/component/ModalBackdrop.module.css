@@ -10,6 +10,7 @@
     /* 모달보다 아래에 위치 */
     display: none;
     /* 기본적으로 숨김 */
+    overflow-y: hidden;
 }
 
 .modal-backdrop.active {

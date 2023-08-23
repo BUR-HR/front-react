@@ -38,7 +38,7 @@ const PaymentNav = () => {
             </div>
             <div className="dropmenu">
                 <ul>
-                    <NavLink>급여대장 조회</NavLink>
+                    <NavLink to={'/payment/payroll/list'}>급여대장 조회</NavLink>
                     <NavLink>급여지급품의서</NavLink>
                 </ul>
             </div>
@@ -63,7 +63,7 @@ const PaymentNav = () => {
             </div>
             <div className="dropmenu">
                 <ul>
-                    <NavLink>퇴직금대장 조회</NavLink>
+                    <NavLink to={'/payment/severance/list'}>퇴직금대장 조회</NavLink>
                     <NavLink>퇴직금지급품의서</NavLink>
                 </ul>
             </div>
