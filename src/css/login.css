@@ -44,6 +44,16 @@
     width: 100%;
 }
 
+
+.error-text {
+    font-size: 11px;
+    color: rgb(222, 0, 0);
+    /* margin-top: -40px; */
+    
+    
+}
+
+
 /* 사원번호 저장 */
 .remember {
     font-size: 12px;
@@ -64,6 +74,7 @@ button[type="submit"] {
     padding-left: 20px; /* 왼쪽 여백을 추가하여 텍스트를 오른쪽으로 이동 */
     font-size: 13px;
     box-sizing: border-box; /* 추가 */
+    
 }
 
 /* 로그인 버튼 텍스트 가운데 정렬 */
@@ -74,7 +85,8 @@ button[type="submit"] {
 
 /* 입력 상자 사이의 간격 조정 */
 #username {
-    margin-bottom: 15px; 
+    margin-bottom: 5px; 
+    
 }
 
 /* 로그인 버튼 텍스트 가운데 정렬 */
