@@ -27,8 +27,12 @@ class Calendar extends Component {
         return (
             <div className="App">
                 <FullCalendar
-                    defaultView="dayGridMonth"
+                    headerToolbar={{
+                        start: "today prev next",
+                        end : "dayGridMonth dayGridWeek dayGridDay",
+                    }}
                     plugins={[dayGridPlugin]}
+                    views={["dayGridMonth", "dayGridWeek", "dayGridDay"]}
                     {...this.state}
                 />
             </div>
