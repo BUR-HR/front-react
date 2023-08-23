@@ -5,13 +5,15 @@ const ACCESS_TOKEN = "ACCESS_TOKEN";
 export const call = async(api, method, request) => {
     let headers = new Headers({
         "Content-Type": "application/json",
+        "Accept": "*/*",
+        "Access-Control-Allow-Origin": "*"
     });
 
-    const accessToken = localStorage.getItem(ACCESS_TOKEN);
+    // const accessToken = localStorage.getItem(ACCESS_TOKEN);
     
-    if (accessToken && accessToken !== null) {
-        headers.append("Authorization", "Bearer " + accessToken);
-    }
+    // if (accessToken && accessToken !== null) {
+    //     headers.append("Authorization", "Bearer " + accessToken);
+    // }
 
     let options = {
         headers: headers,
@@ -34,7 +36,7 @@ export const call = async(api, method, request) => {
             console.log(error.status);
             
             if (error.status === 403) {
-                location.replace = '/login';
+                // location.replace = '/login'; {navigate login.js}
             }
             return Promise.reject(error);
         });
