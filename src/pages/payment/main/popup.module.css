@@ -1,7 +1,7 @@
 .popup {
     position: fixed;
     padding: 20px 30px;
-    width: 430px;
+    width: 440px;
     height: 450px;
     top: 50%;
     left: 50%;
@@ -33,7 +33,8 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 10px
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .form label {

@@ -1,10 +1,24 @@
-import React from "react";
-import table from "../../../css/module/table.module.css";
+import React, { useState } from "react";
+import { MainTitle, ModalBackdrop } from "../../../common/commons";
 import section from "../../../css/module/section.module.css";
+import table from "../../../css/module/table.module.css";
 import "../../../css/payment.css";
-import { MainTitle } from "../../../common/commons";
+import PaymentModal from "./PaymentModal";
 
 const PayrollLedgerMain = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [severance, setSeverance] = useState({
+        items: []
+    });
+
+    const clickHandler = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <>
             <MainTitle title={"급여대장 조회"} />
@@ -19,7 +33,7 @@ const PayrollLedgerMain = () => {
                     </button>
                 </div>
                 <div>
-                    <button>
+                    <button onClick={clickHandler}>
                         <img src="/common/images/add.svg" alt="" />
                         추가
                     </button>
@@ -69,6 +83,12 @@ const PayrollLedgerMain = () => {
                         </td>
                     </tbody>
                 </table>
+                <ModalBackdrop isModalOpen={isModalOpen} />
+                <PaymentModal
+                    isOpen={isModalOpen}
+                    handleCloseModal={handleCloseModal}
+                    paymentType="급여"
+                />
             </div>
         </>
     );

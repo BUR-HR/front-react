@@ -3,7 +3,7 @@ import readXlsxFile from "read-excel-file";
 import Swal from "sweetalert2";
 import popup from "./popup.module.css";
 
-const PaymentModal = ({ isOpen, PaymentType, handleCloseModal }) => {
+const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
     const [files, setFiles] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const dragRef = useRef(null);
@@ -54,7 +54,7 @@ const PaymentModal = ({ isOpen, PaymentType, handleCloseModal }) => {
         [isDragging]
     );
 
-    const onChangeFiles = useCallback((e) => {
+    const onChangeFiles = useCallback(async (e) => {
         resetUploadStatus();
         let selectFile = null;
 
@@ -75,14 +75,23 @@ const PaymentModal = ({ isOpen, PaymentType, handleCloseModal }) => {
                 icon: "error",
                 text: "xlsx 파일만 등록해주세요",
             });
+
             dragRef.current.classList.add(popup.fail);
             setFiles(null);
+
             return;
         }
 
         dragRef.current.classList.add(popup.active);
-        readXlsxFile(selectFile[0]).then((sheet) => console.log(sheet));
-
+        const map = {
+            NAME: "name",
+            TITLE: "title",
+            CONTENT: "content",
+        };
+        const data = await readXlsxFile(selectFile[0], { map }).then(
+            ({ rows }) => rows
+        );
+        console.log(data);
         setFiles(selectFile);
     }, []);
 
@@ -116,6 +125,7 @@ const PaymentModal = ({ isOpen, PaymentType, handleCloseModal }) => {
 
     useEffect(() => {
         const dragRefCurrent = dragRef.current;
+
         if (dragRefCurrent) {
             dragRefCurrent.addEventListener("dragenter", handleDragIn);
             dragRefCurrent.addEventListener("dragleave", handleDragOut);
@@ -138,15 +148,15 @@ const PaymentModal = ({ isOpen, PaymentType, handleCloseModal }) => {
             className={popup.popup}
             style={isOpen ? { display: "block" } : { display: "none" }}
         >
-            <h2>퇴직금 대장 추가</h2>
+            <h2>{paymentType} 대장 추가</h2>
             <form onSubmit={onSubmitHandle} className={popup.form}>
                 <div className={popup.formItem}>
                     <span className={popup.require}>대장명칭</span>
                     <input type="text" id="name" name="name" />
                 </div>
                 <div className={popup.formItem}>
-                    <span className={popup.require}>퇴직금 기준일</span>
-                    <div style={{display: 'inline-flex'}}>
+                    <span className={popup.require}>{paymentType} 기준일</span>
+                    <div style={{ display: "inline-flex" }}>
                         <input
                             type="date"
                             id="start_date"
@@ -163,42 +173,39 @@ const PaymentModal = ({ isOpen, PaymentType, handleCloseModal }) => {
                     </div>
                 </div>
                 <div className={popup.formItem}>
-                    <span className={popup.require}>퇴직금 구분</span>
+                    <span className={popup.require}>구분</span>
                     <select name="payment_type" required>
                         <option value=""></option>
-                        <option value="중간정산">중간정산</option>
-                        <option value="퇴직금">퇴직금</option>
+                        <option value={paymentType}>{paymentType}</option>
+                        {paymentType === "퇴직금" ? (
+                            <option value="중간정산">중간정산</option>
+                        ) : null}
                     </select>
                 </div>
-                <span className={`${popup.require} ${popup.formItem}`}>대상자 업로드</span>
+                <span className={`${popup.require} ${popup.formItem}`}>
+                    대상자 업로드
+                </span>
                 <label htmlFor="upload" className={popup.upload} ref={dragRef}>
-                    {files?.item(0).type.includes("spreadsheet") ? (
-                        <>
-                            <img
-                                src="/common/images/microsoft-excel.svg"
-                                alt=""
-                                style={{ width: 40, height: 40 }}
-                            />
+                    <>
+                        <img
+                            src="/common/images/microsoft-excel.svg"
+                            alt=""
+                            style={{ width: 40, height: 40 }}
+                        />
+                        {files?.item(0).type.includes("spreadsheet") ? (
                             <span style={{ textAlign: "center" }}>
                                 파일 업로드 완료
                                 <br />
                                 {files[0].name}
                             </span>
-                        </>
-                    ) : (
-                        <>
-                            <img
-                                src="/common/images/microsoft-excel.svg"
-                                alt=""
-                                style={{ width: 40, height: 40 }}
-                            />
+                        ) : (
                             <span style={{ textAlign: "center" }}>
                                 엑셀(*.xlsx) 파일 드래그
                                 <br />
                                 또는 업로드 (필수)
                             </span>
-                        </>
-                    )}
+                        )}
+                    </>
                 </label>
                 <input
                     type="file"

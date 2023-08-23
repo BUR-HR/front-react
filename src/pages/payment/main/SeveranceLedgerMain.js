@@ -88,6 +88,7 @@ const SeveranceLedgerMain = () => {
             <PaymentModal
                 isOpen={isModalOpen}
                 handleCloseModal={handleCloseModal}
+                paymentType='퇴직금'
             />
         </>
     );
