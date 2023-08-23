@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "./config";
 
 const ACCESS_TOKEN = "ACCESS_TOKEN";
 
 export const call = async(api, method, request) => {
-    let navigate = useNavigate();
     let headers = new Headers({
         "Content-Type": "application/json",
     });
@@ -36,8 +34,20 @@ export const call = async(api, method, request) => {
             console.log(error.status);
             
             if (error.status === 403) {
-                navigate('/login', {replace: true})
+                location.replace = '/login';
             }
             return Promise.reject(error);
         });
+}
+
+
+export const login = (employee) => {
+    return call('/auth/login', 'POST', employee)
+        .then(res => {
+            if (res.data.accessToken) {
+                // 로컬 스토리지에 토큰 저장
+                localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
+                location.href = "/"
+            }
+        })
 }

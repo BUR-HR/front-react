@@ -1,7 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import "./section.css";
 
 export const Header = () => {
+    const navigate = useNavigate()
+
     return (
         <div className="header">
             <div className="menu">
