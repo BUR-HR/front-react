@@ -5,8 +5,8 @@ import {
     Routes,
 } from "react-router-dom";
 import "./App.css";
-import Schedule from "./calendar/Schedule";
-import Calendar from "./calendar/calendar";
+import Schedule from "./pages/calendar/Schedule";
+import Calendar from "./pages/calendar/main/Calendar";
 import { Footer } from "./common/commons";
 import PageNotFound from "./error/PageNotFound";
 import Layout from "./layout/layout";
