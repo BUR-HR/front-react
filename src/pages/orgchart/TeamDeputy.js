@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 const TeamDeputy = ({ teamDeputy }) => {
     const [flippedCards, setFlippedCards] = useState([]);
 

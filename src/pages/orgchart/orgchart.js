@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TeamLeaders from "./TeamLeaders";
 import TeamDeputy from "./TeamDeputy";
 import TeamEmployee from "./TeamEmployee";
-import '../css/orgchart.css'
+import '../../css/orgchart.css';
 
 export const Orgchart = () => {
     const [flippedCards, setFlippedCards] = useState([]); // flippedCards 변수 정의

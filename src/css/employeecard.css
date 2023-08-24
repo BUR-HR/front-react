@@ -5,30 +5,37 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 150vh;
-    min-width: 210vh;
+    min-height: 170vh;
+    width: 2000px;
     background-color:  #F9F7F7;;
+    gap: 25px;
+    margin-left: 25px;
+    margin-bottom: 0%;
+    
 }
 
 /* 제목(사원조회) */
 .title {
     text-align: top;
     position: absolute;
-    top: 20%;
-    left: 19%;
+    top: 15%;
+    left: 25%;
+
 }
 
 .line {
-    width: 800%;
+    width: 650%;
     border-top: 2px solid black;
     margin-top: 10px; /* 원하는 간격 설정 */
+
 }
 
 .profile-body {
     background-color: #ffffff;
     min-width: 120vh;
-    min-height: 125vh;
-    margin-right: 130px;
+    min-height: 150vh;
+    margin-right: 250px;
+
 }
 
 .profile-image {
@@ -41,15 +48,16 @@
     margin: 0 auto 10px;
     background-color: #f2f2f2;
     position: relative; /* 부모 요소에 상대적으로 위치 */
-    margin-left: 70px;
-    margin-top: 150px;
+    margin-left: -200px;
+    margin-top: -300px;
 }
 
 
 .profile-image img {
-    width: 180px;
+    /* width: 180px; */
     height: 180px;
     object-fit: cover;
+
 }
 
 .placeholder-text {
@@ -84,7 +92,7 @@
     }
 
     .register-button {
-        margin-left: 70px;
+        margin-left: -500px;
         margin-top: 40px;
     }
 
@@ -99,9 +107,13 @@
     }
 
     .delete-button {
-        margin-right: 72%;
+        margin-right: 315px;
         margin-top: 40px;
     }
+
+.finalbutton {
+    margin-top: 55%;
+}
 
 .finalbutton1 {
     padding: 5px 10px;
@@ -135,38 +147,6 @@
     color: rgb(0, 0, 0);
 }
 
-/* 카드테이블1(기본정보) */
-.card-table1 {
-    background: #FFF;
-    border: 1px solid #5B5B5B;
-    border-collapse: collapse;
-    text-align: center;
-    table-layout: fixed;
-    font-size: 12px;
-    margin-top: -215px;
-    margin-left: 350px;
-    
-}
-
-.card-table1 th {
-    background: #F3F3F5;
-}
-
-.card-table1 th,
-.card-table1 td {
-    height: 36px;
-    border: 1px solid #D9D9D9;
-    padding: 0 4px;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100px;
-}
-
-.card-table1 td {
-    width: 300px;
-}
 
 .inputbox {
     /* padding: 8px; */
@@ -177,72 +157,6 @@
 }
 
 
-/* 카드테이블2(인사정보) */
-.card-table2 {
-    background: #FFF;
-    border: 1px solid #5B5B5B;
-    border-collapse: collapse;
-    text-align: center;
-    table-layout: fixed;
-    font-size: 12px;
-    margin-top: 50px;
-    margin-left: 350px;
-    
-}
-
-.card-table2 th {
-    background: #F3F3F5;
-}
-
-.card-table2 th,
-.card-table2 td {
-    height: 36px;
-    border: 1px solid #D9D9D9;
-    padding: 0 4px;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100px;
-}
-
-.card-table2 td {
-    width: 300px;
-}
-
-/* 카드테이블3(개인정보) */
-.card-table3 {
-    background: #FFF;
-    border: 1px solid #5B5B5B;
-    border-collapse: collapse;
-    text-align: center;
-    table-layout: fixed;
-    font-size: 12px;
-    margin-top: 50px;
-    margin-left: 350px;
-    
-}
-
-.card-table3 th {
-    background: #F3F3F5;
-}
-
-.card-table3 th,
-.card-table3 td {
-    height: 36px;
-    border: 1px solid #D9D9D9;
-    padding: 0 4px;
-    box-sizing: border-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100px;
-}
-
-.card-table3 td {
-    width: 300px;
-}
-
 .file-input {
     padding: 5px 10px;
     border: none;
@@ -251,5 +165,179 @@
     cursor: pointer;
     width: 163px;
     margin-top: -60px;
-    margin-left: 70px;
+    margin-left: -814px;
+}
+
+/* 인사정보 폼 */
+/* 기본정보 */
+.registercard{
+    display: flex;
+    flex-direction: column; /*수평 정렬*/
+    align-items: center;
+    justify-content: center;
+    margin-left: 300px;
+    margin-top: 120px;
+}
+
+.employee-form1{
+    height: 280px;
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; /*수평 정렬*/
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-color: white;
+    border: solid 1.5px black;
+    border-radius: 10px;   
+    margin-top: 5%;
+    margin-bottom: 20px;
+}
+
+.employee-form__input {
+    margin-top: 5px;
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+    text-indent: 10px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+    
+}
+
+.employee-form1 select {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 255px;
+    text-indent: 10px;
+    color: #878787; /* 텍스트 색상을 검정색으로 설정 */
+    background-color: #fff; /* 박스 배경색을 하얗게 설정 */
+    margin-left: 18px;
+    
+}
+.cardtitle {
+    font-size: 15px;
+    margin-left: -170px;
+    padding: 3px;
+}
+
+
+.status-dropdown {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 250px;
+    border-radius: 0px;
+    text-indent: 10px;
+    color: #00000085; /* 텍스트 색상을 검정색으로 설정 */
+    background-color: #ffffff; /* 박스 배경색을 하얗게 설정 */
+    margin-left: -30px;
+    margin-bottom: 10px;
+}
+
+/* 인사정보 */
+.employee-form2{
+    height: 180px;
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; /*수평 정렬*/
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    border: solid 1.5px black;
+    border-radius: 10px;  
+    margin-top: 600px;
+    margin-left: -285px;
+    margin-bottom: 80px;
+}
+
+
+.employee-form2 select {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 255px;
+    border-radius: 25px;
+    text-indent: 10px;
+    color: #878787; /* 텍스트 색상을 검정색으로 설정 */
+    background-color: #ffffff; /* 박스 배경색을 하얗게 설정 */
+    margin-left: 0px;
+    
+    
+}
+
+.cardtitle2 {
+    font-size: 15px;
+    margin-left: -210px;
+    padding: 3px;
+}
+
+
+
+/* 개인정보 */
+.employee-form3{
+    height: 260px;
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column; /*수평 정렬*/
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    border: solid 1.5px black;
+    border-radius: 10px;  
+    margin-left: -320px;
+    margin-top: 360%;
+    margin-bottom: 150px;
+}
+
+.employee-form3 input {
+    margin-top: 5px;
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+    text-indent: 10px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+}
+
+.employee-form3 select {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 255px;
+    border-radius: 25px;
+    text-indent: 10px;
+    color: #878787; /* 텍스트 색상을 검정색으로 설정 */
+    background-color: #ffffff; /* 박스 배경색을 하얗게 설정 */
+    margin-left: 15px;
+    
+    
+}
+
+.cardtitle3 {
+    font-size: 15px;
+    margin-left: -210px;
+    padding: 3px;
+}
+
+
+.status-dropdown3 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 250px;
+    border-radius: 25px;
+    text-indent: 10px;
+    color: #000; /* 텍스트 색상을 검정색으로 설정 */
+    background-color: #fff; /* 박스 배경색을 하얗게 설정 */
+    margin-left: -55px;
+    margin-bottom: 10px;
 }
