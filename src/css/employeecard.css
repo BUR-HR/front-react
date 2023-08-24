@@ -8,6 +8,10 @@
     min-height: 150vh;
     width: 2000px;
     background-color:  #F9F7F7;;
+    gap: 26px;
+    margin-left: 25px;
+    margin-bottom: 0%;
+    
 }
 
 /* 제목(사원조회) */
@@ -15,20 +19,23 @@
     text-align: top;
     position: absolute;
     top: 20%;
-    left: 19%;
+    left: 25%;
+
 }
 
 .line {
-    width: 600%;
+    width: 650%;
     border-top: 2px solid black;
     margin-top: 10px; /* 원하는 간격 설정 */
+
 }
 
 .profile-body {
     background-color: #ffffff;
     min-width: 120vh;
     min-height: 125vh;
-    margin-right: 130px;
+    margin-right: 250px;
+
 }
 
 .profile-image {

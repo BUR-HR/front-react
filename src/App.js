@@ -10,7 +10,7 @@ import Calendar from "./calendar/calendar";
 import { Footer } from "./common/commons";
 import PageNotFound from "./error/PageNotFound";
 import Layout from "./layout/layout";
-import { Orgchart } from "./orgchart/orgchart";
+import { Orgchart } from "./pages/orgchart/orgchart";
 import {
     Attendance,
     AttendanceList,

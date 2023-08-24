@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import '../../../../css/employeecard.css';
 import Swal from 'sweetalert2';
+import EmployeecardNav from "../nav/EmployeecardNav"; 
+import NavBar from "../../../../common/component/NavBar"; 
 
 // 인사카드 등록 페이지
 
@@ -56,7 +58,10 @@ import Swal from 'sweetalert2';
     
 
     return (
-            <div className="body">
+        <div className="body">
+            <NavBar>
+                <EmployeecardNav />
+            </NavBar>
                 <div className="title">
                     <h3>인사카드 등록</h3>
                     <hr className="line" />
@@ -88,6 +93,7 @@ import Swal from 'sweetalert2';
                         <button className="finalbutton2" onClick={() => handleAction("cancel")}>취소</button>
                     </div>
                 </div>
+                
 
         
             </div>
