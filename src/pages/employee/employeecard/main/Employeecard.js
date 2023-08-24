@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import EmployeecardNav from "../nav/EmployeecardNav"; 
 import NavBar from "../../../../common/component/NavBar"; 
 
+
 // 인사카드 등록 페이지
 
     const EmployeeCard = () => {
