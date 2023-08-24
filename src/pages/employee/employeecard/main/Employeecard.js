@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import '../../../../css/employeecard.css'
+import '../../../../css/employeecard.css';
 import Swal from 'sweetalert2';
 
 // 인사카드 등록 페이지
-const EmployeeCard = () => {
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [showConfirmation, setShowConfirmation] = useState(false);
-    const [confirmationText, setConfirmationText] = useState("");
+
+    const EmployeeCard = () => {
+        const [selectedImage, setSelectedImage] = useState(null);
+        const [showConfirmation, setShowConfirmation] = useState(false);
+        const [confirmationText, setConfirmationText] = useState("");
 
     // 프로필 카드 이미지 등록 함수 
     const handleImageChange = (event) => {
@@ -51,6 +52,7 @@ const EmployeeCard = () => {
         }
     };
 
+    
     
 
     return (

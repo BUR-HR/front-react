@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     min-height: 150vh;
-    min-width: 210vh;
+    width: 2000px;
     background-color:  #F9F7F7;;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .line {
-    width: 800%;
+    width: 600%;
     border-top: 2px solid black;
     margin-top: 10px; /* 원하는 간격 설정 */
 }
