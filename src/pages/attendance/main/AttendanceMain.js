@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { Chart, MainTitle, ModalBackdrop } from "../../../common/commons";
+import { call } from "../../../apis/service";
+import { Chart, MainTitle } from "../../../common/commons";
+import {
+    formatElapsedTime,
+    formattedDate,
+} from "../../../common/function/DateFormat";
 import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
 
@@ -8,6 +13,9 @@ const AttendanceMain = () => {
     const [startTime, setStartTime] = useState(null);
     const [elapsedTime, setElapsedTime] = useState(0); // in seconds
     const [workType, setWorkType] = useState("");
+    const [attendanceHistory, setAttendanceHistory] = useState([]);
+
+    const user = "";
 
     const handleType = (type) => {
         if (type !== workType) setWorkType(type);
@@ -25,30 +33,43 @@ const AttendanceMain = () => {
         });
     };
 
+    // useEffect(() => {
+    //     call("/api/v1/attendance/").then((data) => {
+    //         console.log(data);
+
+    //         if (!data) return;
+
+    //         setStartTime(new Date(data.workDate));
+    //         setWorkType("출근");
+    //     })
+    // }, []);
+
     useEffect(() => {
-        if (startTime && workType === "출근") {
-            const interval = setInterval(() => {
-                const currentTime = new Date();
-                const elapsed = Math.floor((currentTime - startTime) / 1000); // in seconds
-                setElapsedTime(elapsed);
-            }, 1000); // Update every second
+        const interval = setInterval(() => {
+            const currentTime = new Date();
+            const elapsed = Math.floor((currentTime - startTime) / 1000); // in seconds
+            setElapsedTime(elapsed);
+        }, 1000); // Update every second
 
-            return () => clearInterval(interval);
-        }
-    }, [startTime, workType]);
+        call("/api/v1/attendance/start", "post", {
+            workDate: startTime,
+        }).then((data) => {
+            console.log(data);
+            setAttendanceHistory(data);
+        });
 
-    const formatTime = (timeInSeconds) => {
-        const hours = Math.floor(timeInSeconds / 3600);
-        const minutes = Math.floor((timeInSeconds % 3600) / 60);
-        const seconds = timeInSeconds % 60;
-        return `${hours.toString().padStart(2, "0")}:${minutes
-            .toString()
-            .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    };
+        return () => {
+            clearInterval(interval);
+            call("/api/v1/attendance/end", "post", {
+                workDate: startTime,
+            }).then((data) => {
+                console.log(data);
 
-    const user = {
-        name: "",
-    };
+                if(data)
+                setAttendanceHistory(data);
+            });
+        };
+    }, []);
 
     return (
         <>
@@ -57,7 +78,7 @@ const AttendanceMain = () => {
             <div className="work-time">
                 <div className={`attendance-time ${section.config}`}>
                     <h3>오늘 근무한 시간</h3>
-                    <h2>{formatTime(elapsedTime)}</h2>
+                    <h2>{formatElapsedTime(elapsedTime)}</h2>
                     <div>
                         {workType !== "출근" ? (
                             <button
@@ -102,15 +123,28 @@ const AttendanceMain = () => {
                     <thead>
                         <tr>
                             <th>일자</th>
-                            <th>사원번호</th>
-                            <th>부서</th>
-                            <th>직급</th>
-                            <th>이름</th>
-                            <th>근무시간</th>
+                            <th>출근시간</th>
+                            <th>퇴근시간</th>
+                            <th>총 근무시간</th>
                             <th>초과근무시간</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        {attendanceHistory.length !== 0 &&
+                            attendanceHistory.map((item, index) => {
+                                return (
+                                    <tr key={item.no}>
+                                        <td>{index + 1}</td>
+                                        <td>{formattedDate(item.workDate)}</td>
+                                        <td>
+                                            {formattedDate(item.leaveWorkDate)}
+                                        </td>
+                                        <td>{item.elapsedTime}</td>
+                                        <td>{item.overTime}</td>
+                                    </tr>
+                                );
+                            })}
+                    </tbody>
                 </table>
             </div>
         </>

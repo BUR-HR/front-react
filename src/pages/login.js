@@ -1,6 +1,6 @@
 import React from "react";
-import '../css/login.css'
-import { login } from "../api/service";
+import { login } from "../apis/service";
+import '../css/login.css';
 
 export const Login = () => {
     const onSubmit = (e) => {
