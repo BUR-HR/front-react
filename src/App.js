@@ -10,7 +10,7 @@ import Calendar from "./pages/calendar/main/Calendar";
 import { Footer } from "./common/commons";
 import PageNotFound from "./error/PageNotFound";
 import Layout from "./layout/layout";
-import { Orgchart } from "./orgchart/orgchart";
+import { Orgchart } from "./pages/orgchart/orgchart";
 import {
     Attendance,
     AttendanceList,
@@ -23,7 +23,8 @@ import {
     PayrollLedgerMain,
     SeveranceLedgerMain,
 } from "./pages/payment/payment";
-import EmployeeCard from "./pages/employee/employeecard/main/Employeecard";
+import EmployeeCard from "./pages/employee/employeecard/Employeecard";
+import EmployeecardMain from "./pages/employee/employeecard/main/EmployeecardMain";
 
 function hasAccessToken() {
     const accessToken = localStorage.getItem("ACCESS_TOKEN");
@@ -76,7 +77,9 @@ function App() {
                             exact
                             path="/employeecard"
                             element={<EmployeeCard />}
-                        />
+                        >
+                            <Route index element={<EmployeecardMain/>}/>
+                            </Route>
                     </Route>
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="*" element={<PageNotFound />} />
