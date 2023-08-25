@@ -1,6 +1,28 @@
 import React from 'react';
+import DatePicker from 'react-datepicker';
+import Toggle from 'react-toggle';
 
-const ScheduleRegist = ({ isOpen, onClose, onSubmit, title, selectedDate, handleEventTitleChange }) => {
+import 'react-datepicker/dist/react-datepicker.css';
+import 'react-toggle/style.css';
+
+const ScheduleRegist = ({
+    isOpen,
+    onClose,
+    onSubmit,
+    title,
+    eventTitle,
+    handleEventTitleChange,
+    selectedStartDate,
+    handleStartDateChange,
+    selectedEndDate,
+    handleEndDateChange,
+    eventLocation,
+    handleEventLocationChange,
+    eventCategory,
+    handleEventCategoryChange,
+    showCategories,
+    handleToggleCategories
+}) => {
     if (!isOpen) return null;
 
     return (
@@ -14,17 +36,39 @@ const ScheduleRegist = ({ isOpen, onClose, onSubmit, title, selectedDate, handle
                     <input
                         type="text"
                         placeholder="Event title"
-                        value={title}
+                        value={eventTitle}
                         onChange={handleEventTitleChange}
+                    />
+                    <DatePicker
+                        selected={selectedStartDate}
+                        onChange={handleStartDateChange}
+                        placeholderText="시작 날짜"
+                    />
+                    <DatePicker
+                        selected={selectedEndDate}
+                        onChange={handleEndDateChange}
+                        placeholderText="종료 날짜"
                     />
                     <input
                         type="text"
-                        placeholder="Event location"
-                        // Add other input fields for classification, location, description, etc.
+                        placeholder="장소"
+                        value={eventLocation}
+                        onChange={handleEventLocationChange}
                     />
-                    {/* Add more input fields as needed */}
+                    <div>
+                        <button onClick={handleToggleCategories}>분류 선택</button>
+                        {showCategories && (
+                            <select value={eventCategory} onChange={handleEventCategoryChange}>
+                                <option value="work">Work</option>
+                                <option value="personal">Personal</option>
+                            </select>
+                        )}
+                    </div>
                 </div>
-                <button onClick={onSubmit}>Submit</button>
+                <div className="modal-buttons">
+                    <button onClick={onSubmit}>등록</button>
+                    <button onClick={onClose}>취소</button>
+                </div>
             </div>
         </div>
     );
