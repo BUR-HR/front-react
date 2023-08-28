@@ -115,7 +115,7 @@ const AttendanceMain = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {attendanceHistory.length > 0 &&
+                        {attendanceHistory?.length > 0 &&
                             attendanceHistory.map((item, index) => {
                                 return (
                                     <tr key={item.no}>

@@ -3,7 +3,7 @@ import '../../../../css/employeecard.css';
 import Swal from 'sweetalert2';
 import NavBar from "../../../../common/component/NavBar"; 
 import EmployeecardNav from "../nav/EmployeecardNav"; 
-import { login, call } from "../../../../api/service";
+import { login, call } from "../../../../apis/service";
 
 
 // 인사카드 등록 페이지

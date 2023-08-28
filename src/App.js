@@ -16,7 +16,7 @@ import {
 } from "./pages/attendance/attendance";
 import Schedule from "./pages/calendar/Schedule";
 import Calendar from "./pages/calendar/main/Calendar";
-import EmployeeCard from "./pages/employee/employeecard/main/Employeecard";
+import EmployeeCard from "./pages/employee/employeecard/Employeecard";
 import EmployeecardMain from "./pages/employee/employeecard/main/EmployeecardMain";
 import { Login } from "./pages/login";
 import { Orgchart } from "./pages/orgchart/orgchart";
