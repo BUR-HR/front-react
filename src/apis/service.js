@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { API_BASE_URL } from "./config";
 
 const ACCESS_TOKEN = "ACCESS_TOKEN";
@@ -32,25 +33,24 @@ export const call = async (api, method, request) => {
             return response.json();
         });
     } catch (error) {
-
         if (error.status === 401) {
-            localStorage.removeItem("ACCESS_TOKEN")
-            location.replace("/login");
+            localStorage.removeItem(ACCESS_TOKEN);
+            <Navigate to="login" />;
         }
 
         if (error.status === 403) {
-            location.replace("/login");
+            <Navigate to="login" replace="true" />;
         }
 
         if (error.status === 404) {
-            return error.text();
+            return error.json();
         }
     }
 };
 
 export const login = async (employee) => {
     return call("/auth/login", "POST", employee).then((res) => {
-        if (res.data.accessToken) {
+        if (res?.data.accessToken) {
             // 로컬 스토리지에 토큰 저장
             localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
             location.href = "/";

@@ -24,66 +24,65 @@ import {
     SeveranceLedgerMain,
 } from "./pages/payment/payment";
 import EmployeeCard from "./pages/employee/employeecard/main/Employeecard";
+import { AuthProvider, useAuth } from "./AuthContext";
 
-function hasAccessToken() {
-    const accessToken = localStorage.getItem("ACCESS_TOKEN");
-
-    return !!accessToken;
-}
 
 function PrivateRoute() {
+    const {token} = useAuth();
     
-    return hasAccessToken() ? <Layout/> : <Navigate to={"/login"}/>
+    return token ? <Layout/> : <Navigate to={"/login"}/>
 }
 
 function App() {
     return (
-        <Router>
-            <div className="container">
-                <Routes>
-                    <Route path="/" element={<PrivateRoute />}>
-                        <Route
-                            exact
-                            index
-                            element={<Navigate to="/attendance" />}
-                        />
-                        <Route exact path="attendance" element={<Attendance />}>
-                            <Route exact index element={<AttendanceMain />} />
+        <AuthProvider>
+            <Router>
+                <div className="container">
+                    <Routes>
+                        <Route path="/" element={<PrivateRoute />}>
                             <Route
                                 exact
-                                path="list"
-                                element={<AttendanceList />}
+                                index
+                                element={<Navigate to="/attendance" />}
                             />
-                        </Route>
-                        <Route exact path="/orgchart" element={<Orgchart />} />
-                        <Route exact path="payment" element={<Payment />}>
-                            <Route exact index element={<PaymentMain />} />
+                            <Route exact path="attendance" element={<Attendance />}>
+                                <Route exact index element={<AttendanceMain />} />
+                                <Route
+                                    exact
+                                    path="list"
+                                    element={<AttendanceList />}
+                                />
+                            </Route>
+                            <Route exact path="/orgchart" element={<Orgchart />} />
+                            <Route exact path="payment" element={<Payment />}>
+                                <Route exact index element={<PaymentMain />} />
+                                <Route
+                                    exact
+                                    path="/payment/payroll/list"
+                                    element={<PayrollLedgerMain />}
+                                />
+                                <Route
+                                    exact
+                                    path="severance/list"
+                                    element={<SeveranceLedgerMain />}
+                                />
+                            </Route>
+                            <Route exact path="/schedule" element={<Schedule />}>
+                                <Route exact index element={<Calendar />} />
+                            </Route>
                             <Route
                                 exact
-                                path="/payment/payroll/list"
-                                element={<PayrollLedgerMain />}
-                            />
-                            <Route
-                                exact
-                                path="severance/list"
-                                element={<SeveranceLedgerMain />}
+                                path="/employeecard"
+                                element={<EmployeeCard />}
                             />
                         </Route>
-                        <Route exact path="/schedule" element={<Schedule />}>
-                            <Route exact index element={<Calendar />} />
-                        </Route>
-                        <Route
-                            exact
-                            path="/employeecard"
-                            element={<EmployeeCard />}
-                        />
-                    </Route>
-                    <Route exact path="/login" element={<Login />} />
-                    <Route exact path="*" element={<PageNotFound />} />
-                </Routes>
-                <Footer />
-            </div>
-        </Router>
+                        <Route exact path="/login" element={<Login />} />
+                        <Route exact path="*" element={<PageNotFound />} />
+                    </Routes>
+                    <Footer />
+                </div>
+            </Router>
+        </AuthProvider>
     );
 }
 

@@ -17,7 +17,8 @@ export const formattedDate = (time) => {
     return formattedDate;
 };
 
-export const formatElapsedTime = (timeInSeconds) => {
+export const formatElapsedTime = (timeInMiliSeconds) => {
+    const timeInSeconds = parseInt(timeInMiliSeconds / 1000);
     const hours = Math.floor(timeInSeconds / 3600);
     const minutes = Math.floor((timeInSeconds % 3600) / 60);
     const seconds = timeInSeconds % 60;
