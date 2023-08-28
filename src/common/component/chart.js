@@ -8,23 +8,25 @@ import {
     Tooltip,
     Legend,
 } from "recharts";
+import { formattedDate } from "../function/DateFormat";
 
-const data = [
-    { date: "08-07", "근무시간": 3, "연장근무": 4 },
-    { date: "08-07", category: "휴가", hours: 0 },
-    { date: "08-08", category: "근무시간", hours: 7 },
-    { date: "08-08", category: "연장근무", hours: 2 },
-    { date: "08-08", category: "휴가", hours: 0 },
-    { date: "08-09", category: "근무시간", hours: 8 },
-    { date: "08-09", category: "연장근무", hours: 0 },
-    { date: "08-09", category: "휴가", hours: 1 },
-    { date: "08-10", category: "근무시간", hours: 6 },
-    { date: "08-10", category: "연장근무", hours: 3 },
-    { date: "08-10", category: "휴가", hours: 0 },
-    { date: "08-11", category: "근무시간", hours: 8 },
-    { date: "08-11", category: "연장근무", hours: 0 },
-    { date: "08-11", category: "휴가", hours: 0 },
-];
+let data = []
+// [
+//     { date: "08-07", "근무시간": 3, "연장근무": 4 },
+//     { date: "08-07", category: "휴가", hours: 0 },
+//     { date: "08-08", category: "근무시간", hours: 7 },
+//     { date: "08-08", category: "연장근무", hours: 2 },
+//     { date: "08-08", category: "휴가", hours: 0 },
+//     { date: "08-09", category: "근무시간", hours: 8 },
+//     { date: "08-09", category: "연장근무", hours: 0 },
+//     { date: "08-09", category: "휴가", hours: 1 },
+//     { date: "08-10", category: "근무시간", hours: 6 },
+//     { date: "08-10", category: "연장근무", hours: 3 },
+//     { date: "08-10", category: "휴가", hours: 0 },
+//     { date: "08-11", category: "근무시간", hours: 8 },
+//     { date: "08-11", category: "연장근무", hours: 0 },
+//     { date: "08-11", category: "휴가", hours: 0 },
+// ];
 
 // let list = [];
 // const groupedData = data.reduce((acc, item) => {
@@ -37,7 +39,20 @@ const data = [
 //     return list;
 // }, [data]);
 
-const Chart = () => {
+const Chart = ({history}) => {
+
+    if (history?.length !== 0) {
+        history.sort((a, b) => {
+            return a.no - b.no
+        });
+        
+        data = history.map(item => ({
+            date: formattedDate(item.startDateTime),
+            '근무시간': item.workTime,
+            '연장근무': item.overTime
+        }))
+
+    }
     return (
         <BarChart width={500} height={150} data={data}>
             <CartesianGrid strokeDasharray="3 3" />

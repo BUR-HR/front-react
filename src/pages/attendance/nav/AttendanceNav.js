@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../../AuthContext";
 
 const AttendanceNav = () => {
     const [isSelectIndex, setIsSelectIndex] = useState({
         isActive: false,
         index: 0,
     });
+
+    const { auth } = useAuth();
 
     const onClickHandler = (index) => {
         if (isSelectIndex.isActive)
@@ -38,7 +41,9 @@ const AttendanceNav = () => {
             <div className="dropmenu">
                 <ul>
                     <NavLink to="/attendance/">근태관리</NavLink>
-                    <NavLink to="/attendance/list">근태현황</NavLink>
+                    {auth?.join().includes("HR_EMPLOYEE") ? (
+                        <NavLink to="/attendance/list">근태현황</NavLink>
+                    ) : undefined}
                 </ul>
             </div>
         </div>

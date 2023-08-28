@@ -33,16 +33,12 @@ export const call = async (api, method, request) => {
             return response.json();
         });
     } catch (error) {
-        if (error.status === 401) {
+        if (error?.status === 401) {
             localStorage.removeItem(ACCESS_TOKEN);
             <Navigate to="login" />;
-        }
-
-        if (error.status === 403) {
+        } else if (error?.status === 403) {
             <Navigate to="login" replace="true" />;
-        }
-
-        if (error.status === 404) {
+        } else if (error?.status === 404) {
             return error.json();
         }
     }

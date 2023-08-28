@@ -3,6 +3,7 @@ import {
     useContext,
     useEffect,
     useReducer,
+    useState,
 } from "react";
 import base64 from "base-64";
 import {
@@ -16,11 +17,11 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem("ACCESS_TOKEN");
+    const [auth, setAuth] = useState(null)
     const [attendanceState, attendanceDispatch] = useReducer(
         reducer,
         initialState
     );
-    let auth = null;
 
     useEffect(() => {
         if (token) {
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }) => {
                 token.indexOf(".") + 1,
                 token.lastIndexOf(".")
             );
-            auth = JSON.parse(base64.decode(payload)).auth;
+            setAuth(JSON.parse(base64.decode(payload)).auth);
 
             call("/api/v1/attendance/status", "POST", null).then((data) => {
                 if (data.status === 404) {

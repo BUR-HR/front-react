@@ -1,4 +1,4 @@
-export const formattedDate = (time) => {
+export const formattedDateTime = (time) => {
     if (!time) return;
 
     const originalDate = new Date(time);
@@ -12,10 +12,24 @@ export const formattedDate = (time) => {
     const seconds = String(originalDate.getSeconds()).padStart(2, "0");
 
     // 원하는 포맷으로 날짜와 시간을 조합
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    return formattedDateTime;
+};
+
+export const formattedDate = (time) => {
+    if (!time) return;
+
+    const originalDate = new Date(time);
+
+    const month = String(originalDate.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더하고 두 자리로 패딩
+    const day = String(originalDate.getDate()).padStart(2, "0");
+
+    // 원하는 포맷으로 날짜와 시간을 조합
+    const formattedDate = `${month}-${day}`;
 
     return formattedDate;
-};
+}
 
 export const formatElapsedTime = (timeInMiliSeconds) => {
     const timeInSeconds = parseInt(timeInMiliSeconds / 1000);

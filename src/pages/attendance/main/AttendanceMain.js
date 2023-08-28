@@ -1,21 +1,21 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect } from "react";
 import Swal from "sweetalert2";
+import { useAuth } from "../../../AuthContext";
 import { call } from "../../../apis/service";
 import { Chart, MainTitle } from "../../../common/commons";
 import {
     formatElapsedTime,
-    formattedDate,
+    formattedDateTime,
 } from "../../../common/function/DateFormat";
 import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
+import { endWork, startWork } from "../api/AttendanceAPI";
 import {
     SET_ATTENDANCE_HISTORY,
+    SET_ATTENDANCE_TYPE,
     SET_ELAPSED_TIME,
     SET_START_TIME,
-    SET_ATTENDANCE_TYPE,
 } from "../reducers/AttendanceReducer";
-import { useAuth } from "../../../AuthContext";
-import { endWork, startWork } from "../api/AttendanceAPI";
 
 const AttendanceMain = () => {
     const { attendanceState, attendanceDispatch } = useAuth();
@@ -45,16 +45,11 @@ const AttendanceMain = () => {
 
     useEffect(() => {
         call("/api/v1/attendance").then((data) => {
-            console.log(data);
-            console.log(attendanceHistory);
-            console.log(attendanceType);
-
             attendanceDispatch({ type: SET_ATTENDANCE_HISTORY, payload: data });
         });
 
         if (attendanceType === '퇴근') {
             interval = setInterval(() => {
-                console.log(startTime);
                 const elapsedTime = new Date() - new Date(startTime)
 
                 attendanceDispatch({type: SET_ELAPSED_TIME, payload: elapsedTime})
@@ -87,7 +82,7 @@ const AttendanceMain = () => {
                 </div>
                 <div className={`total-attendance-time ${section.config}`}>
                     <h3>이번 주 근무</h3>
-                    <Chart />
+                    <Chart history={attendanceHistory}/>
                 </div>
             </div>
             <div className={`attendance-info ${section.config}`}>
@@ -105,9 +100,12 @@ const AttendanceMain = () => {
                 </div>
 
                 <table className={table.table}>
+                    <colgroup>
+                        <col width={100}/>
+                    </colgroup>
                     <thead>
                         <tr>
-                            <th>일자</th>
+                            <th>내역 번호</th>
                             <th>출근시간</th>
                             <th>퇴근시간</th>
                             <th>총 근무시간</th>
@@ -120,11 +118,11 @@ const AttendanceMain = () => {
                                 return (
                                     <tr key={item.no}>
                                         <td>{index + 1}</td>
-                                        <td>{formattedDate(item.startDateTime)}</td>
+                                        <td>{formattedDateTime(item.startDateTime)}</td>
                                         <td>
-                                            {formattedDate(item.endDateTime)}
+                                            {formattedDateTime(item.endDateTime)}
                                         </td>
-                                        <td>{item.elapsedTime}</td>
+                                        <td>{item.workTime}</td>
                                         <td>{item.overTime}</td>
                                     </tr>
                                 );
