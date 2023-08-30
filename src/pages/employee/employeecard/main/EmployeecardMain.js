@@ -3,101 +3,167 @@ import '../../../../css/employeecard.css';
 import Swal from 'sweetalert2';
 import NavBar from "../../../../common/component/NavBar"; 
 import EmployeecardNav from "../nav/EmployeecardNav"; 
-import { login, call } from "../../../../apis/service";
+import { login, call } from "../../../../api/service";
+import { useNavigate } from 'react-router-dom'; 
 
 
 // 인사카드 등록 페이지
 
     const EmployeecardMain = () => {
+        const navigate = useNavigate(); 
         const [selectedImage, setSelectedImage] = useState(null);
         const [employeeData, setEmployeeData] = useState({
-            EMP_NO: "",
-            EMP_NAME: "",
-            DEPT_CODE: "",
-            JOB_CODE: "",
-            RSDN: "",
-            EMAIL: "",
-            PASSWORD: "",
-            HIRE_DATE: "",
-            PHONE: "",
-            ADDRESS: "",
-            PAYROLL_ACCOUNT: "",
-            IS_EMPLOYED: "",
-            STATUS: "",
-            GENDER: "",
-            LEAVE_DATE: "",
+            empNo: "",
+            empName: "",
+            deptCode: "",
+            jobCode: "",
+            employeeRsdn: "",
+            employeeEmail: "",
+            employeePassword: "",
+            hireDate: "",
+            employeePhone: "",
+            employeeAddress: "",
+            payrollAccount: "",
+            isEmployed: "",
+            employeeStatus: "",
+            employeeGender: "",
+            leaveDate: "",
         });
 
-    // 프로필 카드 이미지 등록 함수 
-    const handleImageChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setSelectedImage(URL.createObjectURL(file));
-        }
-    };
-
-    // 글 등록 및 취소 버튼( SweetAlert2 모듈 사용)
-    const handleAction = async (action) => {
-        const actionText = action === "confirm" ? "등록" : "취소";
-        const result = await Swal.fire({
-            title: `${actionText} 하시겠습니까?`,
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: '확인',
-            cancelButtonText: '취소',
-        });
-    
-        if (result.isConfirmed) {
-            if (action === "confirm") {
-                Swal.fire({
-                    icon: 'success',
-                    title: '등록 완료',
-                    text: '등록이 완료되었습니다.',
-                });
-            } else if (action === "cancel") {
-                Swal.fire({
-                    icon: 'info',
-                    title: '취소',
-                    text: '취소되었습니다.',
-                });
+        
+        // 글 등록 및 취소 버튼( SweetAlert2 모듈 사용)
+        const handleAction = async (action) => {
+            const actionText = action === "confirm" ? "등록" : "취소";
+            const result = await Swal.fire({
+                title: `${actionText} 하시겠습니까?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: '확인',
+                cancelButtonText: '취소',
+            });
+            
+            if (result.isConfirmed) {
+                if (action === "confirm") {
+                    Swal.fire({
+                        icon: 'success',
+                        title: '등록 완료',
+                        text: '등록이 완료되었습니다.',
+                    });
+                } else if (action === "cancel") {
+                    Swal.fire({
+                        icon: 'info',
+                        title: '취소',
+                        text: '취소되었습니다.',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.reload(); // 취소 된 후 페이지 reload
+                        }
+                    });
+                }
             }
-        }
-
-        if (action === "selectImage") {
+            
+            if (action === "selectImage") {
+                const fileInput = document.getElementById("file-input");
+                if (fileInput) {
+                    fileInput.click(); // 파일 선택 창 열기
+                }
+            }
+        };
+        
+        // 프로필 카드 이미지 등록 함수 
+        const handleImageChange = (event) => {
+            console.log("handleImageChange(이미지 등록 함수) called"); 
+            const file = event.target.files[0];
+            if (file) {
+                setSelectedImage(URL.createObjectURL(file));
+            }
+        };
+        
+        // 파일 
+        const handleFileUpload = async () => {
+            console.log("handleFileUpload(파일 등록 함수) called"); 
             const fileInput = document.getElementById("file-input");
-            if (fileInput) {
-                fileInput.click(); // 파일 선택 창 열기
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                console.log('file ----->', file);
+                const formData = new FormData();
+                formData.append("fileImgs", file);
+                
+                try {
+                    const response = await fetch('http://localhost:8080/api/file/fileimgs', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            "Accept": "*/*"
+                        }
+                    });
+        
+                    if (response.ok) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '등록 완료',
+                            text: '등록이 완료되었습니다.',
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '등록 실패',
+                            text: '등록에 실패하였습니다.',
+                        });
+                    }
+                } catch (error) {
+                    console.error(error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: '등록 에러',
+                        text: '등록 중 에러가 발생했습니다.',
+                    });
+                }
             }
-        }
-    };
-
-    // 인사정보 등록
-    const handleEmployeeRegistration = async () => {
-        try {
-        const response = await call('/path/to/register/api', 'POST', employeeData); // 실제 등록 API의 경로로 수정
-        if (response) {
-            Swal.fire({
-            icon: 'success',
-            title: '등록 완료',
-            text: '등록이 완료되었습니다.',
-            });
-        } else {
-            Swal.fire({
-            icon: 'error',
-            title: '등록 실패',
-            text: '등록에 실패하였습니다.',
-            });
-        }
-        } catch (error) {
-        console.error(error);
-        Swal.fire({
-            icon: 'error',
-            title: '등록 에러',
-            text: '등록 중 에러가 발생했습니다.',
-        });
-        }
-    };
-
+        };
+        
+        
+        // 인사정보 등록
+        const handleEmployeeRegistration = async () => {
+            try {
+                // 입력 데이터 유효성 검사
+                // if (!employeeData.EMP_NAME || !employeeData.DEPT_CODE || !employeeData.STATUS || !employeeData.HIRE_DATE 
+                //     || !employeeData.DEPT_CODE || !employeeData.JOB_CODE || !employeeData.GENDER
+                //     || !employeeData.RSDN || !employeeData.EMAIL || !employeeData.PHONE) {
+                //     Swal.fire({
+                //         icon: 'error',
+                //         title: '입력 오류',
+                //         text: '필수 정보를 모두 입력해주세요.',
+                //     });
+                //     return;
+                // }
+        
+                const response = await call('/api/employees/register', 'POST', employeeData);
+                if (response) {
+                    const temporaryPassword = response.data; // 응답 데이터에서 임시 비밀번호 추출
+                    Swal.fire({
+                        icon: 'success',
+                        title: '등록 완료',
+                        html: `등록이 완료되었습니다. 임시 비밀번호는 <strong>${temporaryPassword}</strong>입니다.`,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '등록 실패',
+                        text: '등록에 실패하였습니다.',
+                    });
+                }
+            } catch (error) {
+                console.error(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: '등록 에러',
+                    text: '등록 중 에러가 발생했습니다.',
+                });
+            }
+        };
+        
 
     
 
@@ -118,21 +184,24 @@ import { login, call } from "../../../../apis/service";
                                 className="employee-form__input"
                                 type="text"
                                 placeholder="직원 이름"
-                                value={employeeData.EMP_NAME}
-                                onChange={(e) => setEmployeeData({ ...employeeData, EMP_NAME: e.target.value })}
+                                value={employeeData.empName}
+                                onChange={(e) => {
+                                    console.log("empName changed:", e.target.value);
+                                    setEmployeeData({ ...employeeData, empName: e.target.value });
+                                }}
                             />
                             <input
                                 className="employee-form__input"
                                 type="text"
                                 placeholder="사원번호"
-                                value={employeeData.EMP_NO}
-                                onChange={(e) => setEmployeeData({ ...employeeData, EMP_NO: e.target.value })}
+                                value={employeeData.empNo}
+                                onChange={(e) => setEmployeeData({ ...employeeData, empNo: e.target.value })}
                             />
 
                             <div className="status-dropdown">
                             <select
-                                value={employeeData.STATUS}
-                                onChange={(e) => setEmployeeData({ ...employeeData, STATUS: e.target.value })}
+                                value={employeeData.employeeStatus}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeeStatus: e.target.value })}
                             >
                                 <option value="" disabled hidden>상태</option>
                                 <option value="재직">재직</option>
@@ -145,43 +214,43 @@ import { login, call } from "../../../../apis/service";
                                 className="employee-form__input"
                                 type="text"
                                 placeholder="입사일"
-                                value={employeeData.HIRE_DATE}
-                                onChange={(e) => setEmployeeData({ ...employeeData, HIRE_DATE: e.target.value })}
+                                value={employeeData.hireDate}
+                                onChange={(e) => setEmployeeData({ ...employeeData, hireDate: e.target.value })}
                             />
                             <input
                                 className="employee-form__input"
                                 type="text"
                                 placeholder="퇴사일"
-                                value={employeeData.LEAVE_DATE}
-                                onChange={(e) => setEmployeeData({ ...employeeData, LEAVE_DATE: e.target.value })}
+                                value={employeeData.leaveDate}
+                                onChange={(e) => setEmployeeData({ ...employeeData, leaveDate: e.target.value })}
                             />
 
                         <div className="employee-form2">
                             <h4 className="cardtitle2">인사정보</h4>
                                 <div className="status-dropdown2">
                                     <select
-                                        value={employeeData.DEPT_CODE}
-                                        onChange={(e) => setEmployeeData({ ...employeeData, DEPT_CODE: e.target.value })}
+                                        value={employeeData.deptCode}
+                                        onChange={(e) => setEmployeeData({ ...employeeData, deptCode: e.target.value })}
                                     >
                                         <option value="" disabled hidden>부서</option>
-                                        <option value="총무팀">총무팀</option>
-                                        <option value="영업팀">영업팀</option>
-                                        <option value="마케팅팀">마케팅팀</option>
-                                        <option value="현장팀">현장팀</option>
-                                        <option value="고객응대팀">고객응대팀</option>
-                                        <option value="인사팀">인사팀</option>
+                                        <option value="1">영업팀</option>
+                                        <option value="2">마케팅팀</option>
+                                        <option value="3">현장팀</option>
+                                        <option value="4">고객응대팀</option>
+                                        <option value="5">인사팀</option>
+                                        <option value="6">총무팀</option>
                                     </select>
                                 </div>
 
                                 <div className="status-dropdown2">
                                     <select
-                                        value={employeeData.JOB_CODE}
-                                        onChange={(e) => setEmployeeData({ ...employeeData, JOB_CODE: e.target.value })}
+                                        value={employeeData.jobCode}
+                                        onChange={(e) => setEmployeeData({ ...employeeData, jobCode: e.target.value })}
                                     >
                                         <option value="" disabled hidden>직위</option>
-                                        <option value="팀장">팀장</option>
-                                        <option value="대리">대리</option>
-                                        <option value="사원">사원</option>
+                                        <option value="2">팀장</option>
+                                        <option value="3">대리</option>
+                                        <option value="4">사원</option>
                                     </select>
                                 </div>
                         </div>
@@ -190,12 +259,12 @@ import { login, call } from "../../../../apis/service";
                             <h4 className="cardtitle3">개인정보</h4>
                                 <div className="status-dropdown3">
                                     <select
-                                        value={employeeData.GENDER}
-                                        onChange={(e) => setEmployeeData({ ...employeeData, GENDER: e.target.value })}
+                                        value={employeeData.employeeGender}
+                                        onChange={(e) => setEmployeeData({ ...employeeData, employeeGender: e.target.value })}
                                     >
                                         <option value="" disabled hidden>성별</option>
-                                        <option value="남자">남자</option>
-                                        <option value="여자">여자</option>
+                                        <option value="M">남자</option>
+                                        <option value="F">여자</option>
                                     </select>
                                 </div>
 
@@ -203,24 +272,24 @@ import { login, call } from "../../../../apis/service";
                                 className="employee-form__input"
                                 type="text"
                                 placeholder="주민등록번호"
-                                value={employeeData.RSDN}
-                                onChange={(e) => setEmployeeData({ ...employeeData, RSDN: e.target.value })}
+                                value={employeeData.employeeRsdn}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeeRsdn: e.target.value })}
                                 />
 
                                 <input
                                 className="employee-form__input"
                                 type="text"
                                 placeholder="이메일"
-                                value={employeeData.EMAIL}
-                                onChange={(e) => setEmployeeData({ ...employeeData, EMAIL: e.target.value })}
+                                value={employeeData.employeeEmail}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeeEmail: e.target.value })}
                                 />
 
                                 <input
                                 className="employee-form__input"
                                 type="text"
                                 placeholder="휴대폰"
-                                value={employeeData.PHONE}
-                                onChange={(e) => setEmployeeData({ ...employeeData, PHONE: e.target.value })}
+                                value={employeeData.employeePhone}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeePhone: e.target.value })}
                                 />
 
                         </div>
@@ -236,17 +305,20 @@ import { login, call } from "../../../../apis/service";
                         </div>
 
                         <div className="profile-buttons">
-                        <button className="register-button" onClick={() => handleAction("confirm")}>등록</button>
+                        <button className="register-button" onClick={() => handleFileUpload()}>등록</button>
                         <button className="delete-button" onClick={() => handleAction("cancel")}>취소</button>
                         </div>
                         <input
                             type="file"
                             id="file-input"
                             className="file-input"
-                            style={{ display: 'block' }}
+                            style={{ display: 'block' }} // 숨겨진 파일 선택 창
                             accept="image/*"
                             onChange={handleImageChange}
-                    />
+                            name="fileImage"
+                        
+                        />
+
 
 
                 </div>

@@ -22,11 +22,11 @@ export const Header = () => {
                     />
                     근태
                 </NavLink>
-                <NavLink to="/human" className="menu-item">
+                <NavLink to="/employeecard" className="menu-item">
                     <img
                         src="/common/images/human.png"
                         className="menu-image"
-                        alt="human"
+                        alt="employeecard"
                     />
                     인사
                 </NavLink>
