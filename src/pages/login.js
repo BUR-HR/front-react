@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../css/login.css'
 import { login } from "../apis/service";
 
-export const Login = () => {
+export const Login = (employee) => {
     const [empNo, setEmpNo] = useState(""); 
     const [password, setPassword] = useState(""); 
     const [showEmpNoError, setShowEmpNoError] = useState(false);
@@ -39,6 +39,7 @@ export const Login = () => {
         login(data);
 
     };
+
 
     return (
         <div className="login-body">
