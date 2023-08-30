@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import '../css/login.css'
+import { useNavigate } from "react-router-dom";
 import { login } from "../apis/service";
+import "../css/login.css";
 
-export const Login = (employee) => {
-    const [empNo, setEmpNo] = useState(""); 
-    const [password, setPassword] = useState(""); 
+export const Login = () => {
+    const [empNo, setEmpNo] = useState("");
+    const [password, setPassword] = useState("");
     const [showEmpNoError, setShowEmpNoError] = useState(false);
     const [showPasswordError, setShowPasswordError] = useState(false);
     const navigate = useNavigate();
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData(e.target)
+        const formData = new FormData(e.target);
         const data = {};
 
         for (let pair of formData) {
@@ -32,12 +32,12 @@ export const Login = (employee) => {
         }
 
         if (empNo === "" || password === "") {
-            return; 
+            return;
         }
 
-        console.log(data);
-        login(data);
-
+        login(data).then(() => {
+            navigate("/", { replace: true });
+        });
     };
 
 
@@ -64,27 +64,34 @@ export const Login = (employee) => {
                         value={empNo}
                         onChange={(e) => {
                             setEmpNo(e.target.value);
-                            setShowEmpNoError(false); 
+                            setShowEmpNoError(false);
                         }}
                     />
-                        {showEmpNoError && <span className="error-text">사원번호를 입력해주세요.</span>}
-                        <br />
+                    {showEmpNoError && (
+                        <span className="error-text">
+                            사원번호를 입력해주세요.
+                        </span>
+                    )}
+                    <br />
 
-                        <label htmlFor="password"></label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="employeePassword"
-                            placeholder="비밀번호"
-                            className={showPasswordError ? "error" : ""}
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                                setShowPasswordError(false);
-                            }}
-                        />
-                        {showPasswordError && <span className="error-text">비밀번호를 입력해주세요.</span>}
-                        
+                    <label htmlFor="password"></label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="employeePassword"
+                        placeholder="비밀번호"
+                        className={showPasswordError ? "error" : ""}
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                            setShowPasswordError(false);
+                        }}
+                    />
+                    {showPasswordError && (
+                        <span className="error-text">
+                            비밀번호를 입력해주세요.
+                        </span>
+                    )}
 
                     <button type="submit">로그인</button>
                 </form>
