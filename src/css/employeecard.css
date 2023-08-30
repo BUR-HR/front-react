@@ -203,6 +203,7 @@
     text-indent: 10px;
     margin-left: 30px;
     margin-bottom: 5px;
+    position: relative; 
     
 }
 
@@ -340,4 +341,48 @@
     background-color: #fff; /* 박스 배경색을 하얗게 설정 */
     margin-left: -55px;
     margin-bottom: 10px;
+}
+
+/* CSS 파일에 추가 */
+.input-label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 10px;
+    position: absolute; /* 절대 위치 지정 */
+    top: 0;
+    left: 0px; /* 레이블이 아이콘 왼쪽에 오도록 조정 */
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-left: 0%;
+}
+
+.input-text {
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+/* 달력 아이콘 */
+.input-icon {
+    position: absolute; /* 절대 위치 지정 */
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.datapicker {
+    margin-top: 5px;
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+    text-indent: -100px;
+    margin-left: -10px;
+    margin-bottom: 5px;
+    position: relative; 
+    color: #878787;
+    background-color: #ffffff;
+
 }

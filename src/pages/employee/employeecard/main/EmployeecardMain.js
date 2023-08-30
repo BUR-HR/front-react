@@ -5,6 +5,7 @@ import NavBar from "../../../../common/component/NavBar";
 import EmployeecardNav from "../nav/EmployeecardNav"; 
 import { login, call } from "../../../../apis/service";
 import { useNavigate } from 'react-router-dom'; 
+import DatePicker from "react-datepicker";
 
 
 // 인사카드 등록 페이지
@@ -12,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
     const EmployeecardMain = () => {
         const navigate = useNavigate(); 
         const [selectedImage, setSelectedImage] = useState(null);
+        const [showDatePicker, setShowDatePicker] = useState(false);
         const [employeeData, setEmployeeData] = useState({
             empNo: "",
             empName: "",
@@ -26,7 +28,6 @@ import { useNavigate } from 'react-router-dom';
             isEmployed: "",
             employeeStatus: "",
             employeeGender: "",
-            leaveDate: null,
             employeeEmail: "",
         });
 
@@ -97,7 +98,6 @@ import { useNavigate } from 'react-router-dom';
                 formData.append("isEmployed", employeeData.isEmployed);
                 formData.append("employeeStatus", employeeData.employeeStatus);
                 formData.append("employeeGender", employeeData.employeeGender);
-                formData.append("leaveDate", employeeData.leaveDate);
                 formData.append("fileImgs", file);
                 formData.append("employeeEmail", employeeData.employeeEmail);
                 
@@ -165,7 +165,9 @@ import { useNavigate } from 'react-router-dom';
             }
         };
         
-
+        const toggleDatePicker = () => {
+            setShowDatePicker(!showDatePicker); // showDatePicker 상태를 토글합니다.
+        };
     
 
     return (
@@ -211,20 +213,23 @@ import { useNavigate } from 'react-router-dom';
                             </select>
                         </div>
 
-                            <input
-                                className="employee-form__input"
-                                type="text"
-                                placeholder="입사일"
-                                value={employeeData.hireDate}
-                                onChange={(e) => setEmployeeData({ ...employeeData, hireDate: e.target.value })}
+                        <div className="employee-form__input">
+                      <button className="datapicker" onClick={toggleDatePicker}>
+    입사일{employeeData.hireDate && `: ${employeeData.hireDate.toDateString()}`}
+</button>
+
+
+                            {showDatePicker && (
+                            <DatePicker
+                                selected={employeeData.hireDate}
+                                onChange={(date) => setEmployeeData({ ...employeeData, hireDate: date })}
+                                onClickOutside={toggleDatePicker}
+                                inline
                             />
-                            <input
-                                className="employee-form__input"
-                                type="text"
-                                placeholder="퇴사일"
-                                value={employeeData.leaveDate}
-                                onChange={(e) => setEmployeeData({ ...employeeData, leaveDate: e.target.value })}
-                            />
+                            )}
+                        </div>
+
+
 
                         <div className="employee-form2">
                             <h4 className="cardtitle2">인사정보</h4>
@@ -338,5 +343,5 @@ import { useNavigate } from 'react-router-dom';
             </>
     );
 };
-
+    
 export default EmployeecardMain;
