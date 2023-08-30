@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../apis/service";
 import "../css/login.css";
@@ -21,25 +21,25 @@ export const Login = () => {
 
         if (empNo === "") {
             setShowEmpNoError(true);
-        } else {
-            setShowEmpNoError(false);
         }
 
         if (password === "") {
             setShowPasswordError(true);
-        } else {
-            setShowPasswordError(false);
         }
 
         if (empNo === "" || password === "") {
             return;
         }
 
+        if (showEmpNoError || showPasswordError) {
+            return;
+        }
+
         login(data).then(() => {
+            console.log("test");
             navigate("/", { replace: true });
         });
     };
-
 
     return (
         <div className="login-body">
