@@ -8,7 +8,6 @@ export const Login = () => {
     const [password, setPassword] = useState("");
     const [showEmpNoError, setShowEmpNoError] = useState(false);
     const [showPasswordError, setShowPasswordError] = useState(false);
-    const navigate = useNavigate();
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -36,8 +35,7 @@ export const Login = () => {
         }
 
         login(data).then(() => {
-            console.log("test");
-            navigate("/", { replace: true });
+            location.replace('/')
         });
     };
 

@@ -3,7 +3,7 @@ import { MainTitle, ModalBackdrop } from "../../../common/commons";
 import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
 import "../../../css/payment.css";
-import PaymentModal from "./PaymentModal";
+import PaymentModal from "../modal/PaymentModal";
 
 const SeveranceLedgerMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,11 +44,10 @@ const SeveranceLedgerMain = () => {
                 <table className={table.table}>
                     <thead>
                         <tr>
-                            <th>지급대장</th>
+                            <th>대장번호</th>
                             <th>구분</th>
-                            <th>지급구분</th>
                             <th>대장명칭</th>
-                            <th>지급연월</th>
+                            <th>지급일</th>
                             <th>급여계산</th>
                             <th>인원수</th>
                             <th>퇴직금대장</th>
@@ -59,9 +58,8 @@ const SeveranceLedgerMain = () => {
                         <tr>
                             <td>2021/08 - 1</td>
                             <td>중간정산</td>
-                            <td>1차</td>
                             <td>2021/08 1차 (퇴직금)</td>
-                            <td>2021/09</td>
+                            <td>2021/09/15</td>
                             <td>
                                 전체계산
                                 <br />

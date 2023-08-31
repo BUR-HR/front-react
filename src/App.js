@@ -26,12 +26,13 @@ import {
     PayrollLedgerMain,
     SeveranceLedgerMain,
 } from "./pages/payment/payment";
+import Logout from "./pages/logout";
 
 
 function PrivateRoute() {
-    const {token} = useAuth();
-    
-    return token ? <Layout/> : <Navigate to={"/login"}/>
+    const { user } = useAuth();
+    console.log('private');
+    return user.token ? <Layout/> : <Navigate to={"/login"}/>
 }
 
 function App() {
@@ -79,6 +80,7 @@ function App() {
                                 <Route index element={<EmployeecardMain/>}/>
                             </Route>
                         </Route>
+                        <Route exact path="/logout" element={<Logout/>} />
                         <Route exact path="/login" element={<Login />} />
                         <Route exact path="*" element={<PageNotFound />} />
                     </Routes>

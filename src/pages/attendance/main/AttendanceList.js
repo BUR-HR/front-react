@@ -52,7 +52,7 @@ const AttendanceList = () => {
             </div>
             <div className={`attendance-info ${section.config}`}>
                 <div className="work-history">
-                    근무 내역 <br />
+                    근태현황 <br />
                     <span
                         style={{
                             fontSize: "12px",

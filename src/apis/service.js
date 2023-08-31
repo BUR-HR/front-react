@@ -29,6 +29,9 @@ export const call = (api, method, request) => {
                 return Promise.reject(response);
             }
 
+            if (response.status === 204) {
+                return Promise.resolve(response);
+            }
             return response.json();
         })
         .catch((err) => {

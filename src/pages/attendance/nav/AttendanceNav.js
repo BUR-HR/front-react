@@ -8,7 +8,7 @@ const AttendanceNav = () => {
         index: 0,
     });
 
-    const { auth } = useAuth();
+    const { user } = useAuth();
 
     const onClickHandler = (index) => {
         if (isSelectIndex.isActive)
@@ -41,7 +41,7 @@ const AttendanceNav = () => {
             <div className="dropmenu">
                 <ul>
                     <NavLink to="/attendance/">근태관리</NavLink>
-                    {auth?.join().includes("HR_EMPLOYEE") ? (
+                    {user?.auth?.join().includes("HR_EMPLOYEE") ? (
                         <NavLink to="/attendance/list">근태현황</NavLink>
                     ) : undefined}
                 </ul>
