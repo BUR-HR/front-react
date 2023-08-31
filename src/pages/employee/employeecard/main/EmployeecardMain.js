@@ -6,9 +6,9 @@ import EmployeecardNav from "../nav/EmployeecardNav";
 import { login, call } from "../../../../apis/service";
 import { useNavigate } from 'react-router-dom'; 
 import DatePicker from "react-datepicker";
+import ko from 'date-fns/locale/ko';
 
-
-// 인사카드 등록 페이지
+    // 인사카드 등록 
 
     const EmployeecardMain = () => {
         const navigate = useNavigate(); 
@@ -26,9 +26,9 @@ import DatePicker from "react-datepicker";
             employeeAddress: "",
             payrollAccount: "",
             isEmployed: "",
-            employeeStatus: "",
             employeeGender: "",
             employeeEmail: "",
+            payrollAcoount: "",
         });
 
         
@@ -96,10 +96,11 @@ import DatePicker from "react-datepicker";
                 formData.append("hireDate", employeeData.hireDate);
                 formData.append("employeePhone", employeeData.employeePhone);
                 formData.append("isEmployed", employeeData.isEmployed);
-                formData.append("employeeStatus", employeeData.employeeStatus);
                 formData.append("employeeGender", employeeData.employeeGender);
                 formData.append("fileImgs", file);
                 formData.append("employeeEmail", employeeData.employeeEmail);
+                formData.append("employeeAddress", employeeData.employeeAddress); 
+                formData.append("payrollAcoount", employeeData.payrollAcoount);
                 
                 try {
                     const response = await fetch('http://localhost:8080/api/file/register', {
@@ -165,8 +166,9 @@ import DatePicker from "react-datepicker";
             }
         };
         
+        // 입사일 
         const toggleDatePicker = () => {
-            setShowDatePicker(!showDatePicker); // showDatePicker 상태를 토글합니다.
+            setShowDatePicker(!showDatePicker);
         };
     
 
@@ -179,60 +181,95 @@ import DatePicker from "react-datepicker";
 
                 <div className="profile-body">
 
-                    {/* 인사정보 입력 폼 */}
+                    {/* 기본정보 */}
                     <div className="registercard">
                         <div className="employee-form1">
                             <h4 className="cardtitle">기본정보</h4>
+                            {/* 이름 */}
                             <input
                                 className="employee-form__input"
                                 type="text"
-                                placeholder="직원 이름"
+                                placeholder="이름"
                                 value={employeeData.empName}
                                 onChange={(e) => {
                                     console.log("empName changed:", e.target.value);
                                     setEmployeeData({ ...employeeData, empName: e.target.value });
                                 }}
                             />
-                            <input
+
+                                {/* 성별 */}
+                                <div className="status-dropdown3">
+                                <select
+                                    value={employeeData.employeeGender}
+                                    onChange={(e) => setEmployeeData({ ...employeeData, employeeGender: e.target.value })}
+                                >
+                                    <option value="" disabled hidden>성별</option>
+                                    <option value="M">남자</option>
+                                    <option value="F">여자</option>
+                                </select>
+                                </div>
+                                {/* 주민등록번호 */}
+                                <input
                                 className="employee-form__input"
                                 type="text"
-                                placeholder="사원번호"
-                                value={employeeData.empNo}
-                                onChange={(e) => setEmployeeData({ ...employeeData, empNo: e.target.value })}
-                            />
+                                placeholder="주민등록번호"
+                                value={employeeData.employeeRsdn}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeeRsdn: e.target.value })}
+                                />
+                                {/* 이메일 */}
+                                <input
+                                className="employee-form__input"
+                                type="text"
+                                placeholder="이메일"
+                                value={employeeData.employeeEmail}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeeEmail: e.target.value })}
+                                />
+                                {/* 휴대폰 */}
+                                <input
+                                className="employee-form__input"
+                                type="text"
+                                placeholder="휴대폰"
+                                value={employeeData.employeePhone}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeePhone: e.target.value })}
+                                />
+                                {/* 주소 */}
+                                <input
+                                className="employee-form__input"
+                                type="text"
+                                placeholder="주소"
+                                value={employeeData.employeeAddress}
+                                onChange={(e) => setEmployeeData({ ...employeeData, employeeAddress: e.target.value })}
+                                />
+                                 {/* 계좌 */}
+                                <input
+                                className="employee-form__input"
+                                type="text"
+                                placeholder="급여계좌"
+                                value={employeeData.payrollAccount}
+                                onChange={(e) => setEmployeeData({ ...employeeData, payrollAccount: e.target.value })}
+                                />
 
-                            <div className="status-dropdown">
-                            <select
-                                value={employeeData.employeeStatus}
-                                onChange={(e) => setEmployeeData({ ...employeeData, employeeStatus: e.target.value })}
-                            >
-                                <option value="" disabled hidden>상태</option>
-                                <option value="재직">재직</option>
-                                <option value="휴직">휴직</option>
-                                <option value="퇴사">퇴사</option>
-                            </select>
-                        </div>
-
-                        <div className="employee-form__input">
-                      <button className="datapicker" onClick={toggleDatePicker}>
-    입사일{employeeData.hireDate && `: ${employeeData.hireDate.toDateString()}`}
-</button>
-
-
-                            {showDatePicker && (
-                            <DatePicker
-                                selected={employeeData.hireDate}
-                                onChange={(date) => setEmployeeData({ ...employeeData, hireDate: date })}
-                                onClickOutside={toggleDatePicker}
-                                inline
-                            />
-                            )}
-                        </div>
-
-
-
+                        {/* 인사정보  */}
                         <div className="employee-form2">
                             <h4 className="cardtitle2">인사정보</h4>
+                                {/* 입사일 */}
+                                <div className="employee-form__input">
+                                <button className="datapicker" onClick={toggleDatePicker}>
+                                    입사일{employeeData.hireDate && `: ${employeeData.hireDate.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}`}
+                                </button>   
+
+                                {showDatePicker && (
+                                <DatePicker
+                                    locale={ko}
+                                    document="yyyy년 MM월 dd일"
+                                    selected={employeeData.hireDate}
+                                    onChange={(date) => setEmployeeData({ ...employeeData, hireDate: date })}
+                                    onClickOutside={toggleDatePicker}
+                                    inline
+                                />
+                                )}
+                            </div>
+                                {/* 부서 */}
                                 <div className="status-dropdown2">
                                     <select
                                         value={employeeData.deptCode}
@@ -247,7 +284,7 @@ import DatePicker from "react-datepicker";
                                         <option value="6">총무팀</option>
                                     </select>
                                 </div>
-
+                                {/* 직위 */}
                                 <div className="status-dropdown2">
                                     <select
                                         value={employeeData.jobCode}
@@ -261,45 +298,6 @@ import DatePicker from "react-datepicker";
                                 </div>
                         </div>
 
-                        <div className="employee-form3">
-                            <h4 className="cardtitle3">개인정보</h4>
-                                <div className="status-dropdown3">
-                                    <select
-                                        value={employeeData.employeeGender}
-                                        onChange={(e) => setEmployeeData({ ...employeeData, employeeGender: e.target.value })}
-                                    >
-                                        <option value="" disabled hidden>성별</option>
-                                        <option value="M">남자</option>
-                                        <option value="F">여자</option>
-                                    </select>
-                                </div>
-
-                                <input
-                                className="employee-form__input"
-                                type="text"
-                                placeholder="주민등록번호"
-                                value={employeeData.employeeRsdn}
-                                onChange={(e) => setEmployeeData({ ...employeeData, employeeRsdn: e.target.value })}
-                                />
-
-                                <input
-                                className="employee-form__input"
-                                type="text"
-                                placeholder="이메일"
-                                value={employeeData.employeeEmail}
-                                onChange={(e) => setEmployeeData({ ...employeeData, employeeEmail: e.target.value })}
-                                />
-
-                                <input
-                                className="employee-form__input"
-                                type="text"
-                                placeholder="휴대폰"
-                                value={employeeData.employeePhone}
-                                onChange={(e) => setEmployeeData({ ...employeeData, employeePhone: e.target.value })}
-                                />
-
-                        </div>
-                                
 
                                 
                         </div>
