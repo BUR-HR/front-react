@@ -18,15 +18,15 @@
 .title {
     text-align: top;
     position: absolute;
-    top: 15%;
-    left: 25%;
+    margin-top: 30px;
+    margin-left: 4%;
 
 }
 
 .line {
     width: 650%;
     border-top: 2px solid black;
-    margin-top: 10px; /* 원하는 간격 설정 */
+    margin-top: 20px; 
 
 }
 
@@ -87,12 +87,12 @@
         background-color: #304352;
         color: white;
         cursor: pointer;
-        width: 80px;
+        width: 85px;
         
     }
 
     .register-button {
-        margin-left: -500px;
+        margin-left: -472px;
         margin-top: 40px;
     }
 
@@ -107,7 +107,7 @@
     }
 
     .delete-button {
-        margin-right: 315px;
+        margin-right: 288px;
         margin-top: 40px;
     }
 
@@ -123,7 +123,7 @@
     cursor: pointer;
     width: 80px;
     margin-top: 130px;
-    margin-left: 570px;
+    margin-left: 555px;
 }
 
 .finalbutton2 {
@@ -165,7 +165,7 @@
     cursor: pointer;
     width: 163px;
     margin-top: -60px;
-    margin-left: -814px;
+    margin-left: -760px;
 }
 
 /* 인사정보 폼 */
