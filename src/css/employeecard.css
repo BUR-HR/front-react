@@ -39,8 +39,8 @@
 }
 
 .profile-image {
-    width: 140px;
-    height: 130px;
+    width: 150px;
+    height: 150px;
     border: 0.5px solid #ccc;
     padding: 20px;
     text-align: center;
@@ -49,9 +49,8 @@
     background-color: #f2f2f2;
     position: relative; /* 부모 요소에 상대적으로 위치 */
     margin-left: -200px;
-    margin-top: -420px;
+    margin-top: -490px;
 }
-
 
 .profile-image img {
     /* width: 180px; */
@@ -182,7 +181,7 @@
 }
 
 .employee-form1{
-    height: 400px;
+    height: 470px;
     width: 320px;
     display: flex;
     flex-wrap: wrap;
@@ -203,7 +202,6 @@
     width: 250px;
     border-radius: 5px;
     text-indent: 10px;
-    margin-left: 30px;
     margin-bottom: 5px;
     position: relative; 
     
@@ -217,12 +215,12 @@
     text-indent: 10px;
     color: #878787; /* 텍스트 색상을 검정색으로 설정 */
     background-color: #fff; /* 박스 배경색을 하얗게 설정 */
-    margin-left: 30px;
+
     
 }
 .cardtitle {
     font-size: 15px;
-    margin-left: -170px;
+    margin-left: -220px;
     padding: 3px;
 
 }
@@ -243,7 +241,7 @@
 
 /* 인사정보 */
 .employee-form2{
-    height: 180px;
+    height: 200px;
     width: 320px;
     display: flex;
     flex-wrap: wrap;
@@ -255,8 +253,8 @@
     background-color: white;
     border: solid 1.5px black;
     border-radius: 10px;  
-    margin-top: 600px;
-    margin-left: -285px;
+    margin-top: 700px;
+    margin-left: -320px;
     margin-bottom: -50px;
 }
 
@@ -319,11 +317,21 @@
     height: 30px;
     width: 258px;
     border-radius: 5px;
-    text-indent: -105px;
     margin-left: -30px;
     margin-bottom: 5px;
     position: relative; 
     color: #878787;
     background-color: #ffffff;
 
+}
+
+.hiredate {
+    margin-top: 10px;
+    height: 30px;
+    width: 250px;
+    border-radius: 5px;
+    text-indent: 10px;
+    margin-bottom: 5px;
+    position: relative; 
+    margin-left: 30px;
 }

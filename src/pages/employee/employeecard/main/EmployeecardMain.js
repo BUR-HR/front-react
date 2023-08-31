@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import '../../../../css/employeecard.css';
 import Swal from 'sweetalert2';
 import NavBar from "../../../../common/component/NavBar"; 
@@ -7,6 +7,10 @@ import { login, call } from "../../../../apis/service";
 import { useNavigate } from 'react-router-dom'; 
 import DatePicker from "react-datepicker";
 import ko from 'date-fns/locale/ko';
+import DaumPostcode from 'react-daum-postcode';
+import '../../../../css/post.css';
+import AddressSearch  from "../../../../apis/address"; 
+
 
     // 인사카드 등록 
 
@@ -29,7 +33,11 @@ import ko from 'date-fns/locale/ko';
             employeeGender: "",
             employeeEmail: "",
             payrollAcoount: "",
+            emplyeeStatus:null,
+            bank:"",
         });
+
+        const [popup, setPopup] = useState(false);
 
         
         // 글 등록 및 취소 버튼( SweetAlert2 모듈 사용)
@@ -101,6 +109,7 @@ import ko from 'date-fns/locale/ko';
                 formData.append("employeeEmail", employeeData.employeeEmail);
                 formData.append("employeeAddress", employeeData.employeeAddress); 
                 formData.append("payrollAcoount", employeeData.payrollAcoount);
+                formData.append("bank", employeeData.bank);
                 
                 try {
                     const response = await fetch('http://localhost:8080/api/file/register', {
@@ -170,6 +179,37 @@ import ko from 'date-fns/locale/ko';
         const toggleDatePicker = () => {
             setShowDatePicker(!showDatePicker);
         };
+
+        const handleAddressComplete = (address) => {
+            setEmployeeData({
+                ...employeeData,
+                employeeAddress: address,
+            });
+        };
+    
+    
+        const complete = (data) => {
+            let fullAddress = data.address;
+            let extraAddress = '';
+    
+            if (data.addressType === 'R') {
+                if (data.bname !== '') {
+                    extraAddress += data.bname;
+                }
+                if (data.buildingName !== '') {
+                    extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+                }
+                fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+            }
+    
+            setEmployeeData({
+                ...employeeData,
+                employeeAddress: fullAddress,
+            });
+    
+            setPopup(!popup);
+        };
+    
     
 
     return (
@@ -212,10 +252,24 @@ import ko from 'date-fns/locale/ko';
                                 <input
                                 className="employee-form__input"
                                 type="text"
-                                placeholder="주민등록번호"
+                                placeholder="주민등록번호 (000000-0000000)"
                                 value={employeeData.employeeRsdn}
-                                onChange={(e) => setEmployeeData({ ...employeeData, employeeRsdn: e.target.value })}
-                                />
+                                maxLength="14" // 최대 길이 제한
+                                onChange={(e) => {
+                                    const input = e.target.value;
+                                    const formattedInput = input.replace(/[^0-9-]/g, ''); // 숫자와 - 이외의 문자 제거
+
+                                    if (formattedInput.length > 6 && formattedInput.charAt(6) !== '-') {
+                                        // 입력된 문자열이 7자리 이상이고, 7번째 문자가 - 가 아니라면 - 추가
+                                        const truncatedInput = formattedInput.slice(0, 6) + '-' + formattedInput.slice(6);
+                                        setEmployeeData({ ...employeeData, employeeRsdn: truncatedInput });
+                                    } else {
+                                        setEmployeeData({ ...employeeData, employeeRsdn: formattedInput });
+                                    }
+                                }}
+                            />
+
+
                                 {/* 이메일 */}
                                 <input
                                 className="employee-form__input"
@@ -223,23 +277,58 @@ import ko from 'date-fns/locale/ko';
                                 placeholder="이메일"
                                 value={employeeData.employeeEmail}
                                 onChange={(e) => setEmployeeData({ ...employeeData, employeeEmail: e.target.value })}
-                                />
+                                onBlur={(e) => {
+                                    const input = e.target.value;
+                                    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/;
+
+                                    if (input && !emailPattern.test(input)) {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: '유효하지 않은 이메일 형식',
+                                            text: '유효하지 않은 이메일 형식입니다.',
+                                        });
+                                    }
+                                }}
+                            />
+
                                 {/* 휴대폰 */}
                                 <input
                                 className="employee-form__input"
                                 type="text"
-                                placeholder="휴대폰"
+                                placeholder="휴대폰 번호 (000-0000-0000)"
                                 value={employeeData.employeePhone}
-                                onChange={(e) => setEmployeeData({ ...employeeData, employeePhone: e.target.value })}
-                                />
+                                maxLength="13" // 최대 길이 제한
+                                onChange={(e) => {
+                                    const input = e.target.value;
+                                    const formattedInput = input.replace(/[^0-9-]/g, ''); // 숫자와 - 이외의 문자 제거
+
+                                    if (formattedInput.length > 3 && formattedInput.charAt(3) !== '-') {
+                                        // 입력된 문자열이 4자리 이상이고, 4번째 문자가 - 가 아니라면 - 추가
+                                        const truncatedInput = formattedInput.slice(0, 3) + '-' + formattedInput.slice(3);
+                                        setEmployeeData({ ...employeeData, employeePhone: truncatedInput });
+                                    } else if (formattedInput.length > 8 && formattedInput.charAt(8) !== '-') {
+                                        // 입력된 문자열이 9자리 이상이고, 9번째 문자가 - 가 아니라면 - 추가
+                                        const truncatedInput = formattedInput.slice(0, 8) + '-' + formattedInput.slice(8);
+                                        setEmployeeData({ ...employeeData, employeePhone: truncatedInput });
+                                    } else {
+                                        setEmployeeData({ ...employeeData, employeePhone: formattedInput });
+                                    }
+                                }}
+                            />
+
+
                                 {/* 주소 */}
+                                <AddressSearch employeeData={employeeData} onComplete={handleAddressComplete} />
+
+                                {/* 은행  */}
                                 <input
                                 className="employee-form__input"
                                 type="text"
-                                placeholder="주소"
-                                value={employeeData.employeeAddress}
-                                onChange={(e) => setEmployeeData({ ...employeeData, employeeAddress: e.target.value })}
+                                placeholder="은행"
+                                value={employeeData.bank}
+                                onChange={(e) => setEmployeeData({ ...employeeData, bank: e.target.value })}
                                 />
+
                                  {/* 계좌 */}
                                 <input
                                 className="employee-form__input"
@@ -253,7 +342,7 @@ import ko from 'date-fns/locale/ko';
                         <div className="employee-form2">
                             <h4 className="cardtitle2">인사정보</h4>
                                 {/* 입사일 */}
-                                <div className="employee-form__input">
+                                <div className="hiredate">
                                 <button className="datapicker" onClick={toggleDatePicker}>
                                     입사일{employeeData.hireDate && `: ${employeeData.hireDate.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' })}`}
                                 </button>   
@@ -304,8 +393,19 @@ import ko from 'date-fns/locale/ko';
 
                          {/* 프로필 이미지 */}
                         <div className="profile-image">
-                            <img id="profile-img" src={selectedImage} alt="Profile Image" />
+                        {selectedImage ? (
+                            <img
+                                id="profile-img"
+                                src={selectedImage}
+                                alt="Profile Image"
+                                style={{
+                                    maxWidth: "100%", // 이미지 너비가 상자에 맞게 조절됩니다.
+                                    maxHeight: "100%", // 이미지 높이가 상자에 맞게 조절됩니다.
+                                }}
+                            />
+                        ) : (
                             <div className="placeholder-text">이미지를 등록해주세요</div>
+                        )}
                         </div>
 
                         <div className="profile-buttons">
@@ -343,3 +443,4 @@ import ko from 'date-fns/locale/ko';
 };
     
 export default EmployeecardMain;
+
