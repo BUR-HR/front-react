@@ -6,7 +6,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
     background: #FFF;
     box-sizing: border-box;
     z-index: 1001;
