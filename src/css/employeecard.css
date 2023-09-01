@@ -110,6 +110,7 @@
     .delete-button {
         margin-right: 315px;
         margin-top: 40px;
+        
     }
 
 .finalbutton {
@@ -164,9 +165,8 @@
     background-color: #304352;
     color: white;
     cursor: pointer;
-    width: 163px;
-    margin-top: -60px;
-    margin-left: -810px;
+    width: 170px;
+    margin-left: -135%;
 }
 
 /* 인사정보 폼 */
