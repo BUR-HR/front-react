@@ -1,9 +1,9 @@
 import { call } from "../../../apis/service"
 
-export const startWork = (AttendanceDTO) => {
-    return call("/api/v1/attendance/start", "Post", AttendanceDTO)
+export const startWork = () => {
+    return call("/api/v1/attendance/start", "Post")
 }
 
-export const endWork = (AttendanceDTO) => {
-    return call("/api/v1/attendance/end", "Put", AttendanceDTO)
+export const endWork = () => {
+    return call("/api/v1/attendance/end", "Put")
 }

@@ -3,12 +3,12 @@ import { MainTitle, ModalBackdrop } from "../../../common/commons";
 import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
 import "../../../css/payment.css";
-import PaymentModal from "./PaymentModal";
+import PaymentModal from "../modal/PaymentModal";
 
 const PayrollLedgerMain = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [severance, setSeverance] = useState({
-        items: []
+    const [payroll, setPayroll] = useState({
+        items: [],
     });
 
     const clickHandler = () => {
@@ -44,9 +44,8 @@ const PayrollLedgerMain = () => {
                 <table className={table.table}>
                     <thead>
                         <tr>
-                            <th>지급대장</th>
-                            <th>급여구분</th>
-                            <th>지급구분</th>
+                            <th>대장번호</th>
+                            <th>구분</th>
                             <th>대장명칭</th>
                             <th>지급연월</th>
                             <th>사전작업</th>
@@ -57,30 +56,31 @@ const PayrollLedgerMain = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <td>2021/08 - 1</td>
-                        <td>급여</td>
-                        <td>1차</td>
-                        <td>2021/08 1차 (급여)</td>
-                        <td>2021/09</td>
-                        <td>근무기록확정</td>
-                        <td>
-                            전체계산
-                            <br />
-                            개인별계산
-                        </td>
-                        <td>15</td>
-                        <td>
-                            조회
-                            <br />
-                            마감
-                            <br />
-                            삭제
-                        </td>
-                        <td>
-                            조회
-                            <br />
-                            Emali
-                        </td>
+                        <tr>
+                            <td>2021/08 - 1</td>
+                            <td>급여</td>
+                            <td>2021/08 1차 (급여)</td>
+                            <td>2021/09</td>
+                            <td>근무기록확정</td>
+                            <td>
+                                전체계산
+                                <br />
+                                개인별계산
+                            </td>
+                            <td>15</td>
+                            <td>
+                                조회
+                                <br />
+                                마감
+                                <br />
+                                삭제
+                            </td>
+                            <td>
+                                조회
+                                <br />
+                                Emali
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
                 <ModalBackdrop isModalOpen={isModalOpen} />

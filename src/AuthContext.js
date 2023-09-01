@@ -1,66 +1,51 @@
-import {
-    createContext,
-    useContext,
-    useEffect,
-    useReducer,
-} from "react";
 import base64 from "base-64";
-import {
-    SET_ATTENDANCE_TYPE,
-    SET_START_TIME,
-    initialState,
-    reducer,
-} from "./pages/attendance/reducers/AttendanceReducer";
+import { createContext, useContext, useEffect, useState } from "react";
 import { call } from "./apis/service";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const token = localStorage.getItem("ACCESS_TOKEN");
-    const [attendanceState, attendanceDispatch] = useReducer(
-        reducer,
-        initialState
-    );
-    let auth = null;
+    const [user, setUser] = useState({
+        token: localStorage.getItem("ACCESS_TOKEN"),
+        auth: "",
+        attendanceState: "",
+        startDateTime: "",
+    });
 
+    if (user.token) {
+        let payload = user.token.substring(
+            user.token.indexOf(".") + 1,
+            user.token.lastIndexOf(".")
+        );
+
+        user.auth = JSON.parse(base64.decode(payload)).auth;
+    }
+
+    console.log("context");
     useEffect(() => {
-        if (token) {
-            let payload = token.substring(
-                token.indexOf(".") + 1,
-                token.lastIndexOf(".")
-            );
-            auth = JSON.parse(base64.decode(payload)).auth;
+        if (!user.token) {
+            return;
+        };
 
-            call("/api/v1/attendance/status", "POST", null).then((data) => {
-                if (data.status === 404) {
-                    attendanceDispatch({
-                        type: SET_ATTENDANCE_TYPE,
-                        payload: "출근",
-                    });
+        call("/api/v1/attendance/status", "POST", null)
+            .then((data) => {
+                if (data.status === 204) {
+                    setUser({
+                        ...user,
+                        attendanceState: '출근'
+                    })
                 } else {
-                    attendanceDispatch({
-                        type: SET_ATTENDANCE_TYPE,
-                        payload: data.attendanceType,
-                    });
-                    attendanceDispatch({
-                        type: SET_START_TIME,
-                        payload: data.startDateTime
+                    setUser({
+                        ...user,
+                        attendanceState: data.attendanceType,
+                        startDateTime: data.startDateTime
                     })
                 }
-            });
-        }
+            })
+            .catch(() => {});
     }, []);
 
     return (
-        <AuthContext.Provider
-            value={{
-                token,
-                auth,
-                attendanceState,
-                attendanceDispatch,
-            }}
-        >
-            {children}
-        </AuthContext.Provider>
+        <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
     );
 };
 

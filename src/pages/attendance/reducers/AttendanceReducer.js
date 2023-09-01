@@ -1,8 +1,8 @@
 import {
     SET_ATTENDANCE_HISTORY,
+    SET_ATTENDANCE_TYPE,
     SET_ELAPSED_TIME,
-    SET_START_TIME,
-    SET_ATTENDANCE_TYPE
+    SET_START_TIME
 } from "./actionTypes";
 
 export const initialState = {
@@ -28,6 +28,6 @@ export function reducer(state, action) {
 }
 
 export {
-    SET_ATTENDANCE_HISTORY, SET_ELAPSED_TIME, SET_START_TIME, SET_ATTENDANCE_TYPE
+    SET_ATTENDANCE_HISTORY, SET_ATTENDANCE_TYPE, SET_ELAPSED_TIME, SET_START_TIME
 };
 

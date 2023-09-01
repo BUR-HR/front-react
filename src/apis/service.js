@@ -1,9 +1,8 @@
-import { Navigate } from "react-router-dom";
 import { API_BASE_URL } from "./config";
 
 const ACCESS_TOKEN = "ACCESS_TOKEN";
 
-export const call = async (api, method, request) => {
+export const call = (api, method, request) => {
     let headers = new Headers({
         "Content-Type": "application/json",
     });
@@ -24,28 +23,29 @@ export const call = async (api, method, request) => {
         options.body = JSON.stringify(request);
     }
 
-    try {
-        return await fetch(options.url, options).then((response) => {
+    return fetch(options.url, options)
+        .then((response) => {
             if (!response.ok) {
                 return Promise.reject(response);
             }
 
+            if (response.status === 204) {
+                return Promise.resolve(response);
+            }
             return response.json();
+        })
+        .catch((err) => {
+            if (err.message?.includes('Failed to fetch')) {
+                return Promise.reject();
+            }
+            
+            err.text().then((text) => {
+                if (text.includes("Token")) {
+                    localStorage.removeItem("ACCESS_TOKEN");
+                    location.replace("/login");
+                }
+            });
         });
-    } catch (error) {
-        if (error.status === 401) {
-            localStorage.removeItem(ACCESS_TOKEN);
-            <Navigate to="login" />;
-        }
-
-        if (error.status === 403) {
-            <Navigate to="login" replace="true" />;
-        }
-
-        if (error.status === 404) {
-            return error.json();
-        }
-    }
 };
 
 export const login = async (employee) => {
@@ -53,7 +53,7 @@ export const login = async (employee) => {
         if (res?.data.accessToken) {
             // 로컬 스토리지에 토큰 저장
             localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
-            location.href = "/";
+            return res;
         }
     });
 };

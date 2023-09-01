@@ -1,4 +1,4 @@
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./section.css";
 
 export const Header = () => {
@@ -62,7 +62,7 @@ export const Header = () => {
                     />
                     스케쥴
                 </NavLink>
-                <NavLink to="/login" className={"logout"}>
+                <NavLink to="/logout" className={"logout"}>
                     <span>로그아웃</span>
                 </NavLink>
             </div>

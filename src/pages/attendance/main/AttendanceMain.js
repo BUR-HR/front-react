@@ -1,39 +1,49 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import Swal from "sweetalert2";
+import { useAuth } from "../../../AuthContext";
 import { call } from "../../../apis/service";
 import { Chart, MainTitle } from "../../../common/commons";
 import {
     formatElapsedTime,
-    formattedDate,
+    formattedDateTime,
 } from "../../../common/function/DateFormat";
 import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
+import { endWork, startWork } from "../api/AttendanceAPI";
 import {
     SET_ATTENDANCE_HISTORY,
+    SET_ATTENDANCE_TYPE,
     SET_ELAPSED_TIME,
     SET_START_TIME,
-    SET_ATTENDANCE_TYPE,
+    initialState,
+    reducer,
 } from "../reducers/AttendanceReducer";
-import { useAuth } from "../../../AuthContext";
-import { endWork, startWork } from "../api/AttendanceAPI";
 
 const AttendanceMain = () => {
-    const { attendanceState, attendanceDispatch } = useAuth();
-    const { startTime, elapsedTime, attendanceHistory, attendanceType } = attendanceState;
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const [loading, setLoading] = useState(true);
+    const { startTime, elapsedTime, attendanceHistory, attendanceType } = state;
+    const { user } = useAuth();
     let interval = null;
 
     const handleAction = (type) => {
         if (type === "출근") {
-            startWork({ attendanceType: type }).then((data) => {
-                attendanceDispatch({ type: SET_START_TIME, payload: data.startDateTime });
-                attendanceDispatch({ type: SET_ATTENDANCE_TYPE, payload: data.attendanceType})
+            startWork().then((data) => {
+                dispatch({ type: SET_START_TIME, payload: data.startDateTime });
+                dispatch({
+                    type: SET_ATTENDANCE_TYPE,
+                    payload: data.attendanceType,
+                });
             });
         }
-        
+
         if (type === "퇴근") {
-            endWork({attendanceType: type}).then((data) => {
-                attendanceDispatch({ type: SET_ELAPSED_TIME, payload: 0 });
-                attendanceDispatch({ type: SET_ATTENDANCE_TYPE, payload: data.attendanceType})
+            endWork().then((data) => {
+                dispatch({ type: SET_ELAPSED_TIME, payload: 0 });
+                dispatch({
+                    type: SET_ATTENDANCE_TYPE,
+                    payload: data.attendanceType,
+                });
             });
         }
 
@@ -44,25 +54,34 @@ const AttendanceMain = () => {
     };
 
     useEffect(() => {
-        call("/api/v1/attendance").then((data) => {
-            console.log(data);
-            console.log(attendanceHistory);
-            console.log(attendanceType);
+        console.log(user);
+        if (loading) {
+            if (user.attendanceState) {
+                dispatch({
+                    type: SET_ATTENDANCE_TYPE,
+                    payload: user.attendanceState,
+                });
+                dispatch({ type: SET_START_TIME, payload: user.startDateTime });
+                setLoading(false);
+            }
 
-            attendanceDispatch({ type: SET_ATTENDANCE_HISTORY, payload: data });
-        });
-
-        if (attendanceType === '퇴근') {
-            interval = setInterval(() => {
-                console.log(startTime);
-                const elapsedTime = new Date() - new Date(startTime)
-
-                attendanceDispatch({type: SET_ELAPSED_TIME, payload: elapsedTime})
-            }, 1000)
+            return;
         }
 
-        return (() => clearInterval(interval))
-    }, [attendanceType]);
+        call("/api/v1/attendance").then((data) => {
+            dispatch({ type: SET_ATTENDANCE_HISTORY, payload: data });
+        });
+
+        if (attendanceType === "퇴근") {
+            interval = setInterval(() => {
+                const elapsedTime = new Date() - new Date(startTime);
+
+                dispatch({ type: SET_ELAPSED_TIME, payload: elapsedTime });
+            }, 1000);
+        }
+
+        return () => clearInterval(interval);
+    }, [attendanceType, user.attendanceState]);
 
     return (
         <>
@@ -76,9 +95,7 @@ const AttendanceMain = () => {
                         <button
                             className="attendance-btn"
                             onClick={() => handleAction(attendanceType)}
-                            disabled={(attendanceType === "완료"
-                                ? true
-                                : false)}
+                            disabled={attendanceType === "완료" ? true : false}
                         >
                             {attendanceType}
                         </button>
@@ -87,7 +104,7 @@ const AttendanceMain = () => {
                 </div>
                 <div className={`total-attendance-time ${section.config}`}>
                     <h3>이번 주 근무</h3>
-                    <Chart />
+                    <Chart history={[...attendanceHistory]} />
                 </div>
             </div>
             <div className={`attendance-info ${section.config}`}>
@@ -105,9 +122,12 @@ const AttendanceMain = () => {
                 </div>
 
                 <table className={table.table}>
+                    <colgroup>
+                        <col width={100} />
+                    </colgroup>
                     <thead>
                         <tr>
-                            <th>일자</th>
+                            <th>내역 번호</th>
                             <th>출근시간</th>
                             <th>퇴근시간</th>
                             <th>총 근무시간</th>
@@ -120,11 +140,17 @@ const AttendanceMain = () => {
                                 return (
                                     <tr key={item.no}>
                                         <td>{index + 1}</td>
-                                        <td>{formattedDate(item.startDateTime)}</td>
                                         <td>
-                                            {formattedDate(item.endDateTime)}
+                                            {formattedDateTime(
+                                                item.startDateTime
+                                            )}
                                         </td>
-                                        <td>{item.elapsedTime}</td>
+                                        <td>
+                                            {formattedDateTime(
+                                                item.endDateTime
+                                            )}
+                                        </td>
+                                        <td>{item.workTime}</td>
                                         <td>{item.overTime}</td>
                                     </tr>
                                 );

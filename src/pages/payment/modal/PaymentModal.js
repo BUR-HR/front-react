@@ -83,15 +83,6 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
         }
 
         dragRef.current.classList.add(popup.active);
-        const map = {
-            NAME: "name",
-            TITLE: "title",
-            CONTENT: "content",
-        };
-        const data = await readXlsxFile(selectFile[0], { map }).then(
-            ({ rows }) => rows
-        );
-        console.log(data);
         setFiles(selectFile);
     }, []);
 
@@ -106,7 +97,7 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
         [onChangeFiles]
     );
 
-    const onSubmitHandle = (e) => {
+    const onSubmitHandle = async (e) => {
         e.preventDefault();
 
         if (!files) {
@@ -121,6 +112,23 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
         for (let pair of data) {
             console.log(pair);
         }
+
+        const map = {
+            empNo: 'empNo'
+        }
+
+        const excelData = await readXlsxFile(files[0], {map})
+            .then(({ rows }) => rows);
+
+        excelData.forEach(item => data.append('empNo', item.empNo));
+
+        const result = await fetch('http://localhost:8080/api/v1/pay/payroll', {
+            method: 'post',
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem('ACCESS_TOKEN'),
+            },
+            body: data
+        })
     };
 
     useEffect(() => {

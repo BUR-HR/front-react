@@ -19,7 +19,6 @@ import { useNavigate } from 'react-router-dom';
             jobCode: "",
             employeeRsdn: "",
             employeeEmail: "",
-            employeePassword: "",
             hireDate: "",
             employeePhone: "",
             employeeAddress: "",
@@ -27,7 +26,8 @@ import { useNavigate } from 'react-router-dom';
             isEmployed: "",
             employeeStatus: "",
             employeeGender: "",
-            leaveDate: "",
+            leaveDate: null,
+            employeeEmail: "",
         });
 
         
@@ -88,14 +88,26 @@ import { useNavigate } from 'react-router-dom';
                 const file = fileInput.files[0];
                 console.log('file ----->', file);
                 const formData = new FormData();
+                formData.append("empName", employeeData.empName);
+                formData.append("deptCode", employeeData.deptCode);
+                formData.append("jobCode", employeeData.jobCode);
+                formData.append("employeeRsdn", employeeData.employeeRsdn);
+                formData.append("hireDate", employeeData.hireDate);
+                formData.append("employeePhone", employeeData.employeePhone);
+                formData.append("isEmployed", employeeData.isEmployed);
+                formData.append("employeeStatus", employeeData.employeeStatus);
+                formData.append("employeeGender", employeeData.employeeGender);
+                formData.append("leaveDate", employeeData.leaveDate);
                 formData.append("fileImgs", file);
+                formData.append("employeeEmail", employeeData.employeeEmail);
                 
                 try {
-                    const response = await fetch('http://localhost:8080/api/file/fileimgs', {
+                    const response = await fetch('http://localhost:8080/api/file/register', {
                         method: 'POST',
                         body: formData,
                         headers: {
-                            "Accept": "*/*"
+                            "Accept": "*/*",
+                            "Authorization" : "Bearer " + window.localStorage.getItem('ACCESS_TOKEN')
                         }
                     });
         
@@ -127,17 +139,6 @@ import { useNavigate } from 'react-router-dom';
         // 인사정보 등록
         const handleEmployeeRegistration = async () => {
             try {
-                // 입력 데이터 유효성 검사
-                // if (!employeeData.EMP_NAME || !employeeData.DEPT_CODE || !employeeData.STATUS || !employeeData.HIRE_DATE 
-                //     || !employeeData.DEPT_CODE || !employeeData.JOB_CODE || !employeeData.GENDER
-                //     || !employeeData.RSDN || !employeeData.EMAIL || !employeeData.PHONE) {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: '입력 오류',
-                //         text: '필수 정보를 모두 입력해주세요.',
-                //     });
-                //     return;
-                // }
         
                 const response = await call('/api/employees/register', 'POST', employeeData);
                 if (response) {
