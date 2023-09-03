@@ -13,7 +13,6 @@ import AddressSearch  from "../../../../apis/address";
 
 
     // 인사카드 등록 페이지
-
     const EmployeecardMain = () => {
         const navigate = useNavigate(); 
         const [selectedImage, setSelectedImage] = useState(null);
@@ -31,7 +30,6 @@ import AddressSearch  from "../../../../apis/address";
             payrollAccount: "",
             isEmployed: "",
             employeeGender: "",
-            employeeEmail: "",
             payrollAcoount: "",
             emplyeeStatus:null,
             bank:"",
@@ -130,11 +128,13 @@ import AddressSearch  from "../../../../apis/address";
                     if (response?.status === 200) {
                         const temporaryPassword = response.data.tempPass;
                         const empNo = response.data.empNo;
+
+                        await sendEmail(employeeData.employeeEmail, temporaryPassword, empNo); // 메일 보내기 
                     
                         Swal.fire({
                             icon: 'success',
                             title: '등록 완료',
-                            text: '등록에 성공하였습니다.'
+                            text: '직원의 이메일로 계정정보가 전송되었습니다.'
                         });
                     
                         console.log(response);
@@ -156,6 +156,35 @@ import AddressSearch  from "../../../../apis/address";
                 }
             }
         };
+
+        // 메일 보내기 함수
+        const sendEmail = async (to, temporaryPassword, empNo) => {
+            const subject = "사원의 아이디 정보입니다";
+            const text = `안녕하세요,\n\n사원의 아이디 정보입니다:\n\n임시 비밀번호: ${temporaryPassword}\n사원 번호: ${empNo}\n\n로그인 후 비밀번호를 변경해주세요.`;
+        
+            try {
+            const response = await fetch('http://localhost:8080/api/file/register', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                to,
+                subject,
+                text,
+                }),
+            });
+        
+            if (response.ok) {
+                console.log('이메일 전송 성공');
+            } else {
+                console.error('이메일 전송 실패');
+            }
+            } catch (error) {
+            console.error('이메일 전송 중 오류 발생:', error);
+            }
+        };
+        
         
         // 입사일 달력 함수 
         const toggleDatePicker = () => {
@@ -398,5 +427,5 @@ return (
     </>
     );
 };
-    
+
 export default EmployeecardMain;
