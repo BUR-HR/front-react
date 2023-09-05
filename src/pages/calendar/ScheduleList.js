@@ -4,7 +4,7 @@ import { Content, Main, NavBar } from "../../common/commons";
 import "../../css/nav.css";
 import CalendarNav from './nav/CalendarNav';
 
-const Schdule = () => {
+const SchduleList = () => {
     return (
         <Content>
             <NavBar>
@@ -17,4 +17,4 @@ const Schdule = () => {
     );
 };
 
-export default Schdule;
+export default SchduleList;

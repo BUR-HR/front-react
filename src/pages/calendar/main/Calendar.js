@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import './Calendar.css';
 import ScheduleRegist from './ScheduleRegist';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
