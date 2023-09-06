@@ -20,28 +20,29 @@ export const AuthProvider = ({ children }) => {
         user.auth = JSON.parse(base64.decode(payload)).auth;
     }
 
-    console.log("context");
     useEffect(() => {
         if (!user.token) {
             return;
-        };
+        }
 
-        call("/api/v1/attendance/status", "POST", null)
-            .then((data) => {
-                if (data.status === 204) {
-                    setUser({
-                        ...user,
-                        attendanceState: '출근'
-                    })
-                } else {
-                    setUser({
-                        ...user,
-                        attendanceState: data.attendanceType,
-                        startDateTime: data.startDateTime
-                    })
-                }
-            })
-            .catch(() => {});
+        if (!user.attendanceState) {
+            call("/api/v1/attendance/status", "POST", null)
+                .then((data) => {
+                    if (data.status === 204) {
+                        setUser({
+                            ...user,
+                            attendanceState: "출근",
+                        });
+                    } else {
+                        setUser({
+                            ...user,
+                            attendanceState: data.attendanceType,
+                            startDateTime: data.startDateTime,
+                        });
+                    }
+                })
+                .catch(() => {});
+        }
     }, []);
 
     return (

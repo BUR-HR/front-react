@@ -17,7 +17,7 @@ export const formattedDateTime = (time) => {
     return formattedDateTime;
 };
 
-export const formattedDate = (time) => {
+export const formattedDate = (time, delimeter = '-') => {
     if (!time) return;
 
     const originalDate = new Date(time);
@@ -26,7 +26,22 @@ export const formattedDate = (time) => {
     const day = String(originalDate.getDate()).padStart(2, "0");
 
     // 원하는 포맷으로 날짜와 시간을 조합
-    const formattedDate = `${month}-${day}`;
+    const formattedDate = `${month}${delimeter}${day}`;
+
+    return formattedDate;
+}
+
+export const formmattedYearsAndDate = (time, delimeter = '-') => {
+    if (!time) return;
+
+    const originalDate = new Date(time);
+
+    const years = String(originalDate.getFullYear()).slice(-2);
+    const month = String(originalDate.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더하고 두 자리로 패딩
+    const day = String(originalDate.getDate()).padStart(2, "0");
+
+    // 원하는 포맷으로 날짜와 시간을 조합
+    const formattedDate = `${years}${delimeter}${month}${delimeter}${day}`;
 
     return formattedDate;
 }

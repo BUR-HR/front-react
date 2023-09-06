@@ -54,7 +54,6 @@ const AttendanceMain = () => {
     };
 
     useEffect(() => {
-        console.log(user);
         if (loading) {
             if (user.attendanceState) {
                 dispatch({

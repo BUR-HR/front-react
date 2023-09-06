@@ -2,7 +2,7 @@ import { API_BASE_URL } from "./config";
 
 const ACCESS_TOKEN = "ACCESS_TOKEN";
 
-export const call = (api, method, request) => {
+export const call = async (api, method, request) => {
     let headers = new Headers({
         "Content-Type": "application/json",
     });
@@ -19,11 +19,16 @@ export const call = (api, method, request) => {
         method: method,
     };
 
-    if (request) {
+    if (request && method?.toLowerCase() !== 'get') {
         options.body = JSON.stringify(request);
     }
 
-    return fetch(options.url, options)
+    if (method?.toLowerCase() === 'get') {
+        options.url = options.url + "?" + new URLSearchParams(request);
+        console.log(options);
+    }
+
+    const result = await fetch(options.url, options)
         .then((response) => {
             if (!response.ok) {
                 return Promise.reject(response);
@@ -46,6 +51,8 @@ export const call = (api, method, request) => {
                 }
             });
         });
+    
+    return result;
 };
 
 export const login = async (employee) => {
