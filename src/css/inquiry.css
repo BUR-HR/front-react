@@ -1,0 +1,77 @@
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 170vh;
+    width: 2000px;
+    background-color: #F9F7F7;
+    gap: 25px;
+    margin-left: 25px;
+    margin-bottom: 0%;
+}
+
+/* 제목(사원조회) */
+.title {
+    text-align: top;
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 4%;
+}
+
+.line {
+    width: 700%;
+    border-top: 2px solid black;
+    margin-top: 10px;
+}
+
+.content {
+    background-color: #ffffff;
+    min-width: 120vh;
+    min-height: 150vh;
+    margin-right: 250px;
+}
+
+.header__search {
+    margin-top: 10%;
+    margin-left: 6.5%;
+    display: flex; /* 내부 요소를 가로로 정렬 */
+    align-items: center; /* 수직 정렬 추가 */
+}
+
+.header__searchSelect {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 30px;
+    width: 100px;
+    border-radius: 0px;
+    text-indent: 10px;
+    color: #00000085;
+    background-color: #ffffff;
+    margin-left: -30px;
+    margin-bottom: 10px;
+}
+
+.searchInput {
+    margin-top: 0px;
+    height: 27px;
+    width: 200px;
+    border-radius: 6px;
+    text-indent: 10px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.search {
+    height: 250px;
+    width: 20px;
+}
+
+.searchButton {
+    margin-left: 5px;
+    margin-top: -5px;
+    height: 28px;
+    width: 50px;
+}

@@ -85,11 +85,41 @@ import AddressSearch  from "../../../../apis/address";
             }
         };
         
-        // 파일 등록 함수 
-        const handleFileUpload = async () => {
-            console.log("handleFileUpload(파일 등록 함수) called"); 
-            
-        };
+// 파일 등록 함수 
+const handleFileUpload = async () => {
+    const fileInput = document.getElementById("file-input");
+    console.log("파일등록함수 호출");
+
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+
+        // FormData를 사용하여 파일과 다른 데이터를 함께 전송
+        const formData = new FormData();
+        formData.append("fileImgs", file);
+
+        try {
+            const response = await fetch('http://localhost:8080/api/file/fileimgs', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    "Authorization": "Bearer " + window.localStorage.getItem('ACCESS_TOKEN')
+                }
+            }).then(res => res.json());
+
+            if (response?.status === 200) {
+                // 파일 업로드 성공
+                console.log("파일 업로드 성공");
+            } else {
+                // 파일 업로드 실패
+                console.error("파일 업로드 실패");
+            }
+
+        } catch (error) {
+            console.error("파일 업로드 중 오류 발생:", error);
+        }
+    }
+};
+
         
         
         // 인사정보 등록 함수 
@@ -100,6 +130,7 @@ import AddressSearch  from "../../../../apis/address";
                 const file = fileInput.files[0];
                 console.log('file ----->', file);
                 const formData = new FormData();
+                console.log('---',employeeData);
                 formData.append("empName", employeeData.empName);
                 formData.append("deptCode", employeeData.deptCode);
                 formData.append("jobCode", employeeData.jobCode);
@@ -113,7 +144,7 @@ import AddressSearch  from "../../../../apis/address";
                 formData.append("employeeAddress", employeeData.employeeAddress); 
                 formData.append("payrollAcoount", employeeData.payrollAcoount);
                 formData.append("bank", employeeData.bank);
-                
+                console.log('------> ', formData);
                 try {
                     const response = await fetch('http://localhost:8080/api/file/register', {
                         
