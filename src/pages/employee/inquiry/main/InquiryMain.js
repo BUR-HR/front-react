@@ -18,14 +18,14 @@ const InquiryMain = ({ data }) => {
         async function  fetchAllEmployees() {   
             try {
                 const response = await axios.get('http://localhost:8080/api/v1/employee/all');
-                 
+                
                 console.log('fetchAllEmployees함수 호출');
 
                 if (response.status === 200) {
                     const data = response.data;
-                    console.log(data);
-                    setEmployeeData(data);
-                    setSearchResults(data); // 페이지가 열리면서 모든 직원을 보여줌
+                    console.log('데이터확인' , data);
+                    setEmployeeData(data.data);
+                    setSearchResults(data.data); // 페이지가 열리면서 모든 직원을 보여줌
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -48,12 +48,15 @@ const InquiryMain = ({ data }) => {
         fetchAllEmployees(); 
     }, []);
 
+    console.log('employeeData 배열:', employeeData);
+    
     // const handleSearch = () => {
-    //     const results = employeeData.filter((employee) => {
+    //     const results = data.filter((employee) => {
     //         return employee.EMP_NAME.includes(searchName);
     //     });
     //     setSearchResults(results);
     // };
+    
 
     return (
         <>
@@ -74,6 +77,17 @@ const InquiryMain = ({ data }) => {
                     {/* <button className="searchButton" onClick={handleSearch}>
                         검색
                     </button> */}
+                    
+                        {/* 직원 목록을 출력 */}
+            <div className="employeeList">
+                {employeeData.map((employee) => (
+                    <div key={employee.id} className="employeeItem">
+                        <p>{employee.empName}</p>
+                        {/* 여기에 직원의 다른 정보들을 추가할 수 있습니다 */}
+                    </div>
+                ))}
+            </div>
+                    
                 </div>
             </div>
         </>
