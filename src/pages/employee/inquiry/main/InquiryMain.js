@@ -8,6 +8,7 @@ import axios from 'axios'; // axios를 추가
 import { useTable } from 'react-table';
 
 
+
 // 사원조회 페이지
 const InquiryMain = () => {
     const [loading, setLoading] = useState(true);
@@ -160,6 +161,7 @@ const InquiryMain = () => {
 
     return (
         <>
+        
         <div className="title">
         <h3>사원조회</h3>
         <hr className="line" />
@@ -179,7 +181,7 @@ const InquiryMain = () => {
                         </button> */}
                         
             {/* 직원 목록을 출력 */}
-            <div className="employeeList">
+            <div className="employeeList" style={{ overflowX: 'auto' }}>
             <table {...getTableProps()} className="table">
                 <thead>
                 {headerGroups.map(headerGroup => (
