@@ -55,13 +55,14 @@
 }
 
 .searchInput {
-    margin-top: 0px;
-    height: 27px;
-    width: 200px;
+    
+    height: 40px;
+    width: 300px;
     border-radius: 6px;
     text-indent: 10px;
-    margin-bottom: 5px;
+    margin-bottom: 3%;
     position: relative;
+    font-size: 13px;
 }
 
 .search {

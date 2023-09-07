@@ -151,12 +151,13 @@ const InquiryMain = () => {
 
     console.log('employeeData 배열:', employeeData);
     
-    // const handleSearch = () => {
-    //     const results = data.filter((employee) => {
-    //         return employee.EMP_NAME.includes(searchName);
-    //     });
-    //     setSearchResults(results);
-    // };
+    const handleSearch = () => {
+        const results = employeeData.filter((employee) => {
+            return employee.empName.includes(searchName);
+        });
+        setEmployeeData(results);
+    };
+    
     
 
     return (
@@ -169,19 +170,20 @@ const InquiryMain = () => {
     
         <div className="content">
         <div className="header__search">
-            {/* <input
-            type="text"
-            className="searchInput"
-            placeholder="직원 이름을 입력하세요"
-            value={searchName}
-            onChange={(e) => setSearchName(e.target.value)}
-            /> */}
-            {/* <button className="searchButton" onClick={handleSearch}>
-                            검색
-                        </button> */}
+    
                         
             {/* 직원 목록을 출력 */}
             <div className="employeeList" style={{ overflowX: 'auto' }}>
+            <input
+            type="text"
+            className="searchInput"
+            placeholder="조회할 직원의 이름을 입력하세요"
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            />
+            <button className="searchButton" onClick={handleSearch}>
+                            검색
+                        </button>
             <table {...getTableProps()} className="table">
                 <thead>
                 {headerGroups.map(headerGroup => (
