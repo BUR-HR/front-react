@@ -30,7 +30,6 @@ import AddressSearch  from "../../../../apis/address";
             payrollAccount: "",
             isEmployed: "",
             employeeGender: "",
-            payrollAcoount: "",
             employeeStatus:null,
             bank:"",
         });

@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 170vh;
+    min-height: 200vh;
     width: 2000px;
     background-color: #F9F7F7;
     gap: 25px;
@@ -18,20 +18,20 @@
     text-align: top;
     position: absolute;
     margin-top: 50px;
-    margin-left: 4%;
+    margin-left: 7%;
 }
 
 .line {
-    width: 700%;
+    width: 1000%;
     border-top: 2px solid black;
     margin-top: 10px;
 }
 
 .content {
     background-color: #ffffff;
-    min-width: 120vh;
-    min-height: 150vh;
-    margin-right: 250px;
+    min-width: 300vh;
+    min-height: 180vh;
+    margin-right: 200px;
 }
 
 .header__search {
@@ -75,3 +75,34 @@
     height: 28px;
     width: 50px;
 }
+
+/* styles.css */
+
+/* 테이블 스타일 */
+.table {
+    border-collapse: collapse;
+    width: 120%;
+    font-size: 14px;
+    margin-left: -5%;
+    
+  }
+  
+  .table-header {
+    background-color: #f2f2f2;
+  }
+  
+  .table-cell,
+  .table-header {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table-body {
+    background-color: #fff;
+  }
+  
+  .table-row:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
