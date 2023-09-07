@@ -31,7 +31,7 @@ import AddressSearch  from "../../../../apis/address";
             isEmployed: "",
             employeeGender: "",
             payrollAcoount: "",
-            emplyeeStatus:null,
+            employeeStatus:null,
             bank:"",
         });
 

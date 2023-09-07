@@ -1,46 +1,59 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { useTable } from 'react-table';
+import React, { useState, useEffect } from 'react';
 import '../../../../css/inquiry.css';
 import Swal from 'sweetalert2';
-import NavBar from "../../../../common/component/NavBar"; 
-import InquiryNav from "../nav/InquiryNav"; 
-import { login, call } from "../../../../apis/service";
-import { useNavigate } from 'react-router-dom'; 
+import NavBar from '../../../../common/component/NavBar';
+import InquiryNav from '../nav/InquiryNav';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // axios를 추가
 
 // 사원조회 페이지
 const InquiryMain = ({ data }) => {
+    const [loading, setLoading] = useState(true);
+    const [searchName, setSearchName] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [employeeData, setEmployeeData] = useState([]); 
 
-    const columnData = [
-        {
-            accessor: 'EMP_NAME', // TBL_EMPLOYEE 테이블의 컬럼에 해당, data object와 연결할 key name
-            Header: '이름', // 테이블 헤더에 표시될 텍스트
-        },
-        {
-            accessor: 'EMP_NO',
-            Header: '사원번호'
-        },
-    ]
+    useEffect(() => {
+        // API 호출을 통해 전체 직원 정보를 가져오는 함수
+        async function  fetchAllEmployees() {   
+            try {
+                const response = await axios.get('http://localhost:8080/api/v1/employee/all');
+                 
+                console.log('fetchAllEmployees함수 호출');
 
-    const columns = useMemo(() => columnData, []);
+                if (response.status === 200) {
+                    const data = response.data;
+                    console.log(data);
+                    setEmployeeData(data);
+                    setSearchResults(data); // 페이지가 열리면서 모든 직원을 보여줌
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '데이터 가져오기 실패',
+                        text: '직원 정보를 가져오는데 문제가 발생했습니다.',
+                    });
+                }
+            } catch (error) {
+                console.error('API 호출 중 에러 발생:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'API 호출 에러',
+                    text: 'API 호출 중에 문제가 발생했습니다.',
+                });
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    // 예시 데이터
-    const exampleData = useMemo(() => [{
-        "EMP_NAME" : "John Doe",
-        "EMP_NO" : "12345"
-    }], []);
+        fetchAllEmployees(); 
+    }, []);
 
-    const [employee, setEmployeeData] = useState([]);
-
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({
-        columns,
-        data: exampleData, // 예시 데이터를 사용하거나 API에서 가져온 데이터를 사용하세요.
-    });
+    // const handleSearch = () => {
+    //     const results = employeeData.filter((employee) => {
+    //         return employee.EMP_NAME.includes(searchName);
+    //     });
+    //     setSearchResults(results);
+    // };
 
     return (
         <>
@@ -51,43 +64,17 @@ const InquiryMain = ({ data }) => {
 
             <div className="content">
                 <div className="header__search">
-                    {/* 카테고리 */}
-                    <select className="header__searchSelect">
-                        <option value="name">이름</option>
-                        <option value="no">사번</option>
-                        <option value="department">부서</option>
-                    </select>
-                    
-                    {/* 검색창과 검색버튼 */}
-                    <input type="text" className="searchInput" />
-                    <button className="searchButton">검색</button>
+                    <input
+                        type="text"
+                        className="searchInput"
+                        placeholder="직원 이름을 입력하세요"
+                        value={searchName}
+                        onChange={(e) => setSearchName(e.target.value)}
+                    />
+                    {/* <button className="searchButton" onClick={handleSearch}>
+                        검색
+                    </button> */}
                 </div>
-
-                <table {...getTableProps()} className="employee-table">
-                    <thead>
-                        {headerGroups.map(headerGroup => (
-                            <tr {...headerGroup.getHeaderGroupProps()}>
-                                {headerGroup.headers.map(column => (
-                                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                                ))}
-                            </tr>
-                        ))}
-                    </thead>
-                    <tbody {...getTableBodyProps()}>
-                        {rows.map(row => {
-                            prepareRow(row);
-                            return (
-                                <tr {...row.getRowProps()}>
-                                    {row.cells.map(cell => {
-                                        return (
-                                            <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                                        );
-                                    })}
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
             </div>
         </>
     );
