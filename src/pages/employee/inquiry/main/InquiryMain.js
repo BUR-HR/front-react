@@ -15,6 +15,7 @@ const InquiryMain = () => {
     const [searchName, setSearchName] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [employeeData, setEmployeeData] = useState([]);
+    const [originalEmployeeData, setOriginalEmployeeData] = useState([]);
     const columns = useMemo(
         () => [
             {
@@ -115,6 +116,7 @@ const InquiryMain = () => {
     
 
     useEffect(() => {
+        
         // API 호출을 통해 전체 직원 정보를 가져오는 함수
         async function  fetchAllEmployees() {   
             try {
@@ -145,80 +147,92 @@ const InquiryMain = () => {
                 setLoading(false);
             }
         };
+        
 
         fetchAllEmployees(); 
     }, []);
 
-    console.log('employeeData 배열:', employeeData);
+    useEffect(() => {
+        setOriginalEmployeeData(employeeData);
+    }, [employeeData]);
     
     const handleSearch = () => {
         const results = employeeData.filter((employee) => {
             return employee.empName.includes(searchName);
         });
-        setEmployeeData(results);
+          // 검색 결과가 없을 때 setSearchResults로 해당 문구를 설정합니다.
+    setSearchResults(results.length === 0 ? ["해당 직원이 존재하지 않습니다"] : results);
+
+    setEmployeeData(results);
+
     };
     
     
 
     return (
         <>
-        
-        <div className="title">
-        <h3>사원조회</h3>
-        <hr className="line" />
-        </div>
-    
-        <div className="content">
-        <div className="header__search">
-    
-                        
-            {/* 직원 목록을 출력 */}
-            <div className="employeeList" style={{ overflowX: 'auto' }}>
-            <input
-            type="text"
-            className="searchInput"
-            placeholder="조회할 직원의 이름을 입력하세요"
-            value={searchName}
-            onChange={(e) => setSearchName(e.target.value)}
-            />
-            <button className="searchButton" onClick={handleSearch}>
-                            검색
-                        </button>
-            <table {...getTableProps()} className="table">
-                <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()} className="table-header">
-                    {headerGroup.headers.map(column => (
-                        <th {...column.getHeaderProps()} className="table-cell">
-                        {column.render('Header')}
-                        </th>
-                    ))}
-                    </tr>
-                ))}
-                </thead>
-                <tbody {...getTableBodyProps()} className="table-body">
-                {rows.map(row => {
-                    prepareRow(row);
-                    return (
-                    <tr {...row.getRowProps()} className="table-row">
-                        {row.cells.map(cell => {
-                        return (
-                            <td {...cell.getCellProps()} className="table-cell">
-                            {cell.render('Cell')}
-                            </td>
-                        );
-                        })}
-                    </tr>
-                    );
-                })}
-                </tbody>
-            </table>
+            <div className="title">
+                <h3>사원조회</h3>
+                <hr className="line" />
             </div>
-        </div>
-        </div>
-    </>
-    );
     
+            <div className="content">
+                <div className="header__search">
+                    {/* 검색창 */}
+                    <div className="employeeList" style={{ overflowX: 'auto' }}>
+                        <input
+                            type="text"
+                            className="searchInput"
+                            placeholder="조회할 직원의 이름을 입력하세요"
+                            value={searchName}
+                            onChange={(e) => setSearchName(e.target.value)}
+                        />
+                        {/* 검색 버튼  */}
+                        <button className="searchButton" onClick={handleSearch}>검색</button>
+                        {searchResults.length > 1 && (
+                        <table {...getTableProps()} className="table">
+                            <thead>
+                            {headerGroups.length > 0 && (
+                                // 검색 결과가 있을 때만 헤더 렌더링
+                                headerGroups.map((headerGroup) => (
+                                <tr {...headerGroup.getHeaderGroupProps()} className="table-header">
+                                    {headerGroup.headers.map((column) => (
+                                    <th {...column.getHeaderProps()} className="table-cell">
+                                        {column.render('Header')}
+                                    </th>
+                                    ))}
+                                </tr>
+                                ))
+                            )}
+                            </thead>
+                            <tbody {...getTableBodyProps()} className="table-body">
+                            {rows.map((row) => {
+                                prepareRow(row);
+                                return (
+                                <tr {...row.getRowProps()} className="table-row">
+                                    {row.cells.map((cell) => {
+                                    return (
+                                        <td {...cell.getCellProps()} className="table-cell">
+                                        {cell.render('Cell')}
+                                        </td>
+                                    );
+                                    })}
+                                </tr>
+                                );
+                            })}
+                            </tbody>
+                        </table>
+                        )}
+
+                        {/* 검색 결과가 없을 때 문구를 출력 */}
+                        {searchResults.length === 1 && searchResults[0] === '해당 직원이 존재하지 않습니다' && (
+                        <p className="message">해당 직원이 존재하지 않습니다</p>
+                        )}
+                    </div>
+                    </div>
+                </div>
+                </>
+            );
 };
 
 export default InquiryMain;
