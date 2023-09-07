@@ -33,7 +33,6 @@ import Logout from "./pages/logout";
 
 function PrivateRoute() {
     const { user } = useAuth();
-    console.log('private');
     return user.token ? <Layout/> : <Navigate to={"/login"}/>
 }
 

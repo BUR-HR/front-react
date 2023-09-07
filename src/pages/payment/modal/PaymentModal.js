@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import readXlsxFile from "read-excel-file";
 import Swal from "sweetalert2";
 import popup from "./popup.module.css";
+import { API_BASE_URL } from "../../../apis/config";
 
 const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
     const [files, setFiles] = useState(null);
@@ -122,7 +123,7 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
 
         excelData.forEach(item => data.append('empNo', item.empNo));
 
-        const result = await fetch('http://localhost:8080/api/v1/pay/payroll', {
+        const result = await fetch(`${API_BASE_URL}/api/v1/pay/payroll`, {
             method: 'post',
             headers: {
                 Authorization: "Bearer " + localStorage.getItem('ACCESS_TOKEN'),
