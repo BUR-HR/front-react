@@ -8,8 +8,9 @@ import SeveranceLedgerMain from "./main/SeveranceLedgerMain";
 import PaymentNav from "./nav/PaymentNav";
 
 import "../../css/nav.css";
+import SeveraceMain from './main/SeveraceMain';
 
-export { PaymentMain, PaymentNav, PayrollLedgerMain, SeveranceLedgerMain };
+export { PaymentMain, PaymentNav, PayrollLedgerMain, SeveranceLedgerMain, SeveraceMain };
 
 export const Payment = () => {
     return (

@@ -67,7 +67,7 @@ const PayrollLedgerMain = () => {
                             <th>사전작업</th>
                             <th>급여계산</th>
                             <th>인원수</th>
-                            <th>퇴직금대장</th>
+                            <th>급여대장</th>
                             <th>명세서</th>
                         </tr>
                     </thead>
@@ -100,9 +100,8 @@ const PayrollLedgerMain = () => {
                                         </div>
                                         {item.isClosed !== "Y" && (
                                             <>
-                                                마감
-                                                <br />
-                                                삭제
+                                                <div>마감</div>
+                                                <div>삭제</div>
                                             </>
                                         )}
                                     </td>

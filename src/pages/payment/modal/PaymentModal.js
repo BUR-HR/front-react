@@ -1,13 +1,17 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import readXlsxFile from "read-excel-file";
 import Swal from "sweetalert2";
-import popup from "./popup.module.css";
 import { API_BASE_URL } from "../../../apis/config";
+import popup from "./popup.module.css";
 
 const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
     const [files, setFiles] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const dragRef = useRef(null);
+    let url = null;
+
+    if (paymentType === "급여") url = "payroll";
+    else url = "severance";
 
     const resetUploadStatus = () => {
         if (dragRef.current) {
@@ -115,21 +119,29 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
         }
 
         const map = {
-            empNo: 'empNo'
-        }
+            empNo: "empNo",
+        };
 
-        const excelData = await readXlsxFile(files[0], {map})
-            .then(({ rows }) => rows);
+        const excelData = await readXlsxFile(files[0], { map }).then(
+            ({ rows }) => rows
+        );
 
-        excelData.forEach(item => data.append('empNo', item.empNo));
+        excelData.forEach((item) => data.append("empNo", item.empNo));
 
-        const result = await fetch(`${API_BASE_URL}/api/v1/pay/payroll`, {
-            method: 'post',
+        const result = await fetch(`${API_BASE_URL}/api/v1/pay/${url}`, {
+            method: "post",
             headers: {
-                Authorization: "Bearer " + localStorage.getItem('ACCESS_TOKEN'),
+                Authorization: "Bearer " + localStorage.getItem("ACCESS_TOKEN"),
             },
-            body: data
-        })
+            body: data,
+        });
+
+        if (result.ok) {
+            setFiles(null);
+            setIsDragging(false);
+            resetUploadStatus();
+            handleCloseModal();
+        }
     };
 
     useEffect(() => {
@@ -168,22 +180,22 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
                     <div style={{ display: "inline-flex" }}>
                         <input
                             type="date"
-                            id="start_date"
-                            name="start_date"
+                            id="salaryBaseStartDate"
+                            name="salaryBaseStartDate"
                             required
                         />
                         &nbsp;~&nbsp;
                         <input
                             type="date"
-                            id="end_date"
-                            name="end_date"
+                            id="salaryBaseEndDate"
+                            name="salaryBaseEndDate"
                             required
                         />
                     </div>
                 </div>
                 <div className={popup.formItem}>
                     <span className={popup.require}>구분</span>
-                    <select name="payment_type" required>
+                    <select name="paymentType" required>
                         <option value=""></option>
                         <option value={paymentType}>{paymentType}</option>
                         {paymentType === "퇴직금" ? (
@@ -226,7 +238,11 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
                 />
                 <div className={popup.formItem}>
                     <span className={popup.require}>지급예정일</span>
-                    <input type="date" />
+                    <input
+                        type="date"
+                        name="paymentScheduledDate"
+                        className="paymentScheduledDate"
+                    />
                 </div>
                 <div className={popup.formItem}>
                     <button className={popup.btn}>추가</button>

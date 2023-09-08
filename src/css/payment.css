@@ -47,8 +47,6 @@
 .search-bar button {
     display: flex;
     width: 60px;
-    height: 20px;
-    border: 0;
     padding: 2px 10px;
     justify-content: center;
     align-items: center;
@@ -66,5 +64,5 @@
 }
 
 .search-bar button:active {
-    border: 2px inset buttonborder;
+    background-color: #5b5b5b;
 }

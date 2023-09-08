@@ -19,14 +19,15 @@ import Calendar from "./pages/calendar/main/Calendar";
 import EmployeeCard from "./pages/employee/employeecard/Employeecard";
 import EmployeecardMain from "./pages/employee/employeecard/main/EmployeecardMain";
 import { Login } from "./pages/login";
+import Logout from "./pages/logout";
 import { Orgchart } from "./pages/orgchart/orgchart";
 import {
     Payment,
     PaymentMain,
     PayrollLedgerMain,
+    SeveraceMain,
     SeveranceLedgerMain,
 } from "./pages/payment/payment";
-import Logout from "./pages/logout";
 
 
 function PrivateRoute() {
@@ -59,9 +60,10 @@ function App() {
                                 <Route exact index element={<PaymentMain />} />
                                 <Route
                                     exact
-                                    path="/payment/payroll/list"
+                                    path="payroll/list"
                                     element={<PayrollLedgerMain />}
                                 />
+                                <Route exact path="severance" element={<SeveraceMain/>} />
                                 <Route
                                     exact
                                     path="severance/list"
