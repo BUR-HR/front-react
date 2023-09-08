@@ -18,6 +18,8 @@ import SchduleList from "./pages/calendar/ScheduleList";
 import Calendar from "./pages/calendar/main/Calendar";
 import EmployeeCard from "./pages/employee/employeecard/Employeecard";
 import EmployeecardMain from "./pages/employee/employeecard/main/EmployeecardMain";
+import InquiryMain from "./pages/employee/inquiry/main/InquiryMain";
+import Inquiry from "./pages/employee/inquiry/Inquiry";
 import { Login } from "./pages/login";
 import { Orgchart } from "./pages/orgchart/orgchart";
 import {
@@ -32,53 +34,52 @@ import Logout from "./pages/logout";
 function PrivateRoute() {
     const { user } = useAuth();
     console.log('private');
-    return user.token ? <Layout /> : <Navigate to={"/login"} />
+    return user.token ? <Layout/> : <Navigate to={"/login"}/>
 }
 
 function App() {
     return (
         <AuthProvider>
-                <Router>
-                    <div className="container">
-                        <Routes>
-                            <Route path="/" element={<PrivateRoute />}>
+            <Router>
+                <div className="container">
+                    <Routes>
+                        <Route path="/" element={<PrivateRoute />}>
+                            <Route
+                                exact
+                                index
+                                element={<Navigate to="/attendance" />}
+                            />
+                            <Route exact path="attendance" element={<Attendance />}>
+                                <Route exact index element={<AttendanceMain />} />
                                 <Route
                                     exact
-                                    index
-                                    element={<Navigate to="/attendance" />}
+                                    path="list"
+                                    element={<AttendanceList />}
                                 />
-                                <Route exact path="attendance" element={<Attendance />}>
-                                    <Route exact index element={<AttendanceMain />} />
-                                    <Route
-                                        exact
-                                        path="list"
-                                        element={<AttendanceList />}
-                                    />
-                                </Route>
-                                <Route exact path="/orgchart" element={<Orgchart />} />
-                                <Route exact path="payment" element={<Payment />}>
-                                    <Route exact index element={<PaymentMain />} />
-                                    <Route
-                                        exact
-                                        path="/payment/payroll/list"
-                                        element={<PayrollLedgerMain />}
-                                    />
-                                    <Route
-                                        exact
-                                        path="severance/list"
-                                        element={<SeveranceLedgerMain />}
-                                    />
-                                </Route>
-                                <Route exact path="/schedule" element={<SchduleList />}>
-                                    <Route exact index element={<Calendar />} />
-                                </Route>
+                            </Route>
+                            <Route exact path="/orgchart" element={<Orgchart />} />
+                            <Route exact path="payment" element={<Payment />}>
+                                <Route exact index element={<PaymentMain />} />
                                 <Route
                                     exact
-                                    path="/employeecard"
-                                    element={<EmployeeCard />}
-                                >
-                                    <Route index element={<EmployeecardMain />} />
-                                </Route>
+                                    path="/payment/payroll/list"
+                                    element={<PayrollLedgerMain />}
+                                />
+                                <Route
+                                    exact
+                                    path="severance/list"
+                                    element={<SeveranceLedgerMain />}
+                                />
+                            </Route>
+                            <Route exact path="/schedule" element={<Schedule />}>
+                                <Route exact index element={<Calendar />} />
+                            </Route>
+                            <Route
+                                exact
+                                path="/employeecard"
+                                element={<EmployeeCard />}
+                            >
+                                <Route index element={<EmployeecardMain/>}/>
                             </Route>
                             <Route exact path="/logout" element={<Logout />} />
                             <Route exact path="/login" element={<Login />} />
