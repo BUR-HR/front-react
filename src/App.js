@@ -18,6 +18,8 @@ import Schedule from "./pages/calendar/Schedule";
 import Calendar from "./pages/calendar/main/Calendar";
 import EmployeeCard from "./pages/employee/employeecard/Employeecard";
 import EmployeecardMain from "./pages/employee/employeecard/main/EmployeecardMain";
+import InquiryMain from "./pages/employee/inquiry/main/InquiryMain";
+import Inquiry from "./pages/employee/inquiry/Inquiry";
 import { Login } from "./pages/login";
 import Logout from "./pages/logout";
 import { Orgchart } from "./pages/orgchart/orgchart";
@@ -79,6 +81,14 @@ function App() {
                                 element={<EmployeeCard />}
                             >
                                 <Route index element={<EmployeecardMain/>}/>
+                            </Route>
+                            <Route
+                                exact
+                                path="/inquiry"
+                                element={<Inquiry />}
+                            >
+                                <Route index element={<InquiryMain />} />
+
                             </Route>
                         </Route>
                         <Route exact path="/logout" element={<Logout/>} />

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const EmployeecardNav = () => {
+const InquiryNav = () => {
     const [isSelectIndex, setIsSelectIndex] = useState({
         isActive: false,
         index: 0,
@@ -57,4 +57,4 @@ const EmployeecardNav = () => {
     );
 };
 
-export default EmployeecardNav;
+export default InquiryNav;
