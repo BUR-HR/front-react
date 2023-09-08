@@ -14,7 +14,7 @@ import {
     AttendanceList,
     AttendanceMain,
 } from "./pages/attendance/attendance";
-import SchduleList from "./pages/calendar/ScheduleList";
+import Schedule from "./pages/calendar/ScheduleList";
 import Calendar from "./pages/calendar/main/Calendar";
 import EmployeeCard from "./pages/employee/employeecard/Employeecard";
 import EmployeecardMain from "./pages/employee/employeecard/main/EmployeecardMain";
@@ -33,7 +33,6 @@ import Logout from "./pages/logout";
 
 function PrivateRoute() {
     const { user } = useAuth();
-    console.log('private');
     return user.token ? <Layout/> : <Navigate to={"/login"}/>
 }
 
@@ -43,6 +42,7 @@ function App() {
             <Router>
                 <div className="container">
                     <Routes>
+                        <Route path="/" element={<PrivateRoute />}>
                             <Route
                                 exact
                                 index
@@ -80,13 +80,22 @@ function App() {
                             >
                                 <Route index element={<EmployeecardMain/>}/>
                             </Route>
-                            <Route exact path="/logout" element={<Logout />} />
-                            <Route exact path="/login" element={<Login />} />
-                            <Route exact path="*" element={<PageNotFound />} />
-                        </Routes>
-                        <Footer />
-                    </div>
-                </Router>
+                            <Route
+                                exact
+                                path="/inquiry"
+                                element={<Inquiry />}
+                            >
+                                <Route index element={<InquiryMain />} />
+
+                            </Route>
+                        </Route>
+                        <Route exact path="/logout" element={<Logout/>} />
+                        <Route exact path="/login" element={<Login />} />
+                        <Route exact path="*" element={<PageNotFound />} />
+                    </Routes>
+                    <Footer />
+                </div>
+            </Router>
         </AuthProvider>
     );
 }
