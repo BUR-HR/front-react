@@ -43,7 +43,6 @@ function App() {
             <Router>
                 <div className="container">
                     <Routes>
-                        <Route path="/" element={<PrivateRoute />}>
                             <Route
                                 exact
                                 index
