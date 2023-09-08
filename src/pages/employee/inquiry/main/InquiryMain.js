@@ -156,16 +156,36 @@ const InquiryMain = () => {
         setOriginalEmployeeData(employeeData);
     }, [employeeData]);
     
+    // 직원 검색 함수 
     const handleSearch = () => {
+        // // employeeData 배열에서 검색어와 일치하는 직원을 필터링
         const results = employeeData.filter((employee) => {
-            return employee.empName.includes(searchName);
+            // 직원의 이름 (empName) 속성이 검색어를 포함하거나 검색어와 정확하게 일치하는 경우를 찾습니다.
+            return employee.empName.includes(searchName) || employee.empName === searchName;
         });
-          // 검색 결과가 없을 때 setSearchResults로 해당 문구를 설정합니다.
-    setSearchResults(results.length === 0 ? ["해당 직원이 존재하지 않습니다"] : results);
+        console.log('검색 결과:', results); 
 
-    setEmployeeData(results);
+        // 검색 결과를 setSearchResults를 사용하여 상태로 설정 , 검색 결과가 없다면 ["해당 직원이 존재하지 않습니다"]를 설정
+        setSearchResults(results.length === 0 ? ["해당 직원이 존재하지 않습니다"] : results);
+        //  검색 결과를 employeeData 상태로 설정 , 검색 결과가 없으면 전체 직원 데이터(originalEmployeeData)를 사용
+        setEmployeeData(results.length === 0 ? originalEmployeeData : results);
 
-    };
+       // 검색 결과를 화면에 표시하는 코드 
+    //    if (results.length > 0) {
+    //     return (
+    //         <div>
+    //             <h2>검색 결과:</h2>
+    //             <ul>
+    //                 {results.map((employee) => (
+    //                     <li key={employee.empNo}>{employee.empName}</li>
+    //                 ))}
+    //             </ul>
+    //         </div>
+    //     );
+    // } else {
+    //     return null; // 검색 결과가 없는 경우 아무것도 반환하지 않음
+    // }
+};
     
     
 
@@ -189,7 +209,8 @@ const InquiryMain = () => {
                         />
                         {/* 검색 버튼  */}
                         <button className="searchButton" onClick={handleSearch}>검색</button>
-                        {searchResults.length > 1 && (
+                        {/* 검색결과가 있는 경우에 테이블 렌더링  */}
+                        {searchResults.length >= 1 && (
                         <table {...getTableProps()} className="table">
                             <thead>
                             {headerGroups.length > 0 && (
@@ -207,6 +228,7 @@ const InquiryMain = () => {
                             </thead>
                             <tbody {...getTableBodyProps()} className="table-body">
                             {rows.map((row) => {
+                                console.log('행 데이터:', row.original);
                                 prepareRow(row);
                                 return (
                                 <tr {...row.getRowProps()} className="table-row">
@@ -223,11 +245,11 @@ const InquiryMain = () => {
                             </tbody>
                         </table>
                         )}
-
                         {/* 검색 결과가 없을 때 문구를 출력 */}
                         {searchResults.length === 1 && searchResults[0] === '해당 직원이 존재하지 않습니다' && (
                         <p className="message">해당 직원이 존재하지 않습니다</p>
                         )}
+
                     </div>
                     </div>
                 </div>
