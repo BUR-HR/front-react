@@ -18,7 +18,7 @@ const TeamDeputy = ({ teamDeputy }) => {
     const renderFront = (position, name, imageSrc, index) => (
         <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
             <img src={imageSrc} alt={`${name} Profile`} />
-            <p><span className="position-text">팀장</span> {name}</p>
+            <p><span className="position-text">대리</span> {name}</p>
         </div>
     );
 

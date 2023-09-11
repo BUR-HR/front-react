@@ -6,8 +6,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 300vh;
+    min-height: 100vh;
     background-color:  #F9F7F7;;
+    margin-bottom: 20%;
 }
 
 /* 제목(조직도) */
@@ -15,7 +16,7 @@
     text-align: top;
     position: absolute;
     top: 10%;
-    left: 20%;
+    left: 15%;
 }
 
 .titleline {
