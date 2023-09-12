@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { API_BASE_URL } from "../../../apis/config";
 import popup from "./popup.module.css";
 
-const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
+const PaymentModal = ({ isOpen, paymentType, handleCloseModal, setPayrollList }) => {
     const [files, setFiles] = useState(null);
     const [isDragging, setIsDragging] = useState(false);
     const dragRef = useRef(null);
@@ -142,6 +142,9 @@ const PaymentModal = ({ isOpen, paymentType, handleCloseModal }) => {
             resetUploadStatus();
             handleCloseModal();
         }
+
+        const list = await result.json();
+        setPayrollList(list);
     };
 
     useEffect(() => {

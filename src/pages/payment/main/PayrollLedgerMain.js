@@ -11,6 +11,7 @@ import PaymentModal from "../modal/PaymentModal";
 const PayrollLedgerMain = () => {
     const [payrollList, setPayrollList] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(0);
+    
     const ref = useRef();
 
     const clickHandler = (index) => {
@@ -19,6 +20,36 @@ const PayrollLedgerMain = () => {
 
     const handleCloseModal = () => {
         setIsModalOpen(0);
+    };
+
+    const onClickHandler = (e, no) => {
+        const target = e.target;
+        console.dir(target);
+        if (target.tagName !== "DIV") {
+            return;
+        }
+
+        if (target.textContent === "삭제") {
+            call("/api/v1/pay/payroll", "delete", { no }).then((data) =>
+                setPayrollList(data)
+            );
+
+            return;
+        }
+
+        if (target.textContent === "조회") {
+            clickHandler(2);
+
+            return;
+        }
+
+        if (target.textContent === "마감") {
+            call("/api/v1/pay/payroll/close", "put", { no }).then((data) =>
+                setPayrollList(data)
+            );
+
+            return;
+        }
     };
 
     useEffect(() => {
@@ -72,9 +103,12 @@ const PayrollLedgerMain = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {payrollList.map((item) => {
+                        {payrollList?.map((item) => {
                             return (
-                                <tr key={item.no}>
+                                <tr
+                                    key={item.no}
+                                    onClick={(e) => onClickHandler(e, item.no)}
+                                >
                                     <td>{item.no}</td>
                                     <td>급여</td>
                                     <td>{item.name}</td>
@@ -86,29 +120,35 @@ const PayrollLedgerMain = () => {
                                     </td>
                                     <td>근무기록확정</td>
                                     <td>
-                                        전체계산
-                                        <br />
-                                        개인별계산
+                                        {item.isClosed !== "Y" ? (
+                                            <>
+                                                전체계산
+                                                <br />
+                                                개인별계산
+                                            </>
+                                        ) : (
+                                            <div>마감</div>
+                                        )}
                                     </td>
-                                    <td>15</td>
+                                    <td>{item.count}</td>
                                     <td>
-                                        <div
-                                            onClick={() => clickHandler(2)}
-                                            style={{ cursor: "pointer" }}
-                                        >
-                                            조회
-                                        </div>
+                                        <div className="ledger-view">조회</div>
                                         {item.isClosed !== "Y" && (
                                             <>
-                                                <div>마감</div>
-                                                <div>삭제</div>
+                                                <div className="ledger-close">
+                                                    마감
+                                                </div>
+                                                <div className="ledger-delete">
+                                                    삭제
+                                                </div>
                                             </>
                                         )}
                                     </td>
                                     <td>
-                                        조회
-                                        <br />
-                                        Emali
+                                        <div className="ledger-view">조회</div>
+                                        <div className="ledger-email">
+                                            E-MAIL
+                                        </div>
                                     </td>
                                 </tr>
                             );
@@ -122,6 +162,7 @@ const PayrollLedgerMain = () => {
                             isOpen={isModalOpen}
                             handleCloseModal={handleCloseModal}
                             paymentType="급여"
+                            setPayrollList={setPayrollList}
                         />
                     ) : (
                         <PaymentLegderModel

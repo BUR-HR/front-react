@@ -25,7 +25,6 @@ export const call = async (api, method, request) => {
 
     if (method?.toLowerCase() === 'get') {
         options.url = options.url + "?" + new URLSearchParams(request);
-        console.log(options);
     }
 
     const result = await fetch(options.url, options)

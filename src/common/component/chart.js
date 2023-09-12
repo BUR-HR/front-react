@@ -52,35 +52,36 @@ const Chart = ({ history }) => {
             연장근무: item.overTime,
         }));
 
-        // 이번주 월요일부터 금요일까지의 날짜를 생성합니다.
-        const currentDate = moment();
-        const startOfWeek = currentDate.clone().isoWeekday(1); // 이번주 월요일
-        const endOfWeek = currentDate.clone().isoWeekday(7); // 이번주 금요일
-
-        const dateLabels = [];
-        let currentDay = startOfWeek.clone();
-
-        while (currentDay.isSameOrBefore(endOfWeek)) {
-            dateLabels.push(currentDay.format("MM-DD"));
-            currentDay.add(1, "day");
-        }
-
-        // 빈 데이터가 있는 날짜에 대한 레코드를 생성합니다.
-        dateLabels.forEach((date) => {
-            const existingData = data.find((item) => item.date === date);
-            if (!existingData) {
-                data.push({
-                    date: date,
-                    근무시간: 0,
-                    연장근무: 0,
-                });
-            }
-        });
-
-        data.sort((a, b) => {
-            return new Date(a.date) - new Date(b.date);
-        });
+        
     }
+    
+    // 이번주 월요일부터 금요일까지의 날짜를 생성합니다.
+    const currentDate = moment();
+    const startOfWeek = currentDate.clone().isoWeekday(1); // 이번주 월요일
+    const endOfWeek = currentDate.clone().isoWeekday(7); // 이번주 일요일
+    const dateLabels = [];
+    let currentDay = startOfWeek.clone();
+
+    while (currentDay.isSameOrBefore(endOfWeek)) {
+        dateLabels.push(currentDay.format("MM-DD"));
+        currentDay.add(1, "day");
+    }
+
+    // 빈 데이터가 있는 날짜에 대한 레코드를 생성합니다.
+    dateLabels.forEach((date) => {
+        const existingData = data.find((item) => item.date === date);
+        if (!existingData) {
+            data.push({
+                date: date,
+                근무시간: 0,
+                연장근무: 0,
+            });
+        }
+    });
+
+    data.sort((a, b) => {
+        return new Date(a.date) - new Date(b.date);
+    });
     
     return (
         <BarChart width={500} height={150} data={data} barCategoryGap={10}>
