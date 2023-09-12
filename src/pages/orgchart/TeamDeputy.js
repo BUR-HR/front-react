@@ -58,7 +58,6 @@ const TeamDeputy = ({ dempData }) => {
             <p><span style={{ fontWeight: 'bold' }}>직위</span> : {deputy.job.jobName}</p>
             <p><span style={{ fontWeight: 'bold' }}>HP</span> : {deputy.employeePhone}</p>
             <p><span style={{ fontWeight: 'bold' }}>Email</span> : {deputy.employeeEmail}</p>
-            <p><span style={{ fontWeight: 'bold' }}>입사날짜</span> : {deputy.hireDate}</p>
         </div>
     );
     return (

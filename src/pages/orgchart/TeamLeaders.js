@@ -36,12 +36,20 @@ const TeamLeaders = ({ tempData }) => {
     
         // 앞면 렌더링 함수
         const renderFront = (position, name, originFile, index) => {
+
+            let imageUrl;
             // 이미지 URL 가져오기
-            const imageUrl = imageUrls[originFile];
-    
+            if(imageUrls[originFile]){
+
+                imageUrl = JSON.parse(imageUrls[originFile]);
+            }
+            
+          
+            // console.log('----------->',imageUrl.path.replace('/api/file',''));
+            let loadImageUrl = 'http://localhost:8080' + imageUrl?.path.replace('/api/file','');
             return (
                 <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
-                    {imageUrl && <img src={imageUrl} alt={`${name} Profile`} />}
+                    {imageUrl && <img src={loadImageUrl} alt={`${name} Profile`} />}
                     <p><span className="position-text">팀장</span> {name}</p>
                 </div>
             );
@@ -58,7 +66,6 @@ const TeamLeaders = ({ tempData }) => {
                 <p><span style={{ fontWeight: 'bold' }}>직위</span> : {leaders.job.jobName}</p>
                 <p><span style={{ fontWeight: 'bold' }}>HP</span> : {leaders.employeePhone}</p>
                 <p><span style={{ fontWeight: 'bold' }}>Email</span> : {leaders.employeeEmail}</p>
-                <p><span style={{ fontWeight: 'bold' }}>입사날짜</span> : {leaders.hireDate}</p>
             </div>
         );
         return (

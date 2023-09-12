@@ -51,14 +51,13 @@ const TeamEmployee = ({ empData }) => {
     // 뒷면 렌더링 함수
     const renderBack = (Employee) => (
         <div className="back">
-            <p style={{ fontWeight: 'bold', fontSize: '13px', transform: 'scaleX(-1)' }}>{deputy.empName}</p>
+            <p style={{ fontWeight: 'bold', fontSize: '13px', transform: 'scaleX(-1)' }}>{Employee.empName}</p>
             <p>대리</p>
             <hr />
             <p><span style={{ fontWeight: 'bold' }}>부서</span> : {Employee.dept.deptName}</p>
             <p><span style={{ fontWeight: 'bold' }}>직위</span> : {Employee.job.jobName}</p>
             <p><span style={{ fontWeight: 'bold' }}>HP</span> : {Employee.employeePhone}</p>
             <p><span style={{ fontWeight: 'bold' }}>Email</span> : {Employee.employeeEmail}</p>
-            <p><span style={{ fontWeight: 'bold' }}>입사날짜</span> : {Employee.hireDate}</p>
         </div>
     );
     return (
@@ -78,7 +77,7 @@ const TeamEmployee = ({ empData }) => {
                     Employee.originFile,
                     index
                   )}
-                  {flippedCards.includes(index) && renderBack(deputy)}
+                  {flippedCards.includes(index) && renderBack(Employee)}
                 </div>
               </div>
             </div>

@@ -77,47 +77,6 @@ export const Orgchart = () => {
             );
         };
 
-        // 앞면 렌더링 함수
-        // const renderFront = (name, imageSrc, index) => (
-        //     <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
-        //         <img src={imageSrc} alt={`${name} Profile`} />
-        //         <p>{name}</p><br />
-        //     </div>
-        // );
-
-        // 뒷면 렌더링 함수
-        // 뒷면 렌더링 함수
-        // const renderBack = (deputy) => (
-        //     <div className="back">
-        //         <p style={{ fontWeight: 'bold', fontSize: '13px', transform: 'scaleX(-1)' }}>{deputy.empName}</p>
-        //         <p><span style={{ fontWeight: 'bold' }}>직위</span> : 대리</p>
-        //         <hr />
-        //         <p><span style={{ fontWeight: 'bold' }}>부서</span> : {deputy.deptCode .deptName}</p>
-        //         <p><span style={{ fontWeight: 'bold' }}>직위</span> : {deputy.jonCode.jobName}</p>
-        //         <p><span style={{ fontWeight: 'bold' }}>HP</span> : {deputy.hp}</p>
-        //         <p><span style={{ fontWeight: 'bold' }}>Email</span> : {deputy.email}</p>
-        //         <p><span style={{ fontWeight: 'bold' }}>입사날짜</span> : {deputy.entryDate}</p>
-        //     </div>
-        // );
-
-
-            // 직원 프로필 카드 렌더링 함수
-        // const renderProfileCard = (name, department, position, hp, email, entryDate, imageSrc, index) => {
-        //     console.log('renderProfileCard호출',name, department, position, hp, email, entryDate, imageSrc, index);
-        //     const isFlipped = flippedCards.includes(index);
-                
-        //     return (    
-        //         <div className={`node dept-node2 ${isFlipped ? "flipped" : ""}`}>
-        //             <div className="profile-card1" onClick={() => flipCard(index)}>
-        //                 <div className="card-inner">
-        //                     {renderFront(name, imageSrc, index)}
-        //                     {isFlipped && renderBack({ name, department, position, hp, email, entryDate })}
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     );
-        // };
-
         // 부서명 
         const DepartmentNodes = () => {
             const departments = [
@@ -139,65 +98,6 @@ export const Orgchart = () => {
                 </div>
             );
         };
-
-
-        // 사원 정보
-        const teamEmployee = [
-            {
-                name: "김수지",
-                department: "영업팀",
-                position: "사원",
-                hp: "010-1234-5678",
-                email: "sample@bubble.com",
-                entryDate: "2017/05/13",
-                imageSrc: "/common/images/3.png"
-            },
-            {
-                name: "정한나",
-                department: "마케팅팀",
-                position: "사원",
-                hp: "010-1234-5678",
-                email: "sample@bubble.com",
-                entryDate: "2017/05/13",
-                imageSrc: "/common/images/6.png"
-            },
-            {
-                name: "서지원",
-                department: "현장팀",
-                position: "사원",
-                hp: "010-1234-5678",
-                email: "sample@bubble.com",
-                entryDate: "2017/05/13",
-                imageSrc: "/common/images/9.png"
-            },
-            {
-                name: "홍예지",
-                department: "고객응대팀",
-                position: "사원",
-                hp: "010-1234-5678",
-                email: "sample@bubble.com",
-                entryDate: "2017/05/13",
-                imageSrc: "/common/images/10.png"
-            },
-            {
-                name: "장현식",
-                department: "인사팀",
-                position: "사원",
-                hp: "010-1234-5678",
-                email: "sample@bubble.com",
-                entryDate: "2017/05/13",
-                imageSrc: "/common/images/7.png"
-            },
-            {
-                name: "김세훈",
-                department: "총무팀",
-                position: "사원",
-                hp: "010-1234-5678",
-                email: "sample@bubble.com",
-                entryDate: "2017/05/13",
-                imageSrc: "/common/images/1.png"
-            }
-        ];
 
         return (
             <div className="body">
