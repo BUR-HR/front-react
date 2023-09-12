@@ -165,26 +165,10 @@ const InquiryMain = () => {
         });
         console.log('검색 결과:', results); 
 
-        // 검색 결과를 setSearchResults를 사용하여 상태로 설정 , 검색 결과가 없다면 ["해당 직원이 존재하지 않습니다"]를 설정
-        setSearchResults(results.length === 0 ? ["해당 직원이 존재하지 않습니다"] : results);
-        //  검색 결과를 employeeData 상태로 설정 , 검색 결과가 없으면 전체 직원 데이터(originalEmployeeData)를 사용
+ 
         setEmployeeData(results.length === 0 ? originalEmployeeData : results);
 
-       // 검색 결과를 화면에 표시하는 코드 
-    //    if (results.length > 0) {
-    //     return (
-    //         <div>
-    //             <h2>검색 결과:</h2>
-    //             <ul>
-    //                 {results.map((employee) => (
-    //                     <li key={employee.empNo}>{employee.empName}</li>
-    //                 ))}
-    //             </ul>
-    //         </div>
-    //     );
-    // } else {
-    //     return null; // 검색 결과가 없는 경우 아무것도 반환하지 않음
-    // }
+
 };
     
     
