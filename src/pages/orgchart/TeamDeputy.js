@@ -36,16 +36,24 @@ const TeamDeputy = ({ dempData }) => {
 
     // 앞면 렌더링 함수
     const renderFront = (position, name, originFile, index) => {
-        // 이미지 URL 가져오기
-        const imageUrl = imageUrls[originFile];
 
-        return (
-            <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
-                {imageUrl && <img src={imageUrl} alt={`${name} Profile`} />}
-                <p><span className="position-text">대리</span> {name}</p>
-            </div>
-        );
-    };
+    let imageUrl;
+    // 이미지 URL 가져오기
+    if(imageUrls[originFile]){
+
+        imageUrl = JSON.parse(imageUrls[originFile]);
+    }
+    
+  
+    // console.log('----------->',imageUrl.path.replace('/api/file',''));
+    let loadImageUrl = 'http://localhost:8080' + imageUrl?.path.replace('/api/file','');
+    return (
+        <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
+            {imageUrl && <img src={loadImageUrl} alt={`${name} Profile`} />}
+            <p><span className="position-text">대리</span> {name}</p>
+        </div>
+    );
+};
 
 
     // 뒷면 렌더링 함수
