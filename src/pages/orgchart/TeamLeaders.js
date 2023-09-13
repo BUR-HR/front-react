@@ -1,57 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-const TeamLeaders = ({ teamLeaders }) => {
+const TeamLeaders = ({ tempData }) => {
     const [flippedCards, setFlippedCards] = useState([]);
+    const [imageUrls, setImageUrls] = useState({});
 
-    const flipCard = (index) => {
-        setFlippedCards((prevFlippedCards) => {
-            if (prevFlippedCards.includes(index)) {
-                return prevFlippedCards.filter(cardIndex => cardIndex !== index);
-            } else {
-                return [...prevFlippedCards, index];
-            }
-        });
-    };
+    useEffect(() => {
+        if (tempData && tempData.length > 0) {
+          // 모든 대리에 대한 이미지 URL을 가져오는 반복문
+          tempData.forEach((leaders) => {
+            fetch(`http://localhost:8080/api/file/fileimgs/${leaders.originFile}`)
+              .then((response) => response.text())
+              .then((data) => {
+                setImageUrls((prevImageUrls) => ({
+                  ...prevImageUrls,
+                  [leaders.originFile]: data,
+                }));
+              })
+              .catch((error) =>
+                console.error("이미지 URL을 가져오는 동안 오류 발생:", error)
+              );
+          });
+        }
+      }, [tempData]); // dempData가 변경될 때마다 실행
 
-    // 앞면 렌더링 함수
-    const renderFront = (position, name, imageSrc, index) => (
-        <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
-            <img src={imageSrc} alt={`${name} Profile`} />
-            <p><span className="position-text">팀장</span> {name}</p>
-        </div>
-    );
-
+      
     
+        const flipCard = (index) => {
+            setFlippedCards((prevFlippedCards) => {
+                if (prevFlippedCards.includes(index)) {
+                    return prevFlippedCards.filter((cardIndex) => cardIndex !== index);
+                } else {
+                    return [...prevFlippedCards, index];
+                }
+            });
+        };
+    
+        // 앞면 렌더링 함수
+        const renderFront = (position, name, originFile, index) => {
 
-    // 뒷면 렌더링 함수
-    const renderBack = (leader) => (
-        <div className="back">
-            <p style={{ fontWeight: 'bold', fontSize: '13px', transform: 'scaleX(-1)' }}>{leader.name}</p>
-            <p>팀장</p>
-            <hr />
-            <p><span style={{ fontWeight: 'bold' }}>부서</span> : {leader.department}</p>
-            <p><span style={{ fontWeight: 'bold' }}>직위</span> : {leader.position}</p>
-            <p><span style={{ fontWeight: 'bold' }}>HP</span> : {leader.hp}</p>
-            <p><span style={{ fontWeight: 'bold' }}>Email</span> : {leader.email}</p>
-            <p><span style={{ fontWeight: 'bold' }}>입사날짜</span> : {leader.entryDate}</p>
-        </div>
-    );
+            let imageUrl;
+            // 이미지 URL 가져오기
+            if(imageUrls[originFile]){
 
-
-    return (
-        <div className="team-leaders-container">
-            {teamLeaders.map((leader, index) => (
-                <div className={`node dept-node2`} key={index}>
-                    <div className={`profile-card1 ${flippedCards.includes(index) ? "flipped" : ""}`} onClick={() => flipCard(index)}>
-                        <div className="card-inner">
-                            {renderFront(leader.position, leader.name, leader.imageSrc, index)}
-                            {flippedCards.includes(index) && renderBack(leader)}
-                        </div>
-                    </div>
+                imageUrl = JSON.parse(imageUrls[originFile]);
+            }
+            
+          
+            // console.log('----------->',imageUrl.path.replace('/api/file',''));
+            let loadImageUrl = 'http://localhost:8080' + imageUrl?.path.replace('/api/file','');
+            return (
+                <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
+                    {imageUrl && <img src={loadImageUrl} alt={`${name} Profile`} />}
+                    <p><span className="position-text">팀장</span> {name}</p>
                 </div>
-            ))}
-        </div>
-    );
-};
-
+            );
+        };
+    
+    
+        // 뒷면 렌더링 함수
+        const renderBack = (leaders) => (
+            <div className="back">
+                <p style={{ fontWeight: 'bold', fontSize: '13px', transform: 'scaleX(-1)' }}>{leaders.empName}</p>
+                <p>팀장</p>
+                <hr />
+                <p><span style={{ fontWeight: 'bold' }}>부서</span> : {leaders.dept.deptName}</p>
+                <p><span style={{ fontWeight: 'bold' }}>직위</span> : {leaders.job.jobName}</p>
+                <p><span style={{ fontWeight: 'bold' }}>HP</span> : {leaders.employeePhone}</p>
+                <p><span style={{ fontWeight: 'bold' }}>Email</span> : {leaders.employeeEmail}</p>
+            </div>
+        );
+        return (
+            <div className="team-deputy-container">
+              {tempData.map((leaders, index) => (
+                <div className={`node dept-node2`} key={index}>
+                  <div
+                    className={`profile-card2 ${
+                      flippedCards.includes(index) ? "flipped" : ""
+                    }`}
+                    onClick={() => flipCard(index)}
+                  >
+                    <div className="card-inner">
+                      {renderFront(
+                        leaders.job.jobName,
+                        leaders.empName,
+                        leaders.originFile,
+                        index
+                      )}
+                      {flippedCards.includes(index) && renderBack(leaders)}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          );
+        };
+        
 export default TeamLeaders;
