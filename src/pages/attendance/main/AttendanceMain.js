@@ -18,12 +18,16 @@ import {
     initialState,
     reducer,
 } from "../reducers/AttendanceReducer";
+import moment from "moment";
 
 const AttendanceMain = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [loading, setLoading] = useState(true);
     const { startTime, elapsedTime, attendanceHistory, attendanceType } = state;
     const { user } = useAuth();
+    const currentDate = moment();
+    const startOfWeek = currentDate.clone().isoWeekday(1).format('YYYY.MM.DD'); // 이번주 월요일
+    const endOfWeek = currentDate.clone().isoWeekday(7).format('YYYY.MM.DD'); // 이번주 일요일
     let interval = null;
 
     const handleAction = (type) => {
@@ -68,6 +72,7 @@ const AttendanceMain = () => {
         }
 
         call("/api/v1/attendance").then((data) => {
+            console.log(data);
             dispatch({ type: SET_ATTENDANCE_HISTORY, payload: data });
         });
 
@@ -117,7 +122,7 @@ const AttendanceMain = () => {
                     ></span>
                 </div>
                 <div className="work-hostory-date">
-                    &lt; 2023.08.01 ~ 2032.08.07 &gt;
+                    &lt; {startOfWeek} ~ {endOfWeek} &gt;
                 </div>
 
                 <table className={table.table}>

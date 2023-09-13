@@ -47,8 +47,6 @@
 .search-bar button {
     display: flex;
     width: 60px;
-    height: 20px;
-    border: 0;
     padding: 2px 10px;
     justify-content: center;
     align-items: center;
@@ -66,5 +64,24 @@
 }
 
 .search-bar button:active {
-    border: 2px inset buttonborder;
+    background-color: #5b5b5b;
 }
+
+.ledger-view:hover,
+.ledger-delete:hover,
+.ledger-email:hover,
+.ledger-close:hover {
+    color: white;
+    background-color: #3b3b3b;
+    cursor: pointer;
+}
+
+.ledger-view:active,
+.ledger-delete:active,
+.ledger-email:active,
+.ledger-close:active {
+    color: white;
+    background-color: #5b5b5b;
+    cursor: pointer;
+}
+

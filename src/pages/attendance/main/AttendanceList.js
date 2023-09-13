@@ -7,22 +7,20 @@ import { formattedDateTime } from "./../../../common/function/DateFormat";
 
 const AttendanceList = () => {
     const [attendanceHistory, setAttendanceHistory] = useState([]);
-    const [value, setValue] = useState('')
-    const [search, setSearch] = useState('')
+    const [value, setValue] = useState("");
+    const [search, setSearch] = useState("");
 
     const onChangeHandle = (e) => {
-      setValue(e.target.value)
+        setValue(e.target.value);
     };
-    
+
     const onKeyDownHandle = (e) => {
-      if (e.key === 'Enter') {
-        onSearchClickHandle();
-      }
-    }
+        if (e.key === "Enter") {
+            onSearchClickHandle();
+        }
+    };
 
-    const onSearchClickHandle = () => {
-
-    }
+    const onSearchClickHandle = () => {};
 
     useEffect(() => {
         call("/api/v1/attendance/list", "Get").then((data) =>
@@ -30,13 +28,13 @@ const AttendanceList = () => {
         );
     }, []);
 
+    console.log(attendanceHistory);
     return (
         <>
             <MainTitle title={"근태현황"} />
             <div className="search-bar">
                 <div className="search-items">
-                    <select>
-                    </select>
+                    <select></select>
                     <input
                         className="search-input"
                         id="search-input"
@@ -90,10 +88,14 @@ const AttendanceList = () => {
                                         <td>{item.empNo}</td>
                                         <td>{item.employee?.empName}</td>
                                         <td>
-                                            {formattedDateTime(item.startDateTime)}
+                                            {formattedDateTime(
+                                                item.startDateTime
+                                            )}
                                         </td>
                                         <td>
-                                            {formattedDateTime(item.endDateTime)}
+                                            {formattedDateTime(
+                                                item.endDateTime
+                                            )}
                                         </td>
                                         <td>{item.workTime}</td>
                                         <td>{item.overTime}</td>
