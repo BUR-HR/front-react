@@ -50,7 +50,7 @@ const TeamEmployee = ({ empData }) => {
         return (
             <div className={`front ${flippedCards.includes(index) ? "hidden" : ""}`}>
                 {imageUrl && <img src={loadImageUrl} alt={`${name} Profile`} />}
-                <p><span className="position-text">팀장</span> {name}</p>
+                <p><span className="position-text">사원</span> {name}</p>
             </div>
         );
     };

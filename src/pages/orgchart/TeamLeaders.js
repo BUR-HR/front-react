@@ -23,6 +23,8 @@ const TeamLeaders = ({ tempData }) => {
           });
         }
       }, [tempData]); // dempData가 변경될 때마다 실행
+
+      
     
         const flipCard = (index) => {
             setFlippedCards((prevFlippedCards) => {
@@ -60,7 +62,7 @@ const TeamLeaders = ({ tempData }) => {
         const renderBack = (leaders) => (
             <div className="back">
                 <p style={{ fontWeight: 'bold', fontSize: '13px', transform: 'scaleX(-1)' }}>{leaders.empName}</p>
-                <p>대리</p>
+                <p>팀장</p>
                 <hr />
                 <p><span style={{ fontWeight: 'bold' }}>부서</span> : {leaders.dept.deptName}</p>
                 <p><span style={{ fontWeight: 'bold' }}>직위</span> : {leaders.job.jobName}</p>

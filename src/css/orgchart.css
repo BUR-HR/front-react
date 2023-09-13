@@ -254,8 +254,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 220%;
-    height: 180%;
+    width: 140%;
+    height: 100%;
     transform: rotateY(0deg);
     justify-content: center;
     align-items: center;

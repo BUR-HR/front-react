@@ -117,7 +117,7 @@ export const Orgchart = () => {
                     </div>  
 
                     {/* 팀장 프로필 카드 */}
-                    <TeamLeaders tempData={tempData} />
+                    <TeamLeaders tempData={tempData} flipCard={flipCard} flippedCards={flippedCards}/>
                     
                     {/* 대리 프로필 카드 */}
                     <TeamDeputy dempData={dempData} flipCard={flipCard} flippedCards={flippedCards} />
