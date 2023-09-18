@@ -70,7 +70,8 @@
 .ledger-view:hover,
 .ledger-delete:hover,
 .ledger-email:hover,
-.ledger-close:hover {
+.ledger-close:hover,
+.payment-view:hover {
     color: white;
     background-color: #3b3b3b;
     cursor: pointer;
@@ -79,7 +80,8 @@
 .ledger-view:active,
 .ledger-delete:active,
 .ledger-email:active,
-.ledger-close:active {
+.ledger-close:active,
+.payment-view:active {
     color: white;
     background-color: #5b5b5b;
     cursor: pointer;

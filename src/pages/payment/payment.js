@@ -11,9 +11,11 @@ import "../../css/nav.css";
 import SeveraceMain from "./main/SeveraceMain";
 import PaymentLedgerPopup from "./modal/PaymentLedgerPopup";
 import PayPopup from "./modal/PayPopup";
+import PaymentLedgerUpdatePopup from './modal/PaymentLedgerUpdatePopup';
 
 export {
     PaymentLedgerPopup,
+    PaymentLedgerUpdatePopup,
     PaymentMain,
     PaymentNav,
     PayPopup,

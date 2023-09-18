@@ -27,6 +27,7 @@ import {
     PayPopup,
     Payment,
     PaymentLedgerPopup,
+    PaymentLedgerUpdatePopup,
     PaymentMain,
     PayrollLedgerMain,
     SeveraceMain,
@@ -127,7 +128,8 @@ function App() {
                             <Route exact path="/login" element={<Login />} />
                             <Route exact path="*" element={<PageNotFound />} />
                         </Route>
-                        <Route exact path="/pay/payroll/popup" element={<PaymentLedgerPopup/>} />
+                        <Route exact path="/pay/payroll/popup/:no" element={<PaymentLedgerPopup/>} />
+                        <Route exact path="/pay/payroll/update/:no" element={<PaymentLedgerUpdatePopup/>} />
                         <Route exact path="/pay/payment/popup" element={<PayPopup/>}/>
                     </Routes>
                 </div>

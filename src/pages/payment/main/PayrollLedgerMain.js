@@ -28,7 +28,7 @@ const PayrollLedgerMain = () => {
             return;
         }
 
-        if (target.textContent === "삭제") {
+        if (target.className === 'ledger-delete') {
             call("/api/v1/pay/payroll", "delete", { no }).then((data) =>
                 setPayrollList(data)
             );
@@ -36,13 +36,13 @@ const PayrollLedgerMain = () => {
             return;
         }
 
-        if (target.textContent === "조회") {
-            window.open('/pay/payroll/popup', "a", "width=1400, height=600, left=100, top=50")
+        if (target.className === 'ledger-view') {
+            window.open('/pay/payroll/popup/' + no, "_blank", "width=1400, height=600 left=100, top=50")
             
             return;
         }
 
-        if (target.textContent === "마감") {
+        if (target.className === 'ledger-close') {
             call("/api/v1/pay/payroll/close", "put", { no }).then((data) =>
                 setPayrollList(data)
             );
@@ -52,7 +52,7 @@ const PayrollLedgerMain = () => {
     };
 
     useEffect(() => {
-        call("/api/v1/pay/payroll", "get", { name: ref.current.value })
+        call("/api/v1/pay/payroll/list", "get", { name: ref.current.value })
             .then((data) => {
                 setPayrollList(data);
             })
@@ -144,7 +144,7 @@ const PayrollLedgerMain = () => {
                                         )}
                                     </td>
                                     <td>
-                                        <div className="ledger-view">조회</div>
+                                        <div className="payment-view">조회</div>
                                         <div className="ledger-email">
                                             E-MAIL
                                         </div>

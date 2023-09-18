@@ -19,7 +19,7 @@
     z-index: 1001;
 }
 
-.legderpopup {
+.ledgerpopup {
     position: fixed;
     padding: 20px 30px;
     width: 1400px;
@@ -30,7 +30,7 @@
     background: #FFF;
     box-sizing: border-box;
     z-index: 1001;
-    overflow: scroll;
+    overflow-y: auto;
 }
 
 .option {
@@ -57,7 +57,7 @@
 
 .table td {
     box-sizing: border-box;
-    padding-left: 5px;
+    text-align: center;
 }
 
 .upload {
