@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect, useReducer, useState } from "react";
 import Swal from "sweetalert2";
 import { useAuth } from "../../../AuthContext";
@@ -18,7 +19,6 @@ import {
     initialState,
     reducer,
 } from "../reducers/AttendanceReducer";
-import moment from "moment";
 
 const AttendanceMain = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -72,7 +72,6 @@ const AttendanceMain = () => {
         }
 
         call("/api/v1/attendance").then((data) => {
-            console.log(data);
             dispatch({ type: SET_ATTENDANCE_HISTORY, payload: data });
         });
 
@@ -128,6 +127,8 @@ const AttendanceMain = () => {
                 <table className={table.table}>
                     <colgroup>
                         <col width={100} />
+                        <col width={300} />
+                        <col width={300} />
                     </colgroup>
                     <thead>
                         <tr>

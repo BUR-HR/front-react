@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { call } from "../../../apis/service";
 import { MainTitle, ModalBackdrop } from "../../../common/commons";
 import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
 import "../../../css/payment.css";
+import PaymentLegderModel from "../modal/PaymentLedgerPopup";
 import PaymentModal from "../modal/PaymentModal";
-import PaymentLegderModel from "../modal/PaymentLegderModel";
-import { call } from "../../../apis/service";
 
 const SeveranceLedgerMain = () => {
     const [severanceList, setSeveranceList] = useState([]);

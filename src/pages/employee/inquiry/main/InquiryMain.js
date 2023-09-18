@@ -6,6 +6,7 @@ import InquiryNav from '../nav/InquiryNav';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // axios를 추가
 import { useTable } from 'react-table';
+import { API_BASE_URL } from './../../../../apis/config';
 
 
 
@@ -120,7 +121,7 @@ const InquiryMain = () => {
         // API 호출을 통해 전체 직원 정보를 가져오는 함수
         async function  fetchAllEmployees() {   
             try {
-                const response = await axios.get('http://localhost:8080/api/v1/employee/all');
+                const response = await axios.get(API_BASE_URL+'/api/v1/employee/all');
                 
                 console.log('fetchAllEmployees함수 호출');
 

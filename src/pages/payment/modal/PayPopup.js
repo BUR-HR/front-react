@@ -1,9 +1,9 @@
 import React from "react";
 import "./stylesheet.css";
 
-const PayStub = ({ isOpen, handleCloseModal }) => {
+const PayPopup = () => {
     return (
-        <div style={isOpen ? { display: "block" } : { display: "none" }}>
+        <div>
             <table id="sheet0" className="sheet0">
                 <colgroup>
                     <col className="col0" />
@@ -862,4 +862,4 @@ const PayStub = ({ isOpen, handleCloseModal }) => {
     );
 };
 
-export default PayStub;
+export default PayPopup;

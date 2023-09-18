@@ -21,11 +21,10 @@ export const call = async (api, method, request) => {
 
     if (request && method?.toLowerCase() !== 'get') {
         options.body = JSON.stringify(request);
-    }
-
-    if (method?.toLowerCase() === 'get') {
+    } else {
         options.url = options.url + "?" + new URLSearchParams(request);
     }
+
 
     const result = await fetch(options.url, options)
         .then((response) => {

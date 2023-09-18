@@ -8,9 +8,19 @@ import SeveranceLedgerMain from "./main/SeveranceLedgerMain";
 import PaymentNav from "./nav/PaymentNav";
 
 import "../../css/nav.css";
-import SeveraceMain from './main/SeveraceMain';
+import SeveraceMain from "./main/SeveraceMain";
+import PaymentLedgerPopup from "./modal/PaymentLedgerPopup";
+import PayPopup from "./modal/PayPopup";
 
-export { PaymentMain, PaymentNav, PayrollLedgerMain, SeveranceLedgerMain, SeveraceMain };
+export {
+    PaymentLedgerPopup,
+    PaymentMain,
+    PaymentNav,
+    PayPopup,
+    PayrollLedgerMain,
+    SeveraceMain,
+    SeveranceLedgerMain
+};
 
 export const Payment = () => {
     return (

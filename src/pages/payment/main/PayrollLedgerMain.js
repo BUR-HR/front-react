@@ -5,26 +5,25 @@ import { formmattedYearsAndDate } from "../../../common/function/DateFormat";
 import section from "../../../css/module/section.module.css";
 import table from "../../../css/module/table.module.css";
 import "../../../css/payment.css";
-import PaymentLegderModel from "../modal/PaymentLegderModel";
 import PaymentModal from "../modal/PaymentModal";
 
 const PayrollLedgerMain = () => {
     const [payrollList, setPayrollList] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(0);
-    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     const ref = useRef();
 
-    const clickHandler = (index) => {
-        setIsModalOpen(index);
+    const modalOpenHandler = () => {
+        setIsModalOpen(true);
     };
 
-    const handleCloseModal = () => {
-        setIsModalOpen(0);
+    const modalCloseHandler = () => {
+        setIsModalOpen(false);
     };
 
     const onClickHandler = (e, no) => {
         const target = e.target;
-        console.dir(target);
+        
         if (target.tagName !== "DIV") {
             return;
         }
@@ -38,8 +37,8 @@ const PayrollLedgerMain = () => {
         }
 
         if (target.textContent === "조회") {
-            clickHandler(2);
-
+            window.open('/pay/payroll/popup', "a", "width=1400, height=600, left=100, top=50")
+            
             return;
         }
 
@@ -80,7 +79,7 @@ const PayrollLedgerMain = () => {
                     </button>
                 </div>
                 <div>
-                    <button onClick={() => clickHandler(1)}>
+                    <button onClick={modalOpenHandler}>
                         <img src="/common/images/add.svg" alt="" />
                         추가
                     </button>
@@ -156,21 +155,13 @@ const PayrollLedgerMain = () => {
                     </tbody>
                 </table>
                 <ModalBackdrop isModalOpen={isModalOpen} />
-                {isModalOpen !== 0 ? (
-                    isModalOpen === 1 ? (
-                        <PaymentModal
-                            isOpen={isModalOpen}
-                            handleCloseModal={handleCloseModal}
-                            paymentType="급여"
-                            setPayrollList={setPayrollList}
-                        />
-                    ) : (
-                        <PaymentLegderModel
-                            isOpen={isModalOpen}
-                            handleCloseModal={handleCloseModal}
-                            paymentType="급여"
-                        />
-                    )
+                {isModalOpen ? (
+                    <PaymentModal
+                        isOpen={isModalOpen}
+                        modalCloseHandler={modalCloseHandler}
+                        paymentType="급여"
+                        setPayrollList={setPayrollList}
+                    />
                 ) : undefined}
             </div>
         </>

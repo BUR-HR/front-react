@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import { MainTitle, ModalBackdrop } from "../../../common/commons";
-import PayStub from "./../modal/PayStub";
+import { MainTitle } from "../../../common/commons";
 const PaymentMain = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const clickHandler = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
+    const showPopup = () => {
+        window.open('/pay/payroll/popup', "a", "width=1400, height=600, left=100, top=50")
+    }
 
     return (
         <>
             <MainTitle title={"급여명세서 조회"} />
-            <ModalBackdrop isModalOpen={isModalOpen} />
-            <PayStub isOpen={isModalOpen} handleCloseModal={handleCloseModal} />
         </>
     );
 };

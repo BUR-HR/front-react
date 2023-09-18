@@ -1,12 +1,15 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import { Header } from '../common/commons'
+import React from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { Footer, Header } from '../common/commons';
 
 const Layout = () => {
+  const location = useLocation();
+  
   return (
     <>
-        <Header/>
+        {location.pathname === '/login' ? undefined : <Header/>}
         <Outlet/>
+        <Footer />
     </>
   )
 }

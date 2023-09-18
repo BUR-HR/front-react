@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import ReactToPrint from "react-to-print";
 import popup from "./popup.module.css";
 
-const PaymentLegderModel = ({ isOpen, handleCloseModal }) => {
+const PaymentLedgerPopup = () => {
     const ref = useRef();
 
     async function handleXLSX() {
@@ -41,7 +41,6 @@ const PaymentLegderModel = ({ isOpen, handleCloseModal }) => {
     return (
         <div
             className={popup.legderpopup}
-            style={isOpen ? { display: "block" } : { display: "none" }}
         >
             <div className={popup.option}>
 
@@ -50,7 +49,7 @@ const PaymentLegderModel = ({ isOpen, handleCloseModal }) => {
                 content={() => ref.current}
             />
             <button onClick={handleXLSX}><img src="/common/images/microsoft-excel.svg" alt="" /></button>
-            <button onClick={handleCloseModal}>닫기</button>
+            <button onClick={() => window.close()}>닫기</button>
             </div>
             
             <table className={popup.table} ref={ref}>
@@ -136,4 +135,4 @@ const PaymentLegderModel = ({ isOpen, handleCloseModal }) => {
     );
 };
 
-export default PaymentLegderModel;
+export default PaymentLedgerPopup;
