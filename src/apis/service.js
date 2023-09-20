@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { API_BASE_URL } from "./config";
 
 const ACCESS_TOKEN = "ACCESS_TOKEN";
@@ -9,7 +10,7 @@ export const call = async (api, method, request) => {
 
     const accessToken = localStorage.getItem(ACCESS_TOKEN);
 
-    if (accessToken && accessToken !== null) {
+    if (accessToken) {
         headers.append("Authorization", "Bearer " + accessToken);
     }
 
@@ -17,48 +18,70 @@ export const call = async (api, method, request) => {
         headers: headers,
         url: API_BASE_URL + api,
         method: method,
+        credentials: "include",
     };
 
-    if (request && method?.toLowerCase() !== 'get') {
+    if (request && method?.toLowerCase() !== "get") {
         options.body = JSON.stringify(request);
     } else {
         options.url = options.url + "?" + new URLSearchParams(request);
     }
 
+    try {
+        const response = await fetch(options.url, options);
 
-    const result = await fetch(options.url, options)
-        .then((response) => {
-            if (!response.ok) {
-                return Promise.reject(response);
-            }
-
-            if (response.status === 204) {
-                return Promise.resolve(response);
-            }
-            return response.json();
-        })
-        .catch((err) => {
-            if (err.message?.includes('Failed to fetch')) {
-                return Promise.reject();
-            }
-            
-            err.text().then((text) => {
-                if (text.includes("Token")) {
-                    localStorage.removeItem("ACCESS_TOKEN");
-                    location.replace("/login");
-                }
+        if (response.status === 401) {
+            const reissue = await fetch(API_BASE_URL + "/auth/reissue", {
+                method: "post",
+                credentials: "include",
             });
-        });
-    
-    return result;
+
+            if (reissue.ok) {
+                const data = await reissue.json();
+                localStorage.setItem(ACCESS_TOKEN, data.data.accessToken);
+
+                return call(api, method, request);
+            }
+
+            const error = await reissue.text();
+            throw error;
+        }
+
+        if (response.status === 204) {
+            return response;
+        }
+
+        if (!response.ok) {
+            const error = await response.text();
+            throw error;
+        }
+
+        return response.json();
+    } catch (err) {
+        if (err.message?.includes("Failed to fetch")) {
+            Swal.fire({
+                icon: "error",
+                text: "서버와의 연결이 끊어졌습니다.",
+            });
+        }
+
+        if (err.includes("만료")) {
+            localStorage.removeItem("ACCESS_TOKEN");
+            location.replace("/login");
+        }
+
+        return;
+    }
 };
 
 export const login = async (employee) => {
-    return call("/auth/login", "POST", employee).then((res) => {
+    const result = await call("/auth/login", "POST", employee).then((res) => {
         if (res?.data.accessToken) {
             // 로컬 스토리지에 토큰 저장
             localStorage.setItem(ACCESS_TOKEN, res.data.accessToken);
             return res;
         }
     });
+
+    return result;
 };

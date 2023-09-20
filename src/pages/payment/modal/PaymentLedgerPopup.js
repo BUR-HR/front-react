@@ -44,7 +44,8 @@ const PaymentLedgerPopup = () => {
     }
 
     useEffect(() => {
-        call("/api/v1/pay/payroll", "get", param)
+        setTimeout(() => {
+            call("/api/v1/pay/payroll", "get", param)
             .then((data) => {
                 setEmployeeList(data);
                 setLoading(false);
@@ -53,6 +54,8 @@ const PaymentLedgerPopup = () => {
             .catch((err) => {
                 console.log(err);
             });
+        }, 1000);
+        
     }, []);
 
     return (
@@ -109,7 +112,7 @@ const PaymentLedgerPopup = () => {
                 <tbody id="payroll">
                     {employeeList.map((emp) => {
                         return (
-                            <tr>
+                            <tr key={emp.empNo}>
                                 <td>{emp.jobName}</td>
                                 <td>{emp.empName}</td>
                                 <td>{emp.salary.toLocaleString()}</td>
