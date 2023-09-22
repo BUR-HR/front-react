@@ -86,7 +86,7 @@ const Chart = ({ history }) => {
     return (
         <BarChart width={500} height={150} data={data} barCategoryGap={10}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
+            <XAxis dataKey="date" style={{fontSize: 12}}/>
             <YAxis interval={1}/>
             <Tooltip />
             <Legend
