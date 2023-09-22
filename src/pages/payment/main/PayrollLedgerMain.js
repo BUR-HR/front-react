@@ -49,11 +49,16 @@ const PayrollLedgerMain = () => {
 
             return;
         }
+
+        if (target.className === 'ledger-email') {
+
+        }
     };
 
     useEffect(() => {
         call("/api/v1/pay/payroll/list", "get", { name: ref.current.value })
             .then((data) => {
+                console.log(data);
                 setPayrollList(data);
             })
             .catch((err) => {

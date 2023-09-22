@@ -1,15 +1,11 @@
-import { useState } from "react";
-import '../../../../css/employeecard.css';
-import Swal from 'sweetalert2';
-import NavBar from "../../../../common/component/NavBar"; 
-import EmployeecardNav from "../nav/EmployeecardNav"; 
-import { login, call } from "../../../../apis/service";
-import { useNavigate } from 'react-router-dom'; 
-import DatePicker from "react-datepicker";
 import ko from 'date-fns/locale/ko';
-import DaumPostcode from 'react-daum-postcode';
+import { useState } from "react";
+import DatePicker from "react-datepicker";
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import AddressSearch from "../../../../apis/address";
+import '../../../../css/employeecard.css';
 import '../../../../css/post.css';
-import AddressSearch  from "../../../../apis/address"; 
 
 
     // 인사카드 등록 페이지
@@ -156,10 +152,6 @@ const handleFileUpload = async () => {
                     }).then(res => res.json());
         
                     if (response?.status === 200) {
-                        const temporaryPassword = response.data.tempPass;
-                        const empNo = response.data.empNo;
-
-                        await sendEmail(employeeData.employeeEmail, temporaryPassword, empNo); // 메일 보내기 
                     
                         Swal.fire({
                             icon: 'success',

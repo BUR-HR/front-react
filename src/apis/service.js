@@ -21,30 +21,33 @@ export const call = async (api, method, request) => {
         credentials: "include",
     };
 
-    if (request && method?.toLowerCase() !== "get") {
-        options.body = JSON.stringify(request);
-    } else {
-        options.url = options.url + "?" + new URLSearchParams(request);
+    if (request) {
+        if (method?.toLowerCase() !== "get") {
+            options.body = JSON.stringify(request);
+        } else {
+            options.url = options.url + "?" + new URLSearchParams(request);
+        }
     }
 
     try {
         const response = await fetch(options.url, options);
 
         if (response.status === 401) {
-            const reissue = await fetch(API_BASE_URL + "/auth/reissue", {
-                method: "post",
-                credentials: "include",
-            });
+            const message = await response.text();
 
-            if (reissue.ok) {
-                const data = await reissue.json();
-                localStorage.setItem(ACCESS_TOKEN, data.data.accessToken);
+            if (message.includes("만료")) {
+                const reissue = await fetch(API_BASE_URL + "/auth/reissue", {
+                    method: "post",
+                    credentials: "include",
+                });
 
-                return call(api, method, request);
+                if (reissue.ok) {
+                    const data = await reissue.json();
+                    localStorage.setItem(ACCESS_TOKEN, data.data.accessToken);
+
+                    return call(api, method, request);
+                }
             }
-
-            const error = await reissue.text();
-            throw error;
         }
 
         if (response.status === 204) {
@@ -63,6 +66,8 @@ export const call = async (api, method, request) => {
                 icon: "error",
                 text: "서버와의 연결이 끊어졌습니다.",
             });
+
+            return;
         }
 
         if (err.includes("만료")) {

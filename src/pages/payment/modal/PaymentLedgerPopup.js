@@ -44,8 +44,7 @@ const PaymentLedgerPopup = () => {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            call("/api/v1/pay/payroll", "get", param)
+        call("/api/v1/pay/payroll", "get", param)
             .then((data) => {
                 setEmployeeList(data);
                 setLoading(false);
@@ -54,8 +53,6 @@ const PaymentLedgerPopup = () => {
             .catch((err) => {
                 console.log(err);
             });
-        }, 1000);
-        
     }, []);
 
     return (
@@ -138,21 +135,97 @@ const PaymentLedgerPopup = () => {
                         <td colSpan="2" style={{ textAlign: "center" }}>
                             합&nbsp;&nbsp;&nbsp; 계
                         </td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.salary, 0).toLocaleString()}</td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) => prev + current.salary,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.mealAllowance, 0).toLocaleString()}</td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) =>
+                                        prev + current.mealAllowance,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
                         <td></td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.totalIncome, 0).toLocaleString()}</td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.incomeTax, 0).toLocaleString()}</td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.localTaxes, 0).toLocaleString()}</td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.empInsure, 0).toLocaleString()}</td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.nationalPension, 0).toLocaleString()}</td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.healthInsurance, 0).toLocaleString()}</td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) =>
+                                        prev + current.totalIncome,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) => prev + current.incomeTax,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) =>
+                                        prev + current.localTaxes,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) => prev + current.empInsure,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) =>
+                                        prev + current.nationalPension,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) =>
+                                        prev + current.healthInsurance,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
                         <td></td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.totalDeductions, 0).toLocaleString()}</td>
-                        <td>{employeeList.reduce((prev, current) => prev + current.netIncome, 0).toLocaleString()}</td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) =>
+                                        prev + current.totalDeductions,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
+                        <td>
+                            {employeeList
+                                .reduce(
+                                    (prev, current) => prev + current.netIncome,
+                                    0
+                                )
+                                .toLocaleString()}
+                        </td>
                     </tr>
                 </tbody>
             </table>
