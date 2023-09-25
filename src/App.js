@@ -21,8 +21,13 @@ import EmployeecardMain from "./pages/employee/employeecard/main/EmployeecardMai
 import Inquiry from "./pages/employee/inquiry/Inquiry";
 import InquiryMain from "./pages/employee/inquiry/main/InquiryMain";
 import { Login } from "./pages/login";
+<<<<<<< HEAD
+import { Orgchart } from './pages/orgchart/orgchart';
+
+=======
 import Logout from "./pages/logout";
 import { Orgchart } from "./pages/orgchart/orgchart";
+>>>>>>> origin/main
 import {
     PayPopup,
     Payment,
